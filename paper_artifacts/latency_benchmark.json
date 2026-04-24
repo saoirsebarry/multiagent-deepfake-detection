@@ -1,0 +1,91 @@
+{
+  "gpu": "Apple Metal (MPS)",
+  "device_type": "mps",
+  "n_samples": 40,
+  "n_runs_per_sample": 10,
+  "n_warmup": 3,
+  "seed": 42,
+  "notes": [
+    "Latencies are in milliseconds (ms).",
+    "Preprocessing (MTCNN, librosa feature extraction, Mel spectrogram computation) is NOT included.",
+    "Orchestrator code (multiagent_xai_five_agents.py._run_first_wave) runs agents sequentially, not in parallel. Parallel numbers are the best case achievable if inference were actually parallelised across devices or threads.",
+    "ECAPA latency includes ECAPA-TDNN backbone forward on a synthetic 80000-sample waveform plus the 64-dim classifier head forward."
+  ],
+  "per_agent_ms": {
+    "Visual (XceptionNet)": {
+      "mean": 8.12888342567021,
+      "std": 0.16065182253135127,
+      "median": 8.084385457914323,
+      "p95": 8.277654164121484
+    },
+    "Audio (FreqNet)": {
+      "mean": 21.865758766361978,
+      "std": 0.4170150211368173,
+      "median": 21.801279252395034,
+      "p95": 22.311608675518073
+    },
+    "Cross-Modal": {
+      "mean": 16.64237952005351,
+      "std": 0.10554514446267202,
+      "median": 16.671902040252462,
+      "p95": 16.782564985915087
+    },
+    "Biometric": {
+      "mean": 7.230665954411961,
+      "std": 0.1673166335380796,
+      "median": 7.2486249497160316,
+      "p95": 7.480958814849146
+    },
+    "ECAPA": {
+      "mean": 41.21081185992807,
+      "std": 1.6753455507663995,
+      "median": 41.771835600957274,
+      "p95": 42.70382452115882
+    }
+  },
+  "phase1_only_ms": {
+    "parallel": {
+      "mean": 41.21081185992807,
+      "std": 1.6753455507663995,
+      "median": 41.771835600957274,
+      "p95": 42.70382452115882
+    },
+    "sequential": {
+      "mean": 65.08385733439354,
+      "std": 1.6699060477071137,
+      "median": 65.57479203911498,
+      "p95": 66.5639569045743
+    }
+  },
+  "phase1_plus_2_ms": {
+    "parallel": {
+      "mean": 63.07657062629005,
+      "std": 1.7243492732655008,
+      "median": 63.55758519493975,
+      "p95": 64.49167241866235
+    },
+    "sequential": {
+      "mean": 95.07849952642573,
+      "std": 1.748370210387909,
+      "median": 95.45566444285214,
+      "p95": 96.7521159228636
+    }
+  },
+  "average_observed_ms": {
+    "description": "mean * (1 - escalation_rate) + phase1+2 * escalation_rate",
+    "escalation_rate_actual_tau_d_0.3": 0.0879,
+    "escalation_rate_paper_target": 0.15,
+    "parallel_actual": {
+      "mean": 43.13281205549129,
+      "std": 1.6755549357335506,
+      "median": 43.679845293111285,
+      "p95": 44.613976470359425
+    },
+    "parallel_paper_mix": {
+      "mean": 44.49067567488237,
+      "std": 1.6761861247881134,
+      "median": 45.03336356632644,
+      "p95": 45.96346948566497
+    }
+  }
+}

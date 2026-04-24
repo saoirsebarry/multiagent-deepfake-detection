@@ -1,0 +1,11 @@
+configuration,n_agents,accuracy,miscount,delta_pp,fp,fn,anomaly
+Full 5-agent ensemble (baseline),5,1.000000,0,0.000000,0,0,
+Remove Visual (XceptionNet),4,0.999537,1,-0.046253,0,1,
+Remove Audio (FreqNet),4,0.998150,4,-0.185014,3,1,
+Remove Audio Forensics (ECAPA),4,0.996300,8,-0.370028,2,6,
+Remove Cross-Modal (Lip-Sync),4,0.996762,7,-0.323774,2,5,
+Remove Facial Biometric (Quality),4,0.998150,4,-0.185014,1,3,
+Top-3 (Biometric + ECAPA + Cross-Modal),3,0.998150,4,-0.185014,2,2,
+Audio only (FreqNet + ECAPA),2,0.970398,64,-2.960222,2,62,
+Visual only (XceptionNet + Biometric),2,0.981036,41,-1.896392,12,29,
+Single best agent (Cross-Modal),1,0.986586,29,-1.341351,3,26,

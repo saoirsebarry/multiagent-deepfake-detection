@@ -1,0 +1,17 @@
+{
+  "tau": 0.5,
+  "n_samples": 2162,
+  "n_real": 118,
+  "n_fake": 2044,
+  "confusion_matrix": {
+    "TP": 2036,
+    "TN": 118,
+    "FP": 0,
+    "FN": 8
+  },
+  "accuracy": 0.996299722479186,
+  "precision": 1.0,
+  "recall": 0.9960861056751468,
+  "f1": 0.9980392156862744,
+  "miscount": 8
+}

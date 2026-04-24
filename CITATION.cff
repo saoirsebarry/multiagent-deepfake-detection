@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+message: "If you use this software or the accompanying artifact package, please cite the paper."
+title: "A Multi-Agent Framework with Adaptive Orchestration for Explainable Multi-Modal Deepfake Detection"
+authors:
+  - family-names: Barry
+    given-names: Saoirse
+    email: saoirsebarry02@gmail.com
+    affiliation: "Department of Computing, Imperial College London"
+  - family-names: Shukla
+    given-names: Pancham
+    affiliation: "Department of Computing, Imperial College London"
+  - family-names: Vekkot
+    given-names: Susmitha
+    affiliation: "Department of Computing, Imperial College London"
+version: "1.0.0"
+date-released: 2026-04-23
+license: MIT
+preferred-citation:
+  type: article
+  title: "A Multi-Agent Framework with Adaptive Orchestration for Explainable Multi-Modal Deepfake Detection"
+  authors:
+    - family-names: Barry
+      given-names: Saoirse
+    - family-names: Shukla
+      given-names: Pancham
+    - family-names: Vekkot
+      given-names: Susmitha
+  journal: "AI Open"
+  year: 2026

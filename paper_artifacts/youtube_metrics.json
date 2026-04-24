@@ -1,0 +1,26 @@
+{
+  "csv_file": "analysis_results_with_5_agents_orchestration.csv",
+  "n_rows_raw": 49,
+  "n_rows_parseable": 49,
+  "n_real": 24,
+  "n_fake": 25,
+  "tau": 0.5,
+  "confusion_matrix": {
+    "TP": 15,
+    "TN": 23,
+    "FP": 1,
+    "FN": 10
+  },
+  "accuracy": 0.7755102040816326,
+  "precision": 0.9375,
+  "recall": 0.6,
+  "f1": 0.7317073170731707,
+  "miscount": 11,
+  "phase_counts": {
+    "iterative": 31,
+    "quick": 15,
+    "strong": 3
+  },
+  "escalation_rate": 0.6938775510204082,
+  "note": "The orchestration CSV records a 'phase' field directly. 'quick' = Phase 1 only (no escalation); 'iterative' and 'strong' = Phase 2 deployed. Escalation rate = (iterative + strong) / total."
+}

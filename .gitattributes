@@ -1,0 +1,9 @@
+# Binary files — treat as binary, no text diff/merge.
+# (Not currently tracked via Git LFS; files sit under GitHub's 100 MB limit.
+# To enable LFS in the future: `brew install git-lfs && git lfs install &&
+# git lfs track "*.pth" "*.npz" "*.dat" && git add --renormalize .`)
+*.pth binary
+*.npz binary
+*.dat binary
+*.pdf binary
+*.png binary

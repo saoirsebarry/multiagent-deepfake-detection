@@ -1,0 +1,47 @@
+{
+  "XceptionNet": {
+    "total": 23959977,
+    "trainable": 3153025,
+    "checkpoint_applied": true,
+    "missing_keys": 252,
+    "unexpected_keys": 3
+  },
+  "FreqNet": {
+    "total": 1850433,
+    "trainable": 1850433,
+    "checkpoint_applied": true,
+    "missing_keys": 0,
+    "unexpected_keys": 0
+  },
+  "CrossModal_CNN_BiLSTM_CrossAttn": {
+    "total": 6130754,
+    "trainable": 3906882,
+    "checkpoint_applied": true,
+    "missing_keys": 0,
+    "unexpected_keys": 0
+  },
+  "Biometric_5ch_EfficientNet_B0": {
+    "total": 4355261,
+    "trainable": 4355261,
+    "checkpoint_applied": true,
+    "missing_keys": 325,
+    "unexpected_keys": 4
+  },
+  "ECAPA_TDNN_plus_11features": {
+    "total": 20810209,
+    "trainable": 42657,
+    "breakdown": {
+      "classifier_head": {
+        "total": 42657,
+        "trainable": 42657,
+        "checkpoint_applied": true,
+        "missing_keys": 0,
+        "unexpected_keys": 0
+      },
+      "ecapa_backbone": {
+        "loaded": true,
+        "encoder_params": 20767552
+      }
+    }
+  }
+}

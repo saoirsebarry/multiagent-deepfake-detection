@@ -1,0 +1,95 @@
+{
+  "ece_10bins": 0.10292580750783217,
+  "per_bin": [
+    {
+      "bin": 0,
+      "edge_low": 0.0,
+      "edge_high": 0.1,
+      "bin_centre": 0.05,
+      "count": 96,
+      "mean_score": 0.03062241215968882,
+      "empirical_positive_rate": 0.0
+    },
+    {
+      "bin": 1,
+      "edge_low": 0.1,
+      "edge_high": 0.2,
+      "bin_centre": 0.15000000000000002,
+      "count": 10,
+      "mean_score": 0.15603008174173733,
+      "empirical_positive_rate": 0.0
+    },
+    {
+      "bin": 2,
+      "edge_low": 0.2,
+      "edge_high": 0.30000000000000004,
+      "bin_centre": 0.25,
+      "count": 9,
+      "mean_score": 0.22163673651292712,
+      "empirical_positive_rate": 0.0
+    },
+    {
+      "bin": 3,
+      "edge_low": 0.30000000000000004,
+      "edge_high": 0.4,
+      "bin_centre": 0.35000000000000003,
+      "count": 6,
+      "mean_score": 0.37270810558778367,
+      "empirical_positive_rate": 0.5
+    },
+    {
+      "bin": 4,
+      "edge_low": 0.4,
+      "edge_high": 0.5,
+      "bin_centre": 0.45,
+      "count": 5,
+      "mean_score": 0.44063951811287555,
+      "empirical_positive_rate": 1.0
+    },
+    {
+      "bin": 5,
+      "edge_low": 0.5,
+      "edge_high": 0.6000000000000001,
+      "bin_centre": 0.55,
+      "count": 21,
+      "mean_score": 0.5591991399981668,
+      "empirical_positive_rate": 1.0
+    },
+    {
+      "bin": 6,
+      "edge_low": 0.6000000000000001,
+      "edge_high": 0.7000000000000001,
+      "bin_centre": 0.6500000000000001,
+      "count": 86,
+      "mean_score": 0.6569512388651695,
+      "empirical_positive_rate": 1.0
+    },
+    {
+      "bin": 7,
+      "edge_low": 0.7000000000000001,
+      "edge_high": 0.8,
+      "bin_centre": 0.75,
+      "count": 179,
+      "mean_score": 0.7624433953371277,
+      "empirical_positive_rate": 1.0
+    },
+    {
+      "bin": 8,
+      "edge_low": 0.8,
+      "edge_high": 0.9,
+      "bin_centre": 0.8500000000000001,
+      "count": 536,
+      "mean_score": 0.8502145499332983,
+      "empirical_positive_rate": 1.0
+    },
+    {
+      "bin": 9,
+      "edge_low": 0.9,
+      "edge_high": 1.0,
+      "bin_centre": 0.95,
+      "count": 1214,
+      "mean_score": 0.9580695106634101,
+      "empirical_positive_rate": 1.0
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "tau": 0.5,
+  "n_test": 2162,
+  "baselines": {
+    "GenConViT_AE": {
+      "search_patterns": [
+        "*genconvit*ae*",
+        "*genconvit_ae*"
+      ],
+      "scan_dirs": [
+        "/Users/saoirsebarry/deepfake_thesis/publication/transformer_comparison",
+        "/Users/saoirsebarry/deepfake_thesis/publication/proposed transformer models"
+      ],
+      "files_found": [],
+      "status": "predictions not saved; rerun needed",
+      "p_value": null
+    },
+    "GenConViT_VAE": {
+      "search_patterns": [
+        "*genconvit*vae*",
+        "*genconvit_vae*"
+      ],
+      "scan_dirs": [
+        "/Users/saoirsebarry/deepfake_thesis/publication/transformer_comparison",
+        "/Users/saoirsebarry/deepfake_thesis/publication/proposed transformer models"
+      ],
+      "files_found": [],
+      "status": "predictions not saved; rerun needed",
+      "p_value": null
+    },
+    "LIPINC_V2": {
+      "search_patterns": [
+        "*lipinc*"
+      ],
+      "scan_dirs": [
+        "/Users/saoirsebarry/deepfake_thesis/publication/transformer_comparison"
+      ],
+      "files_found": [],
+      "status": "predictions not saved; rerun needed",
+      "p_value": null
+    },
+    "Custom_ViT_LateFusion": {
+      "search_patterns": [
+        "*vit*predict*",
+        "*vit_polyglot*predict*"
+      ],
+      "scan_dirs": [
+        "/Users/saoirsebarry/deepfake_thesis/publication/proposed transformer models"
+      ],
+      "files_found": [],
+      "status": "predictions not saved; rerun needed",
+      "p_value": null
+    },
+    "Hybrid_CNN_Transformer": {
+      "search_patterns": [
+        "*cnn_transformer*predict*",
+        "*hybrid*predict*"
+      ],
+      "scan_dirs": [
+        "/Users/saoirsebarry/deepfake_thesis/publication/proposed transformer models"
+      ],
+      "files_found": [],
+      "status": "predictions not saved; rerun needed",
+      "p_value": null
+    }
+  },
+  "general_note": "McNemar contingency is [[a b][c d]] where a = both correct, b = ours correct & baseline wrong, c = ours wrong & baseline correct, d = both wrong."
+}

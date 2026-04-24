@@ -1,0 +1,22 @@
+{
+  "device": "cuda",
+  "data_dir": "data/polyglot_processed_all_unbalanced",
+  "output_dir": "biometric_trained_models",
+  "batch_size": 16,
+  "num_workers": 4,
+  "face_quality": {
+    "image_size": 299
+  },
+  "early_stopping": {
+    "patience": 7,
+    "min_delta": 0.0001
+  },
+  "num_epochs": 20,
+  "learning_rate": 1e-05,
+  "finetune": {
+    "freeze_backbone": true,
+    "unfreeze_at_epoch": 5,
+    "discriminative_lr": true,
+    "backbone_lr_multiplier": 0.1
+  }
+}
