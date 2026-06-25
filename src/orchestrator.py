@@ -11,6 +11,7 @@ import warnings
 from typing import Dict, Any, List, Optional
 import cv2
 import csv
+import argparse
 
 import numpy as np
 import torch
@@ -144,10 +145,10 @@ def setup_logging():
     warnings.filterwarnings("ignore")
     logging.getLogger("speechbrain").setLevel(logging.WARNING)
 
-def check_system_readiness() -> bool:
-    test_dir = os.path.join(CONFIG["data_dir"], 'test')
-    if not os.path.isdir(test_dir):
-        logging.error(f"Test data directory '{test_dir}' not found.")
+def check_system_readiness(split: str = "test") -> bool:
+    data_split_dir = os.path.join(CONFIG["data_dir"], split)
+    if not os.path.isdir(data_split_dir):
+        logging.error(f"Data directory '{data_split_dir}' not found.")
         return False
     
     model_paths = list(CONFIG["model_files"].values())
@@ -704,15 +705,29 @@ class Evaluator:
 ======================================================================""")
 
 def main():
+    parser = argparse.ArgumentParser(
+        description="Score a preprocessed split (train/val/test) with the 5-agent "
+                    "weighted orchestrator and write the per-sample CSV used by the "
+                    "paper artifacts. Use --split val to generate the validation scores "
+                    "that justify the operating-point selection (see "
+                    "paper_artifacts/task_00_select_operating_point.py)."
+    )
+    parser.add_argument("--split", choices=["train", "val", "test"], default="test",
+                        help="Which split under CONFIG['data_dir'] to score (default: test).")
+    parser.add_argument("--output_file", default=None,
+                        help="Output CSV path (default: CONFIG['output_file']).")
+    args = parser.parse_args()
+    output_file = args.output_file or CONFIG["output_file"]
+
     setup_logging()
-    
+
     print("\n" + "="*60)
     print("Enhanced Multi-Agent Deepfake Detection System")
     print("Agents: Visual, Audio (Mel+CNN), Audio Forensics,")
     print("        Cross-Modal, and Facial Biometric Quality")
     print("="*60 + "\n")
     
-    if not check_system_readiness():
+    if not check_system_readiness(args.split):
         logging.critical("System readiness check failed. Exiting.")
         return
     
@@ -733,10 +748,10 @@ def main():
         RunnableLambda(aggregate_results)
     )
     
-    test_dir = os.path.join(CONFIG["data_dir"], 'test')
-    test_files = [os.path.join(root, file) for root, _, files in os.walk(test_dir) 
+    test_dir = os.path.join(CONFIG["data_dir"], args.split)
+    test_files = [os.path.join(root, file) for root, _, files in os.walk(test_dir)
                   for file in files if file.lower().endswith('.npz')]
-    
+
     if not test_files:
         logging.warning(f"No .npz files found in '{test_dir}'. Cannot run evaluation.")
         return
@@ -757,7 +772,7 @@ def main():
     total_files = len(test_files)
     processed = 0
     
-    print(f"\nProcessing {total_files} test files...")
+    print(f"\nProcessing {total_files} {args.split} files...")
     print("-" * 60)
 
     for batch in data_loader:
@@ -810,8 +825,6 @@ def main():
         return
 
     try:
-        output_file = CONFIG["output_file"]
-        
         fieldnames = all_results[0].keys()
         
         with open(output_file, 'w', newline='') as csvfile:

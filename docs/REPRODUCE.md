@@ -74,6 +74,37 @@ python src/detect.py \
 
 After re-running C, run Path A to regenerate all downstream artifacts from the fresh CSVs.
 
+## Path D — Reproduce the operating-point provenance (weights + τ "selected on validation")
+
+The paper selects the decision threshold τ = 0.37 (and validates the agent weights) on the
+**validation** split, then freezes them and reports test accuracy. This path makes that
+claim reproducible end-to-end: it derives τ from the validation scores only, and never
+uses the test labels to choose anything.
+
+```bash
+# 1. Score the validation split with the SAME weighted orchestrator that wrote the test CSV.
+#    (Requires the preprocessed val/ split from Path B and the checkpoints.)
+python src/orchestrator.py --split val \
+    --output_file paper_artifacts/source_csvs/analysis_results_with_5_agents_VAL.csv
+
+# 2. Derive τ on validation, freeze (weights, τ), and evaluate once on test.
+#    Stdlib only — no GPU, no heavy deps.
+python paper_artifacts/task_00_select_operating_point.py \
+    --val  paper_artifacts/source_csvs/analysis_results_with_5_agents_VAL.csv \
+    --test paper_artifacts/source_csvs/analysis_results_with_5_agents.csv
+```
+
+This writes `paper_artifacts/operating_point_provenance.json` containing: per-agent
+validation AUCs, the validation-derived threshold `tau_star` and the rule used to pick it
+(argmax validation balanced accuracy; midpoint of the tied plateau), the frozen test
+metrics at `tau_star`, and a `reproduces_paper_tau` flag. Ship both the
+`analysis_results_with_5_agents_VAL.csv` and `operating_point_provenance.json` so a third
+party can verify the operating point was selected on validation rather than tuned on test.
+
+`--weights {paper,auc,search}` reports how the paper's hand-picked weights compare on the
+validation split against an AUC-proportional vector and a simplex margin search. The script
+is honest by construction: if the validation-derived `tau_star` is not ≈ 0.37, it says so.
+
 ## Known-good environment
 
 - Python 3.12
