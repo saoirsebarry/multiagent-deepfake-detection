@@ -4,7 +4,7 @@ Code and data release accompanying:
 
 > Saoirse Barry, Pancham Shukla, Susmitha Vekkot.
 > *A Multi-Agent Framework with Adaptive Orchestration for Explainable Multi-Modal Deepfake Detection*.
-> AI Open, 2026.
+> MDPI Informatics Journal, 2026.
 
 **Headline result.** On the PolyGlotFake test set (2,162 samples) the five-agent ensemble achieves AUC-ROC = 1.000, average precision = 1.000, and 100.00 % accuracy at the operating threshold τ = 0.37, with zero false positives and zero false negatives. Real- and fake-class aggregate-score distributions are fully separable (max real = 0.357 < min fake = 0.388).
 
