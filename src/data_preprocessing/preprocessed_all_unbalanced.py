@@ -230,7 +230,7 @@ def _process_clip(video_path, label, output_filename, detector, cfg):
 
             if frame_count % cfg["frame_stride"] == 0:
                 frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-                detections = detector.detect_faces(frame_rgb)
+                detections = _safe_detect(detector, frame_rgb)
                 for det in detections:
                     if det["confidence"] > 0.95:
                         x1, y1, width, height = det["box"]
@@ -299,6 +299,23 @@ def _process_clip(video_path, label, output_filename, detector, cfg):
 # ---------------------------------------------------------------------------
 # worker process
 # ---------------------------------------------------------------------------
+def _safe_detect(detector, frame_rgb):
+    """detect_faces, returning [] instead of raising when nothing is found.
+
+    mtcnn >= 1.0 forwards an empty candidate batch from P-Net straight into R-Net,
+    where Conv2D raises "The convolution operation resulted in an empty output"
+    with a leading batch dimension of 0. That is simply the no-face case, and the
+    serial code's broad except would otherwise discard the entire clip because one
+    frame happened to contain no face.
+    """
+    try:
+        return detector.detect_faces(frame_rgb) or []
+    except ValueError as exc:
+        if "empty output" in str(exc) or "Output shape: (0" in str(exc):
+            return []
+        raise
+
+
 def _build_detector(cfg):
     from mtcnn.mtcnn import MTCNN  # imported here so TF loads only inside the worker
 
@@ -312,7 +329,7 @@ def _build_detector(cfg):
     detector = MTCNN()
     # Warm up while the lock is held: TF defers the GPU allocation to the first
     # detect_faces, and N simultaneous allocations are what exhausts the device.
-    detector.detect_faces(np.zeros((256, 256, 3), dtype=np.uint8))
+    _safe_detect(detector, np.zeros((256, 256, 3), dtype=np.uint8))
     return detector
 
 
