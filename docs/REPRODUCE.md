@@ -37,10 +37,16 @@ Requires the PolyGlotFake dataset (see README §5.1) and a GPU.
 #
 # --limit N stops after N new clips; re-running resumes, because clips already written
 # are skipped. --min_free_gib aborts before filling the output volume.
+# --workers shards whole clips across processes, each building its own MTCNN.
+# 1 (the default when the flag is absent) is the original serial loop and is the
+# reference path. Writes are staged and renamed, so an interrupted run leaves a
+# .partial file the resume scan ignores rather than a truncated .npz it would
+# treat as done. --verify_existing cleans up truncated files left by older runs.
 python src/data_preprocessing/preprocessed_all_unbalanced.py \
     --data_dir   <path/to/PolyGlotFake> \
     --output_dir data/polyglot_processed_all_unbalanced \
-    --splits     train,val
+    --splits     train,val \
+    --workers    4
 
 # 2. Train each agent
 #
