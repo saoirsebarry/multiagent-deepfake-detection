@@ -1,4 +1,5 @@
 import os
+import shutil
 import json
 import cv2
 import numpy as np
@@ -27,13 +28,23 @@ def process_and_save_files(file_list, output_dir, detector, args):
     print(f"\nProcessing {len(file_list)} files for the '{os.path.basename(output_dir)}' set...")
 
     files_with_no_audio = []
+    written = 0
 
     for video_path, label in tqdm(file_list, desc=f"Processing {os.path.basename(output_dir)}"):
-        print(f"Processing video: {video_path} with label: {label}")
+        if getattr(args, 'limit', 0) and written >= args.limit:
+            tqdm.write(f"-> reached --limit {args.limit}; re-run to continue")
+            break
+        free_gib = shutil.disk_usage(output_dir).free / 2**30
+        if free_gib < getattr(args, 'min_free_gib', 1.0):
+            raise SystemExit(
+                f"ABORT: only {free_gib:.2f} GiB free on the output volume "
+                f"(--min_free_gib {args.min_free_gib}). {written} clips written this run; "
+                f"free space and re-run to resume.")
         video_basename = os.path.basename(video_path).replace('.mp4', '')
         output_filename = os.path.join(output_dir, f"{video_basename}_label_{'fake' if int(label) == 1 else 'real'}.npz")
         if os.path.exists(output_filename):
             continue
+        written += 1
 
 
         faces = []
@@ -105,6 +116,15 @@ def process_and_save_files(file_list, output_dir, detector, args):
 
 def main(args):
     """Main function to orchestrate the data processing and splitting pipeline."""
+    global DATA_DIR
+    DATA_DIR = args.data_dir
+    if not os.path.isdir(DATA_DIR):
+        raise SystemExit(f"ABORT: --data_dir not found: {DATA_DIR}")
+    for sub in ('json_file', 'real', 'fake'):
+        if not os.path.isdir(os.path.join(DATA_DIR, sub)):
+            raise SystemExit(
+                f"ABORT: {DATA_DIR} does not look like the PolyGlotFake release "
+                f"(missing {sub}/). Expected json_file/, real/ and fake/.")
 
     LANGUAGES = ['ar', 'en', 'es', 'fr', 'ja', 'ru', 'zh']
     RANDOM_SEED = 42
@@ -197,9 +217,12 @@ def main(args):
     detector = MTCNN()
     
     # Process all three sets
-    process_and_save_files(train_list, os.path.join(args.output_dir, 'train'), detector, args)
-    process_and_save_files(val_list, os.path.join(args.output_dir, 'val'), detector, args)
-    process_and_save_files(test_list, os.path.join(args.output_dir, 'test'), detector, args)
+    wanted = {s.strip() for s in args.splits.split(',') if s.strip()}
+    for name, lst in (('train', train_list), ('val', val_list), ('test', test_list)):
+        if name in wanted:
+            process_and_save_files(lst, os.path.join(args.output_dir, name), detector, args)
+        else:
+            print(f"\nskipping split '{name}' ({len(lst)} clips) - not in --splits")
 
     print("\n--- All Steps Complete ---")
     print(f"Processed data is located in: {args.output_dir}")
@@ -215,6 +238,23 @@ if __name__ == '__main__':
                         help='Maximum number of faces to extract from each video.')
     parser.add_argument('--frame_stride', type=int, default=10, 
                         help='Process every Nth frame to speed up extraction.')
+    parser.add_argument('--data_dir', type=str, default=DATA_DIR,
+                        help="Root of the extracted PolyGlotFake release. Must contain "
+                             "json_file/, real/ and fake/. Defaults to the historical "
+                             "hard-coded value ('polyglot_lang') relative to the working "
+                             "directory, so existing invocations are unaffected.")
+    parser.add_argument('--splits', type=str, default='train,val,test',
+                        help="Comma-separated splits to WRITE. The train/val/test partition is "
+                             "always computed over the full file list, so restricting this does "
+                             "not change which clip belongs to which split - it only skips the "
+                             "writing. Use 'train,val' to retrain without materialising the "
+                             "~8-10 GiB test split, which is not read by any training script.")
+    parser.add_argument('--limit', type=int, default=0,
+                        help='Process at most N new clips this run, then stop (0 = no limit). '
+                             'Re-running resumes: clips already written are skipped.')
+    parser.add_argument('--min_free_gib', type=float, default=1.0,
+                        help='Abort before writing if the output volume has less free space '
+                             'than this. Guards against filling a 15 GiB Drive mid-run.')
     parser.add_argument('--sample_rate', type=int, default=16000, 
                         help='Sample rate for audio extraction.')
 

@@ -27,10 +27,20 @@ Requires the PolyGlotFake dataset (see README §5.1) and a GPU.
 
 ```bash
 # 1. Preprocess
+# There is no --real_dir / --fake_dir. The script reads one dataset root that must
+# contain json_file/, real/ and fake/ (the layout of the PolyGlotFake release).
+#
+# --splits limits which splits are WRITTEN; the train/val/test partition is always
+# computed over the full file list, so restricting it does not change which clip lands
+# in which split. No training script reads test/, so 'train,val' is enough to retrain
+# and saves roughly 8-10 GiB.
+#
+# --limit N stops after N new clips; re-running resumes, because clips already written
+# are skipped. --min_free_gib aborts before filling the output volume.
 python src/data_preprocessing/preprocessed_all_unbalanced.py \
-    --real_dir   <path/to/real> \
-    --fake_dir   <path/to/fake> \
-    --output_dir data/polyglot_processed_all_unbalanced
+    --data_dir   <path/to/PolyGlotFake> \
+    --output_dir data/polyglot_processed_all_unbalanced \
+    --splits     train,val
 
 # 2. Train each agent
 #
