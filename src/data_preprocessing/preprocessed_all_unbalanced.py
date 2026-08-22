@@ -309,7 +309,7 @@ def _build_detector(cfg):
     except Exception:
         pass
 
-    detector = None  # built lazily per worker; see _build_detector
+    detector = MTCNN()
     # Warm up while the lock is held: TF defers the GPU allocation to the first
     # detect_faces, and N simultaneous allocations are what exhausts the device.
     detector.detect_faces(np.zeros((256, 256, 3), dtype=np.uint8))
@@ -821,8 +821,10 @@ def main(args):
     print(f"  - Test set prepared (unbalanced): {len(test_list)} total files ({test_reals_count} real, {test_fakes_count} fake).")
 
 
-    detector = MTCNN()
-    
+    # The parent builds no detector: each worker constructs its own after spawn,
+    # because an inherited CUDA/TensorFlow context cannot be re-pinned in the child.
+    detector = None
+
     # Process all three sets
     wanted = {s.strip() for s in args.splits.split(',') if s.strip()}
     for name, lst in (('train', train_list), ('val', val_list), ('test', test_list)):
