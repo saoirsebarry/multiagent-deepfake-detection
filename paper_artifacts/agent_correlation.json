@@ -1,0 +1,110 @@
+{
+  "n": 2162,
+  "agents": [
+    "Visual (XceptionNet)",
+    "Audio (FreqNet)",
+    "Audio Forensics (ECAPA)",
+    "Cross-Modal (Lip-Sync)",
+    "Biometric-Quality"
+  ],
+  "score_correlation": [
+    [
+      1.0,
+      0.213,
+      0.4221,
+      0.5507,
+      0.4248
+    ],
+    [
+      0.213,
+      1.0,
+      0.4974,
+      0.4075,
+      0.2764
+    ],
+    [
+      0.4221,
+      0.4974,
+      1.0,
+      0.6945,
+      0.5442
+    ],
+    [
+      0.5507,
+      0.4075,
+      0.6945,
+      1.0,
+      0.6491
+    ],
+    [
+      0.4248,
+      0.2764,
+      0.5442,
+      0.6491,
+      1.0
+    ]
+  ],
+  "error_correlation": [
+    [
+      1.0,
+      -0.0256,
+      -0.0092,
+      0.1561,
+      0.056
+    ],
+    [
+      -0.0256,
+      1.0,
+      0.279,
+      0.0412,
+      -0.0561
+    ],
+    [
+      -0.0092,
+      0.279,
+      1.0,
+      0.0062,
+      -0.0125
+    ],
+    [
+      0.1561,
+      0.0412,
+      0.0062,
+      1.0,
+      0.0609
+    ],
+    [
+      0.056,
+      -0.0561,
+      -0.0125,
+      0.0609,
+      1.0
+    ]
+  ],
+  "point_biserial_with_label": {
+    "Visual (XceptionNet)": 0.551,
+    "Audio (FreqNet)": 0.4378,
+    "Audio Forensics (ECAPA)": 0.7774,
+    "Cross-Modal (Lip-Sync)": 0.8911,
+    "Biometric-Quality": 0.7066
+  },
+  "max_score_correlation": {
+    "value": 0.6945,
+    "pair": [
+      "Audio Forensics (ECAPA)",
+      "Cross-Modal (Lip-Sync)"
+    ]
+  },
+  "max_error_correlation": {
+    "value": 0.279,
+    "pair": [
+      "Audio (FreqNet)",
+      "Audio Forensics (ECAPA)"
+    ]
+  },
+  "cross_modal_ecapa": {
+    "score": 0.6945,
+    "error": 0.0062,
+    "cauchy_schwarz_lower_bound_on_score": 0.4072
+  }
+}

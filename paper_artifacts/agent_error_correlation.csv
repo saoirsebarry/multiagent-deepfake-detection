@@ -1,0 +1,6 @@
+,Visual (XceptionNet),Audio (FreqNet),Audio Forensics (ECAPA),Cross-Modal (Lip-Sync),Biometric-Quality
+Visual (XceptionNet),1.0,-0.0256,-0.0092,0.1561,0.056
+Audio (FreqNet),-0.0256,1.0,0.279,0.0412,-0.0561
+Audio Forensics (ECAPA),-0.0092,0.279,1.0,0.0062,-0.0125
+Cross-Modal (Lip-Sync),0.1561,0.0412,0.0062,1.0,0.0609
+Biometric-Quality,0.056,-0.0561,-0.0125,0.0609,1.0
