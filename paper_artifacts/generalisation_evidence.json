@@ -1,0 +1,100 @@
+{
+  "tau": 0.37,
+  "n": 2162,
+  "development_to_test": [
+    {
+      "agent": "Visual (XceptionNet)",
+      "dev_accuracy": 0.94,
+      "test_accuracy": 0.9107,
+      "gap": 0.0293,
+      "dev_source": "\u00a73.3.1, Stage 2 validation accuracy"
+    },
+    {
+      "agent": "Audio (FreqNet)",
+      "dev_accuracy": 0.98,
+      "test_accuracy": 0.8182,
+      "gap": 0.1618,
+      "dev_source": "\u00a73.3.2, reported accuracy for the final audio agent"
+    },
+    {
+      "agent": "Audio Forensics (ECAPA-TDNN)",
+      "dev_accuracy": null,
+      "test_accuracy": 0.9658,
+      "gap": null,
+      "dev_source": "no development accuracy reported"
+    },
+    {
+      "agent": "Cross-Modal (Lip-Sync)",
+      "dev_accuracy": 0.99,
+      "test_accuracy": 0.9866,
+      "gap": 0.0034,
+      "dev_source": "\u00a73.3.3, cross-attention validation accuracy"
+    },
+    {
+      "agent": "Biometric-Quality",
+      "dev_accuracy": 0.9958,
+      "test_accuracy": 0.9556,
+      "gap": 0.0402,
+      "dev_source": "released checkpoint val_metrics.accuracy at the best epoch"
+    }
+  ],
+  "per_method_recall": {
+    "Visual (XceptionNet)": {
+      "recall": {
+        "MicroTts": 0.8879,
+        "Xtts": 0.917,
+        "Bark": 0.9191,
+        "Tacotron": 0.929,
+        "Vall": 0.9367
+      },
+      "spread": 0.0488
+    },
+    "Audio (FreqNet)": {
+      "recall": {
+        "MicroTts": 0.9954,
+        "Xtts": 0.4071,
+        "Bark": 0.9787,
+        "Tacotron": 0.9911,
+        "Vall": 0.0633
+      },
+      "spread": 0.9321
+    },
+    "Audio Forensics (ECAPA-TDNN)": {
+      "recall": {
+        "MicroTts": 0.9923,
+        "Xtts": 0.9387,
+        "Bark": 0.9872,
+        "Tacotron": 0.997,
+        "Vall": 0.6329
+      },
+      "spread": 0.3641
+    },
+    "Cross-Modal (Lip-Sync)": {
+      "recall": {
+        "MicroTts": 0.9877,
+        "Xtts": 0.9822,
+        "Bark": 0.9894,
+        "Tacotron": 0.9941,
+        "Vall": 0.9747
+      },
+      "spread": 0.0194
+    },
+    "Biometric-Quality": {
+      "recall": {
+        "MicroTts": 0.9508,
+        "Xtts": 0.9565,
+        "Bark": 0.9596,
+        "Tacotron": 0.9704,
+        "Vall": 0.9873
+      },
+      "spread": 0.0365
+    }
+  },
+  "method_counts": {
+    "Xtts": 506,
+    "Tacotron": 338,
+    "MicroTts": 651,
+    "Bark": 470,
+    "Vall": 79
+  }
+}
