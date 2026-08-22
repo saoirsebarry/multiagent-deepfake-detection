@@ -285,11 +285,13 @@ def main(opt):
 
         model.eval()
         all_preds, all_labels = [], []
+        val_loss_total = 0.0
         with torch.no_grad():
             for specs, labels in val_loader:
                 if specs is None: continue
                 specs, labels = specs.to(opt.device), labels.to(opt.device)
                 outputs = model(specs)
+                val_loss_total += criterion(outputs, labels).item()
                 preds = (outputs > 0.0).float()
                 all_preds.extend(preds.cpu().numpy())
                 all_labels.extend(labels.cpu().numpy())
@@ -300,7 +302,7 @@ def main(opt):
         val_accuracy_history.append(val_accuracy)
 
         print("-" * 50)
-        print(f"End of Epoch {epoch+1}/{opt.epochs} | Avg Train Loss: {avg_train_loss:.4f} | Val Accuracy: {val_accuracy:.4f}")
+        print(f"End of Epoch {epoch+1}/{opt.epochs} | Avg Train Loss: {avg_train_loss:.4f} | Val Loss: {val_loss_total/max(len(val_loader),1):.4f} | Val Accuracy: {val_accuracy:.4f}")
 
         if val_accuracy > best_val_accuracy:
             best_val_accuracy = val_accuracy

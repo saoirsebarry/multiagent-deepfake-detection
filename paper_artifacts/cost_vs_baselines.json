@@ -1,0 +1,216 @@
+{
+  "device": "Apple Metal (MPS, unified memory)",
+  "device_type": "mps",
+  "torch": "2.13.0",
+  "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+  "protocol": {
+    "batch_size": 1,
+    "dtype": "float32",
+    "n_samples": 30,
+    "n_runs_per_sample": 10,
+    "n_warmup": 5,
+    "seed": 42,
+    "isolation": "each model profiled in a fresh subprocess"
+  },
+  "caveats": [
+    "Latencies exclude preprocessing (MTCNN face detection, librosa feature extraction, Mel-spectrogram computation) for every row alike.",
+    "Rows with provenance=architecture are rebuilt from published architecture specifications with randomly initialised weights: batch-1 inference cost is a function of architecture and input shape, not of weight values.",
+    "Rows flagged lower_bound have fewer parameters than the original model as reported in the literature, so the original's true cost is at least the figure given here.",
+    "On Apple Metal, accelerator memory is unified with system memory. peak_tensor_mem_mb is the maximum live tensor allocation observed by a 2 kHz sampling thread during the timed forwards, not the Metal driver heap (which is dominated by a one-off allocator reservation). Parameter memory (fp32) is exact and hardware independent, and is the portable column.",
+    "Phase parallel latency is the best case if agents were dispatched concurrently; the released orchestrator runs them sequentially."
+  ],
+  "models": [
+    {
+      "name": "Visual (XceptionNet)",
+      "provenance": "checkpointed",
+      "note": "299x299 face crop",
+      "reported_params_in_literature": null,
+      "params_total": 23959977,
+      "params_trainable": 3153025,
+      "param_mem_mb": 91.4,
+      "latency_ms": {
+        "mean": 11.93198372144252,
+        "std": 2.3034624096457144,
+        "median": 11.51628743391484,
+        "p95": 13.555801953189073
+      },
+      "peak_tensor_mem_mb": 129.6,
+      "resident_tensor_mem_mb": 92.68,
+      "peak_activation_mem_mb": 36.93,
+      "device": "mps"
+    },
+    {
+      "name": "Audio (FreqNet)",
+      "provenance": "checkpointed",
+      "note": "224x224 Mel spectrogram",
+      "reported_params_in_literature": null,
+      "params_total": 1850433,
+      "params_trainable": 1850433,
+      "param_mem_mb": 7.06,
+      "latency_ms": {
+        "mean": 25.13495778820167,
+        "std": 4.244344739563375,
+        "median": 26.3775602215901,
+        "p95": 30.35388461546972
+      },
+      "peak_tensor_mem_mb": 117.93,
+      "resident_tensor_mem_mb": 7.68,
+      "peak_activation_mem_mb": 110.25,
+      "device": "mps"
+    },
+    {
+      "name": "Cross-Modal (Lip-Sync)",
+      "provenance": "checkpointed",
+      "note": "20 frames + Mel spectrogram",
+      "reported_params_in_literature": null,
+      "params_total": 6130754,
+      "params_trainable": 3906882,
+      "param_mem_mb": 23.39,
+      "latency_ms": {
+        "mean": 22.991703618317842,
+        "std": 4.938798831382487,
+        "median": 24.784843740053475,
+        "p95": 29.400774925015863
+      },
+      "peak_tensor_mem_mb": 249.56,
+      "resident_tensor_mem_mb": 35.18,
+      "peak_activation_mem_mb": 214.38,
+      "device": "mps"
+    },
+    {
+      "name": "Biometric-Quality",
+      "provenance": "checkpointed",
+      "note": "5-channel 299x299",
+      "reported_params_in_literature": null,
+      "params_total": 4355261,
+      "params_trainable": 4355261,
+      "param_mem_mb": 16.61,
+      "latency_ms": {
+        "mean": 6.804126699765523,
+        "std": 0.12578735770190685,
+        "median": 6.764056114479899,
+        "p95": 7.0988592226058245
+      },
+      "peak_tensor_mem_mb": 41.87,
+      "resident_tensor_mem_mb": 18.52,
+      "peak_activation_mem_mb": 23.35,
+      "device": "mps"
+    },
+    {
+      "name": "Audio Forensics (ECAPA-TDNN)",
+      "provenance": "checkpointed",
+      "note": "5 s waveform at 16 kHz",
+      "reported_params_in_literature": null,
+      "params_total": 20810209,
+      "params_trainable": 42657,
+      "param_mem_mb": 79.38,
+      "latency_ms": {
+        "mean": 35.731134715800486,
+        "std": 1.947339093126759,
+        "median": 35.16027901787311,
+        "p95": 38.658833072986454
+      },
+      "peak_tensor_mem_mb": 0.17,
+      "resident_tensor_mem_mb": 0.17,
+      "peak_activation_mem_mb": 0.0,
+      "device": "mps",
+      "note_runtime": "ECAPA backbone runs on CPU: speechbrain's STFT falls back off MPS. Latency is an upper bound on this host."
+    },
+    {
+      "name": "Hybrid CNN-Transformer",
+      "provenance": "architecture",
+      "note": "EfficientNet-B0 + 4-layer transformer encoder, 224x224",
+      "reported_params_in_literature": 6420000,
+      "params_total": 7494781,
+      "params_trainable": 7494781,
+      "param_mem_mb": 28.59,
+      "latency_ms": {
+        "mean": 8.632165159409245,
+        "std": 0.22378201888547838,
+        "median": 8.690089546144009,
+        "p95": 8.900407494511455
+      },
+      "peak_tensor_mem_mb": 41.42,
+      "resident_tensor_mem_mb": 29.36,
+      "peak_activation_mem_mb": 12.06,
+      "device": "mps"
+    },
+    {
+      "name": "GenConViT AE",
+      "provenance": "architecture",
+      "note": "autoencoder + ConvNeXt-T/Swin-T on original and reconstruction, 224x224",
+      "reported_params_in_literature": 130000000,
+      "params_total": 113571640,
+      "params_trainable": 113571640,
+      "param_mem_mb": 433.24,
+      "latency_ms": {
+        "mean": 28.344865022227168,
+        "std": 1.708837101455643,
+        "median": 27.919141785241663,
+        "p95": 31.93261232692748
+      },
+      "peak_tensor_mem_mb": 463.7,
+      "resident_tensor_mem_mb": 435.97,
+      "peak_activation_mem_mb": 27.73,
+      "device": "mps",
+      "lower_bound": true,
+      "fidelity_note": "rebuild has 113.6M parameters against 130M reported for the original; treat this row as a lower bound on the original's cost"
+    },
+    {
+      "name": "Late-fusion ViT",
+      "provenance": "architecture",
+      "note": "ViT-B/16 + 6-layer transformer audio branch, 224x224",
+      "reported_params_in_literature": 181000000,
+      "params_total": 128426497,
+      "params_trainable": 128426497,
+      "param_mem_mb": 489.91,
+      "latency_ms": {
+        "mean": 32.202277937904,
+        "std": 3.6086491149919606,
+        "median": 33.08363980613649,
+        "p95": 35.671554238069795
+      },
+      "peak_tensor_mem_mb": 497.47,
+      "resident_tensor_mem_mb": 490.55,
+      "peak_activation_mem_mb": 6.93,
+      "device": "mps",
+      "lower_bound": true,
+      "fidelity_note": "rebuild has 128.4M parameters against 181M reported for the original; treat this row as a lower bound on the original's cost"
+    }
+  ],
+  "phases": {
+    "phase1_only": {
+      "agents": [
+        "Biometric-Quality",
+        "Audio Forensics (ECAPA-TDNN)",
+        "Cross-Modal (Lip-Sync)"
+      ],
+      "params_total": 31296224,
+      "param_mem_mb": 119.39,
+      "latency_sequential_ms": 65.53,
+      "latency_parallel_ms": 35.73,
+      "summed_peak_tensor_mem_mb": 291.6
+    },
+    "phase1_plus_2": {
+      "agents": [
+        "Biometric-Quality",
+        "Audio Forensics (ECAPA-TDNN)",
+        "Cross-Modal (Lip-Sync)",
+        "Visual (XceptionNet)",
+        "Audio (FreqNet)"
+      ],
+      "params_total": 57106634,
+      "param_mem_mb": 217.84,
+      "latency_sequential_ms": 102.59,
+      "latency_parallel_ms": 60.87,
+      "summed_peak_tensor_mem_mb": 539.13
+    },
+    "expected_adaptive": {
+      "escalation_rate": 0.0879,
+      "description": "phase1 * (1 - escalation) + phase1+2 * escalation",
+      "latency_sequential_ms": 68.79,
+      "latency_parallel_ms": 37.94,
+      "param_mem_mb": 128.04
+    }
+  }
+}

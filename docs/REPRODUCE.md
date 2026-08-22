@@ -33,19 +33,29 @@ python src/data_preprocessing/preprocessed_all_unbalanced.py \
     --output_dir data/polyglot_processed_all_unbalanced
 
 # 2. Train each agent
-python src/agents/visual_xception.py \
-    --data_dir data/polyglot_processed_all_unbalanced
+#
+# The five scripts do NOT share a common data flag. Two take one, one takes none
+# at all, and two hard-code a path relative to the working directory. Satisfy both
+# hard-coded conventions with symlinks from the repo root, then every script runs
+# unmodified. Each expects train/ and val/ subdirectories.
 
+ln -sfn "$PWD/data/polyglot_processed_all_unbalanced" polyglot_processed_all_unbalanced
+
+# no CLI flag - reads ./polyglot_processed_all_unbalanced
+python src/agents/visual_xception.py
+
+# no CLI flag - reads ./polyglot_processed_all_unbalanced
+python src/agents/cross_modal_lipsync.py
+
+# no data flag at all - reads data/polyglot_processed_all_unbalanced from CONFIG
+python src/agents/audio_forensics_ecapa.py
+
+# takes --dataroot
 python src/agents/audio_freqnet.py \
-    --data_dir data/polyglot_processed_all_unbalanced
+    --dataroot data/polyglot_processed_all_unbalanced
 
-python src/agents/cross_modal_lipsync.py \
-    --data_dir data/polyglot_processed_all_unbalanced
-
+# takes --data_dir
 python src/agents/biometric_quality.py \
-    --data_dir data/polyglot_processed_all_unbalanced
-
-python src/agents/audio_forensics_ecapa.py \
     --data_dir data/polyglot_processed_all_unbalanced
 ```
 
@@ -57,14 +67,19 @@ This regenerates the three source CSVs and in turn every downstream artifact.
 
 ```bash
 # 5-agent PolyGlotFake run (produces analysis_results_with_5_agents.csv)
-python src/orchestrator.py \
-    --data_dir data/polyglot_processed_all_unbalanced \
-    --output_file paper_artifacts/source_csvs/analysis_results_with_5_agents.csv
+#
+# orchestrator.py takes NO arguments: it reads CONFIG["data_dir"]/test and writes
+# analysis_results_with_5_agents.csv into the working directory. Flags passed on the
+# command line are silently ignored, so a stale tree at the hard-coded path will be
+# evaluated instead - always check the row count of the CSV it produces.
+python src/orchestrator.py
+cp analysis_results_with_5_agents.csv paper_artifacts/source_csvs/
 
 # YouTube run (produces analysis_results_with_5_agents_orchestration.csv)
-python src/orchestrator_adaptive.py \
-    --data_dir data/youtube_processed \
-    --output_file paper_artifacts/source_csvs/analysis_results_with_5_agents_orchestration.csv
+# orchestrator_adaptive.py likewise takes no arguments; point CONFIG["data_dir"] at
+# the YouTube tree (or symlink it) before running.
+python src/orchestrator_adaptive.py
+cp analysis_results_with_5_agents_orchestration.csv paper_artifacts/source_csvs/
 
 # Full 5-agent pipeline with XAI artifacts
 python src/detect.py \
