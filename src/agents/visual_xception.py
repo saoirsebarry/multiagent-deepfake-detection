@@ -669,7 +669,7 @@ def main():
             mode='min', 
             factor=0.5, 
             patience=2, 
-            verbose=True,
+            # torch >= 2.2 removed the `verbose` argument
             min_lr=1e-7
         )
         

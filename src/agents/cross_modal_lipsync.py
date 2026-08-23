@@ -235,7 +235,8 @@ if __name__ == '__main__':
     ], lr=LEARNING_RATE)
     
     ### 4. Define LR Scheduler ###
-    scheduler = ReduceLROnPlateau(optimizer, 'min', factor=0.2, patience=3, verbose=True)
+    # torch >= 2.2 removed ReduceLROnPlateau's `verbose` argument
+    scheduler = ReduceLROnPlateau(optimizer, 'min', factor=0.2, patience=3)
 
     criterion = nn.CrossEntropyLoss()
     total_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
