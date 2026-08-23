@@ -30,9 +30,12 @@ CONFIG = {
     "batch_size": 16,
     "num_epochs": 50,
     "learning_rate": 1e-4,
-    # 4 forked workers segfault when the ECAPA/SpeechBrain backbone is already resident;
-    # 2 is stable and this stage is not dataloader-bound. Override with --num_workers.
-    "num_workers": 2,
+    # Forked DataLoader workers segfault when the SpeechBrain ECAPA backbone is already
+    # resident in the parent: torchaudio/SpeechBrain hold non-fork-safe state, and both 4
+    # and 2 workers died on the first batch. 0 keeps loading in-process. This stage is not
+    # dataloader-bound - the ECAPA backbone is frozen and only a 43k-parameter head trains -
+    # so the cost is negligible.
+    "num_workers": 0,
     "early_stopping_patience": 7,
     "audio": {
         "sample_rate": 16000,
