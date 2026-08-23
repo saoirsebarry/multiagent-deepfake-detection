@@ -44,7 +44,10 @@ def check_one(path: Path, deep: bool) -> tuple[bool, str]:
                 return False, f"faces dtype {faces.dtype}, expected uint8"
             if faces.ndim != 4 or faces.shape[-1] != 3:
                 return False, f"faces shape {faces.shape}, expected (n,H,W,3)"
-            if not 1 <= faces.shape[0] <= 20:
+            # every predicate below is wrapped in bool(): numpy comparisons return
+            # np.bool_, which is truthy but fails an `is True` identity test - a trap that
+            # produced false FAILs when this ran on Colab.
+            if not bool(1 <= faces.shape[0] <= 20):
                 return False, f"{faces.shape[0]} faces, expected 1..20"
             if faces.shape[1] != faces.shape[2]:
                 return False, f"non-square faces {faces.shape[1:3]}"

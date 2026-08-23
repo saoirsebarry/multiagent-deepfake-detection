@@ -20,29 +20,9 @@
       "Bark": 1.0,
       "Tacotron": 1.0,
       "Vall": 1.0
-    }
-  },
-  "without Visual": {
-    "members": [
-      "FreqNet",
-      "ECAPA",
-      "CrossModal",
-      "Biometric"
-    ],
-    "auc": 0.9999958539255034,
-    "ap": 0.9999997607644056,
-    "accuracy": 0.9995374653098983,
-    "errors": 1,
-    "false_pos": 0,
-    "false_neg": 1,
-    "margin": -0.053074702947014885,
-    "recall_by_method": {
-      "MicroTts": 1.0,
-      "Xtts": 1.0,
-      "Bark": 1.0,
-      "Tacotron": 1.0,
-      "Vall": 0.9873
-    }
+    },
+    "worst_method_recall": 1.0,
+    "recall_spread": 0.0
   },
   "without FreqNet": {
     "members": [
@@ -64,7 +44,33 @@
       "Bark": 1.0,
       "Tacotron": 1.0,
       "Vall": 1.0
-    }
+    },
+    "worst_method_recall": 0.9980237154150198,
+    "recall_spread": 0.0019762845849802257
+  },
+  "without Visual": {
+    "members": [
+      "FreqNet",
+      "ECAPA",
+      "CrossModal",
+      "Biometric"
+    ],
+    "auc": 0.9999958539255034,
+    "ap": 0.9999997607644056,
+    "accuracy": 0.9995374653098983,
+    "errors": 1,
+    "false_pos": 0,
+    "false_neg": 1,
+    "margin": -0.053074702947014885,
+    "recall_by_method": {
+      "MicroTts": 1.0,
+      "Xtts": 1.0,
+      "Bark": 1.0,
+      "Tacotron": 1.0,
+      "Vall": 0.9873
+    },
+    "worst_method_recall": 0.9873417721518988,
+    "recall_spread": 0.012658227848101222
   },
   "without ECAPA": {
     "members": [
@@ -86,7 +92,9 @@
       "Bark": 1.0,
       "Tacotron": 1.0,
       "Vall": 1.0
-    }
+    },
+    "worst_method_recall": 0.9881422924901185,
+    "recall_spread": 0.011857707509881465
   },
   "without CrossModal": {
     "members": [
@@ -108,7 +116,9 @@
       "Bark": 1.0,
       "Tacotron": 1.0,
       "Vall": 0.9747
-    }
+    },
+    "worst_method_recall": 0.9746835443037974,
+    "recall_spread": 0.025316455696202556
   },
   "without Biometric": {
     "members": [
@@ -130,6 +140,8 @@
       "Bark": 1.0,
       "Tacotron": 1.0,
       "Vall": 0.9873
-    }
+    },
+    "worst_method_recall": 0.9873417721518988,
+    "recall_spread": 0.012658227848101222
   }
 }
