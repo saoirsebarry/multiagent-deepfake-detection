@@ -1,0 +1,135 @@
+{
+  "all five": {
+    "members": [
+      "Visual",
+      "FreqNet",
+      "ECAPA",
+      "CrossModal",
+      "Biometric"
+    ],
+    "auc": 1.0,
+    "ap": 1.0,
+    "accuracy": 1.0,
+    "errors": 0,
+    "false_pos": 0,
+    "false_neg": 0,
+    "margin": 0.030748750932980295,
+    "recall_by_method": {
+      "MicroTts": 1.0,
+      "Xtts": 1.0,
+      "Bark": 1.0,
+      "Tacotron": 1.0,
+      "Vall": 1.0
+    }
+  },
+  "without Visual": {
+    "members": [
+      "FreqNet",
+      "ECAPA",
+      "CrossModal",
+      "Biometric"
+    ],
+    "auc": 0.9999958539255034,
+    "ap": 0.9999997607644056,
+    "accuracy": 0.9995374653098983,
+    "errors": 1,
+    "false_pos": 0,
+    "false_neg": 1,
+    "margin": -0.053074702947014885,
+    "recall_by_method": {
+      "MicroTts": 1.0,
+      "Xtts": 1.0,
+      "Bark": 1.0,
+      "Tacotron": 1.0,
+      "Vall": 0.9873
+    }
+  },
+  "without FreqNet": {
+    "members": [
+      "Visual",
+      "ECAPA",
+      "CrossModal",
+      "Biometric"
+    ],
+    "auc": 0.9999875617765099,
+    "ap": 0.9999992829944446,
+    "accuracy": 0.9981498612395929,
+    "errors": 4,
+    "false_pos": 3,
+    "false_neg": 1,
+    "margin": -0.06363261014442234,
+    "recall_by_method": {
+      "MicroTts": 1.0,
+      "Xtts": 0.998,
+      "Bark": 1.0,
+      "Tacotron": 1.0,
+      "Vall": 1.0
+    }
+  },
+  "without ECAPA": {
+    "members": [
+      "Visual",
+      "FreqNet",
+      "CrossModal",
+      "Biometric"
+    ],
+    "auc": 0.99985074131812,
+    "ap": 0.9999913906952878,
+    "accuracy": 0.996299722479186,
+    "errors": 8,
+    "false_pos": 2,
+    "false_neg": 6,
+    "margin": -0.19602589553687727,
+    "recall_by_method": {
+      "MicroTts": 1.0,
+      "Xtts": 0.9881,
+      "Bark": 1.0,
+      "Tacotron": 1.0,
+      "Vall": 1.0
+    }
+  },
+  "without CrossModal": {
+    "members": [
+      "Visual",
+      "FreqNet",
+      "ECAPA",
+      "Biometric"
+    ],
+    "auc": 0.9998300109456366,
+    "ap": 0.9999901920498971,
+    "accuracy": 0.9967622571692877,
+    "errors": 7,
+    "false_pos": 2,
+    "false_neg": 5,
+    "margin": -0.2672914144583046,
+    "recall_by_method": {
+      "MicroTts": 1.0,
+      "Xtts": 0.9941,
+      "Bark": 1.0,
+      "Tacotron": 1.0,
+      "Vall": 0.9747
+    }
+  },
+  "without Biometric": {
+    "members": [
+      "Visual",
+      "FreqNet",
+      "ECAPA",
+      "CrossModal"
+    ],
+    "auc": 0.9999336628080533,
+    "ap": 0.9999961683530321,
+    "accuracy": 0.9981498612395929,
+    "errors": 4,
+    "false_pos": 1,
+    "false_neg": 3,
+    "margin": -0.18428936971758964,
+    "recall_by_method": {
+      "MicroTts": 1.0,
+      "Xtts": 0.996,
+      "Bark": 1.0,
+      "Tacotron": 1.0,
+      "Vall": 0.9873
+    }
+  }
+}
