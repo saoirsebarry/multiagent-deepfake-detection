@@ -1,0 +1,61 @@
+{
+ "tau": 0.37,
+ "n_test": 2162,
+ "errors_at_tau": 0,
+ "seed": 42,
+ "n_boot": 10000,
+ "accuracy_clopper_pearson_95": [
+  0.9982952200757976,
+  1.0
+ ],
+ "bootstrap_95": {
+  "auc_roc": [
+   0.9999999999999999,
+   1.0
+  ],
+  "average_precision": [
+   0.9999999999999999,
+   1.0
+  ],
+  "accuracy": [
+   1.0,
+   1.0
+  ]
+ },
+ "mcnemar_vs_leave_one_out": {
+  "Visual (Spatial)": {
+   "b_sys_only_right": 1,
+   "c_abl_only_right": 0,
+   "exact_p": 1.0
+  },
+  "Audio (Mel+CNN)": {
+   "b_sys_only_right": 4,
+   "c_abl_only_right": 0,
+   "exact_p": 0.125
+  },
+  "Audio Forensics (ECAPA)": {
+   "b_sys_only_right": 8,
+   "c_abl_only_right": 0,
+   "exact_p": 0.0078125
+  },
+  "Cross-Modal (Lip-Sync)": {
+   "b_sys_only_right": 7,
+   "c_abl_only_right": 0,
+   "exact_p": 0.015625
+  },
+  "Facial Biometric (Quality)": {
+   "b_sys_only_right": 4,
+   "c_abl_only_right": 0,
+   "exact_p": 0.125
+  }
+ },
+ "youtube_accuracy_interval": {
+  "n": 49,
+  "correct": 39,
+  "accuracy_clopper_pearson_95": [
+   0.6565700069535181,
+   0.897550614504752
+  ]
+ },
+ "note": "Baseline-model McNemar tests are not computable: baseline per-sample predictions were not retained (see mcnemar_tests.json)."
+}
