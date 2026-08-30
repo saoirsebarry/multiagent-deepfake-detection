@@ -46,7 +46,7 @@ check("standalone 3-agent errors (Table 9)", float(((d3.final_score.to_numpy() >
 wn = np.array([.20, .25, .20]); wn = wn / wn.sum()
 check("renormalised Phase-1 errors (Tables 11, 13)", float(((S3 @ wn > TAU).astype(int) != y3).sum()), 4.0, 0)
 
-print("\nfigure 9 worked example, released orchestrator")
+print("\nfigure 10 worked example, released orchestrator")
 r = df[df.filepath.str.contains("en_37_to_ru_Xtts", na=False)].iloc[0]
 p1 = np.array([r[C5[4]], r[C5[2]], r[C5[3]]])
 check("aggregate for the example clip", float(r.final_score), 0.7519, 1e-3)

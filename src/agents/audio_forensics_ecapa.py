@@ -8,6 +8,10 @@ import argparse
 from datetime import datetime
 import warnings
 
+# Must precede the librosa import: the shipped numba cache is compiled against a
+# different numpy ABI and loading it segfaults inside pyin's interpolation gufunc.
+os.environ.setdefault("NUMBA_CACHE_DIR", "/tmp/numba_cache")
+
 import numpy as np
 import pandas as pd
 import torch
@@ -143,6 +147,35 @@ class OptimizedAudioDataset(Dataset):
         all_features = np.concatenate([embedding, prosody_features, artifact_features, temporal_features, [embedding_var]])
         return torch.tensor(all_features, dtype=torch.float32)
 
+class CachedFeatureDataset(Dataset):
+    """Serves the vectors written by tools/precompute_ecapa_features.py.
+
+    Identical tensors to OptimizedAudioDataset - the backbone is frozen and nothing is
+    augmented - without re-running four encodes and a pyin per sample per epoch.
+    """
+    def __init__(self, cache_dir: str, split: str, stats: dict = None):
+        blob = np.load(os.path.join(cache_dir, f"{split}.npz"), allow_pickle=True)
+        self.features = torch.tensor(blob["features"], dtype=torch.float32)
+        self.labels = torch.tensor(blob["labels"], dtype=torch.float32)
+        self.stats = stats
+        print(f"Loaded {len(self.labels)} cached feature vectors from {split} set.")
+
+    def __len__(self):
+        return len(self.labels)
+
+    def __getitem__(self, idx):
+        features = self.features[idx]
+        if self.stats:
+            features = (features - self.stats['mean']) / (self.stats['std'] + 1e-6)
+        return {'features': features, 'label': self.labels[idx]}
+
+
+def build_dataset(split: str, stats: dict = None):
+    if CONFIG.get('feature_cache') and os.path.exists(os.path.join(CONFIG['feature_cache'], f"{split}.npz")):
+        return CachedFeatureDataset(CONFIG['feature_cache'], split, stats=stats)
+    return OptimizedAudioDataset(CONFIG['data_dir'], split, stats=stats)
+
+
 # ==================== MODEL ====================
 class OptimizedLightweightForensics(nn.Module):
     """
@@ -224,7 +257,7 @@ def main(args):
     scaler = GradScaler(enabled=(device.type == 'cuda'))
 
     print("Calculating training set statistics for normalization...")
-    temp_train_dataset = OptimizedAudioDataset(CONFIG['data_dir'], 'train')
+    temp_train_dataset = build_dataset('train')
     temp_loader = DataLoader(temp_train_dataset, batch_size=args.batch_size, num_workers=CONFIG['num_workers'])
     
     all_features = torch.cat([b['features'] for b in tqdm(temp_loader, desc="Computing Stats")], dim=0)
@@ -236,8 +269,8 @@ def main(args):
     np.savez(stats_path, mean=mean.numpy(), std=std.numpy())
     print(f"Training statistics saved to {stats_path}")
 
-    train_dataset = OptimizedAudioDataset(CONFIG['data_dir'], 'train', stats=STATS)
-    val_dataset = OptimizedAudioDataset(CONFIG['data_dir'], 'val', stats=STATS)
+    train_dataset = build_dataset('train', stats=STATS)
+    val_dataset = build_dataset('val', stats=STATS)
 
     train_loader = DataLoader(train_dataset, batch_size=args.batch_size, shuffle=True, num_workers=CONFIG['num_workers'], pin_memory=True)
     val_loader = DataLoader(val_dataset, batch_size=args.batch_size, shuffle=False, num_workers=CONFIG['num_workers'], pin_memory=True)
@@ -319,10 +352,17 @@ if __name__ == "__main__":
     parser.add_argument('--batch_size', type=int, default=CONFIG['batch_size'])
     parser.add_argument('--epochs', type=int, default=CONFIG['num_epochs'])
     parser.add_argument('--lr', type=float, default=CONFIG['learning_rate'])
+    parser.add_argument('--data_dir', type=str, default=CONFIG['data_dir'])
+    parser.add_argument('--output_dir', type=str, default=CONFIG['output_dir'])
+    parser.add_argument('--feature_cache', type=str, default=None,
+                        help="directory of precompute_ecapa_features.py output")
     args = parser.parse_args()
 
     CONFIG['batch_size'] = args.batch_size
     CONFIG['num_epochs'] = args.epochs
     CONFIG['learning_rate'] = args.lr
+    CONFIG['data_dir'] = args.data_dir
+    CONFIG['output_dir'] = args.output_dir
+    CONFIG['feature_cache'] = args.feature_cache
 
     main(args)
