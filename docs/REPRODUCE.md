@@ -63,8 +63,17 @@ python src/agents/visual_xception.py
 # no CLI flag - reads ./polyglot_processed_all_unbalanced
 python src/agents/cross_modal_lipsync.py
 
-# no data flag at all - reads data/polyglot_processed_all_unbalanced from CONFIG
-python src/agents/audio_forensics_ecapa.py
+# ECAPA-TDNN. Precompute the feature vectors first: the script otherwise re-runs four
+# SpeechBrain encodes and a librosa.pyin per sample on every epoch, which dominates the
+# stage. The cached vectors are identical to the ones the live dataset produces.
+python tools/precompute_ecapa_features.py \
+    --data_dir data/polyglot_processed_all_unbalanced \
+    --out_dir data/ecapa_features --splits train val --workers 6
+
+python src/agents/audio_forensics_ecapa.py \
+    --data_dir data/polyglot_processed_all_unbalanced \
+    --feature_cache data/ecapa_features \
+    --output_dir audio_forensic_trained_models_v2
 
 # takes --dataroot
 python src/agents/audio_freqnet.py \
@@ -154,6 +163,23 @@ The paper's accuracy / AUC / AP / F1 numbers are invariant across CPU/GPU/MPS; o
 
 - **`ModuleNotFoundError: No module named 'speechbrain'`**. Install `speechbrain>=1.0`; ECAPA-TDNN backbone is loaded from HuggingFace Hub at first run.
 - **`checkpoints/speechbrain_cache/...` download errors**. Set `HF_TOKEN` env var to avoid rate limits; or pre-populate the cache by running `python -c "from speechbrain.inference import EncoderClassifier; EncoderClassifier.from_hparams(source='speechbrain/spkrec-ecapa-voxceleb', savedir='checkpoints/speechbrain_cache')"`.
+- **Segmentation fault in ECAPA-TDNN before the first training step.** The librosa wheel ships a precompiled numba kernel cache that faults when loaded against a mismatched NumPy binary interface, inside `pyin`'s interpolation gufunc. Point the cache somewhere writable and empty: `export NUMBA_CACHE_DIR=/tmp/numba_cache`. The training script sets this itself; set it manually if you call the feature code directly.
 - **MPS `Symbol not found` during torchvision import**. Use Python 3.12; older Python versions ship torchvision wheels that are out of sync with torch 2.x.
 - **Whisper-Tiny path not found**. Run `python -c "from transformers import AutoModelForSpeechSeq2Seq, AutoProcessor; AutoModelForSpeechSeq2Seq.from_pretrained('openai/whisper-tiny').save_pretrained('./whisper-tiny-local'); AutoProcessor.from_pretrained('openai/whisper-tiny').save_pretrained('./whisper-tiny-local')"` from the publication root.
 - **`GROQ_API_KEY` / `GEMINI_API_KEY` not set**. The headline detection agents do NOT require these; only the natural-language report and VLM context generation do. The pipeline degrades gracefully and emits a warning when they are unset.
+
+## Training curves
+
+Per-epoch train/validation loss for all five agents is regenerated from the recovered logs by:
+
+```bash
+python paper_artifacts/task_20_training_curves_figure.py \
+    --recovered paper_artifacts/recovered_curves.json \
+    --biometric paper_artifacts/biometric_training_history.json \
+    --ecapa_csv paper_artifacts/ecapa_training_log.csv \
+    --out paper_artifacts/training_curves_all_agents
+```
+
+`recovered_curves.json` holds the XceptionNet, FreqNet and Cross-Modal histories parsed from their
+re-run logs; `biometric_training_history.json` is read out of the released Biometric-Quality
+checkpoint; `ecapa_training_log.csv` is written by the ECAPA trainer above.
