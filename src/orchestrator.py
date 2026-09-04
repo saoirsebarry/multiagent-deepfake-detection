@@ -87,7 +87,7 @@ CONFIG = {
             "Cross-Modal (Lip-Sync)": 0.25,
             "Facial Biometric (Quality)": 0.20,  
         },
-        "threshold": 0.38,
+        "threshold": 0.37,
     }
 }
 
