@@ -33,7 +33,11 @@ from agents.audio_forensics_ecapa import OptimizedLightweightForensics, FastAudi
 
 
 from langchain_core.runnables import RunnableLambda, RunnableParallel, RunnablePassthrough
-from langchain.tools import StructuredTool
+
+try:
+    from langchain.tools import StructuredTool
+except ImportError:  # moved to langchain_core in langchain >= 1.0
+    from langchain_core.tools import StructuredTool
 
 
 CONFIG = {
