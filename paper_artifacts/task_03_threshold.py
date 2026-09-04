@@ -1,7 +1,8 @@
 """Task 3: Supplementary threshold-robustness table.
 
-Purpose: robustness check, NOT threshold selection. The decision boundary
-remains tau = 0.5 throughout the paper.
+Purpose: robustness check, NOT threshold selection. The paper's operating
+point is tau = 0.37, selected on the validation partition (see
+task_00_select_operating_point.py for the selection procedure).
 """
 from __future__ import annotations
 
@@ -11,7 +12,7 @@ from _common import (
     OUT, confusion_counts, load_five_agent, metrics_from_counts, predict_at_tau,
 )
 
-TAU_SWEEP = [0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60]
+TAU_SWEEP = [0.30, 0.35, 0.37, 0.40, 0.45, 0.50, 0.55, 0.60]
 
 
 def main() -> None:
@@ -41,7 +42,7 @@ def main() -> None:
     csv_path = OUT / "threshold_robustness.csv"
     table.to_csv(csv_path, index=False, float_format="%.6f")
 
-    # LaTeX version. tau=0.50 row bold.
+    # LaTeX version. The operating point tau=0.37 row is bold.
     lines = [
         r"\begin{tabular}{ccccc}",
         r"\toprule",
@@ -49,7 +50,7 @@ def main() -> None:
         r"\midrule",
     ]
     for r in rows:
-        bold = abs(r["tau"] - 0.50) < 1e-9
+        bold = abs(r["tau"] - 0.37) < 1e-9
         cells = [
             f"{r['tau']:.2f}",
             f"{r['accuracy'] * 100:.3f}",
@@ -64,7 +65,7 @@ def main() -> None:
     (OUT / "threshold_robustness_table.tex").write_text("\n".join(lines) + "\n")
 
     print(f"[task03] threshold sweep written to {csv_path.name}; "
-          f"tau=0.5 acc={table.loc[table['tau'] == 0.5, 'accuracy'].iloc[0] * 100:.3f}%")
+          f"tau=0.37 acc={table.loc[table['tau'] == 0.37, 'accuracy'].iloc[0] * 100:.3f}%")
 
 
 if __name__ == "__main__":
