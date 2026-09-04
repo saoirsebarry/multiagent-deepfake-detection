@@ -40,18 +40,23 @@ except ImportError:  # moved to langchain_core in langchain >= 1.0
     from langchain_core.tools import StructuredTool
 
 
+# CHECKPOINT_DIR=checkpoints_v2 selects the retrained set that reproduces
+# analysis_results_seed2_test.csv (see docs/REPRODUCE.md); Biometric-Quality is
+# shared with the v1 set and always loads from checkpoints/.
+_CKPT = os.environ.get("CHECKPOINT_DIR", "checkpoints")
+
 CONFIG = {
     "device": "cuda" if torch.cuda.is_available() else "cpu",
     "dataloader_num_workers": 4,
     "data_dir": "data/polyglot_processed_all_unbalanced",
     "model_files": {
-        "spatial": "checkpoints/xception/polyglotfake_xception_best_unbal_all_faceaug.pth",
-        "audio": "checkpoints/freqnet/freqnet_model_all_unbalanced_improved.pth",
-        "audio_forensics": "checkpoints/ecapa_forensic_head/audio_forensics_model_finetuned_best.pth",  
-        "cross_modal": "checkpoints/cross_modal/lip_sync_model_crossattention.pth",
-        "face_quality": "checkpoints/biometric/fine_tuning/best_model.pth",  # Add face quality model path
+        "spatial": f"{_CKPT}/xception/polyglotfake_xception_best_unbal_all_faceaug.pth",
+        "audio": f"{_CKPT}/freqnet/freqnet_model_all_unbalanced_improved.pth",
+        "audio_forensics": f"{_CKPT}/ecapa_forensic_head/audio_forensics_model_finetuned_best.pth",
+        "cross_modal": f"{_CKPT}/cross_modal/lip_sync_model_crossattention.pth",
+        "face_quality": "checkpoints/biometric/fine_tuning/best_model.pth",
     },
-    "audio_forensics_stats_path": "checkpoints/ecapa_forensic_head/training_stats.npz",
+    "audio_forensics_stats_path": f"{_CKPT}/ecapa_forensic_head/training_stats.npz",
     "output_file": "analysis_results_with_5_agents.csv",
     "visual_agent": {
         "image_size": 299,

@@ -207,3 +207,29 @@ manuscript accordingly makes no validation-provenance claim for the operating th
 the agent weights: both are described as fixed during system development, and the
 threshold-free metrics (AUC-ROC, AP), computed from the released CSVs, carry the primary
 claims.
+
+## Reproducible checkpoint set (checkpoints_v2)
+
+The v1 checkpoints in `checkpoints/` are the historical record behind the paper's released
+per-sample CSVs, but per the limitation above, FreqNet and Cross-Modal cannot be re-scored
+faithfully from them — the divergence is identical under the pinned environment and under a
+thesis-era candidate stack (torch 2.3.1, numpy 1.26.4, librosa 0.10.1), so the cause is
+uncaptured local code state at original scoring time, not the environment.
+
+`checkpoints_v2/` therefore ships the retrained checkpoints from the paper's seed-replicate
+experiment (manuscript §5.1): XceptionNet, FreqNet, Cross-Modal and the ECAPA head, retrained
+with seed 42 in the pinned environment (Biometric-Quality is shared with v1). Run the system
+with them via:
+
+```bash
+CHECKPOINT_DIR=checkpoints_v2 python src/orchestrator.py --split test \
+    --output_file /tmp/rescored.csv
+```
+
+This configuration is verified reproducible: re-scoring the released test partition
+reproduces `paper_artifacts/source_csvs/analysis_results_seed2_test.csv`
+(AUC-ROC 0.99996, 99.72% accuracy at the fixed τ = 0.37). In an 8-clip cross-machine
+spot-check, 39 of 40 per-agent scores matched within 0.02; the one exception was a single
+Biometric-Quality score off by 0.034 (a landmark-heuristic agent with mild cross-machine
+drift; ≤ 0.007 effect on the weighted aggregate). `SHA256SUMS.v2` lists the checkpoint
+digests.
