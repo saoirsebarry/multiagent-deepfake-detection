@@ -1,0 +1,177 @@
+{
+  "inputs": {
+    "val_csv": "paper_artifacts/source_csvs/analysis_results_v2_VAL.csv",
+    "test_csv": "paper_artifacts/source_csvs/analysis_results_seed2_test.csv",
+    "n_val": 238,
+    "n_test": 2162,
+    "weights_source": "paper"
+  },
+  "paper_claim": {
+    "tau": 0.37,
+    "weights": {
+      "score_Visual (Spatial)": 0.2,
+      "score_Audio (Mel+CNN)": 0.15,
+      "score_Audio Forensics (ECAPA)": 0.2,
+      "score_Cross-Modal (Lip-Sync)": 0.25,
+      "score_Facial Biometric (Quality)": 0.2
+    }
+  },
+  "val_per_agent": {
+    "score_Visual (Spatial)": {
+      "val_auc": 0.9691405974154368,
+      "val_separation": {
+        "max_real": 0.9330118894577026,
+        "min_fake": 0.10532137006521225,
+        "separable": false,
+        "gap": null
+      }
+    },
+    "score_Audio (Mel+CNN)": {
+      "val_auc": 0.9771202598686534,
+      "val_separation": {
+        "max_real": 0.975271999835968,
+        "min_fake": 0.020295357331633568,
+        "separable": false,
+        "gap": null
+      }
+    },
+    "score_Audio Forensics (ECAPA)": {
+      "val_auc": 0.9934326671845208,
+      "val_separation": {
+        "max_real": 0.999893307685852,
+        "min_fake": 9.718360871602272e-08,
+        "separable": false,
+        "gap": null
+      }
+    },
+    "score_Cross-Modal (Lip-Sync)": {
+      "val_auc": 0.998305204434715,
+      "val_separation": {
+        "max_real": 0.9656238555908203,
+        "min_fake": 0.18453732132911682,
+        "separable": false,
+        "gap": null
+      }
+    },
+    "score_Facial Biometric (Quality)": {
+      "val_auc": 1.0,
+      "val_separation": {
+        "max_real": 0.6651552319526672,
+        "min_fake": 0.7347726821899414,
+        "separable": true,
+        "gap": 0.06961745023727417
+      }
+    }
+  },
+  "weight_options_on_val": {
+    "paper": {
+      "weights": {
+        "score_Visual (Spatial)": 0.2,
+        "score_Audio (Mel+CNN)": 0.15,
+        "score_Audio Forensics (ECAPA)": 0.2,
+        "score_Cross-Modal (Lip-Sync)": 0.25,
+        "score_Facial Biometric (Quality)": 0.2
+      },
+      "val_auc": 1.0,
+      "val_separation": {
+        "max_real": 0.41638608479988776,
+        "min_fake": 0.5433349207043648,
+        "separable": true,
+        "gap": 0.1269488359044771
+      }
+    },
+    "auc": {
+      "weights": {
+        "score_Visual (Spatial)": 0.1924,
+        "score_Audio (Mel+CNN)": 0.1957,
+        "score_Audio Forensics (ECAPA)": 0.2024,
+        "score_Cross-Modal (Lip-Sync)": 0.2044,
+        "score_Facial Biometric (Quality)": 0.2051
+      },
+      "val_auc": 1.0,
+      "val_separation": {
+        "max_real": 0.36614203064631257,
+        "min_fake": 0.5590549390614409,
+        "separable": true,
+        "gap": 0.19291290841512831
+      }
+    },
+    "search": {
+      "weights": {
+        "score_Visual (Spatial)": 0.0,
+        "score_Audio (Mel+CNN)": 0.0,
+        "score_Audio Forensics (ECAPA)": 0.25,
+        "score_Cross-Modal (Lip-Sync)": 0.3,
+        "score_Facial Biometric (Quality)": 0.45
+      },
+      "val_auc": 1.0,
+      "val_separation": {
+        "max_real": 0.30460533667355805,
+        "min_fake": 0.7134095613728523,
+        "separable": true,
+        "gap": 0.4088042246992942
+      }
+    }
+  },
+  "chosen_weights": {
+    "score_Visual (Spatial)": 0.2,
+    "score_Audio (Mel+CNN)": 0.15,
+    "score_Audio Forensics (ECAPA)": 0.2,
+    "score_Cross-Modal (Lip-Sync)": 0.25,
+    "score_Facial Biometric (Quality)": 0.2
+  },
+  "tau_selection_on_val": {
+    "rule": "argmax val balanced accuracy; midpoint of the tied plateau (max margin)",
+    "best_balanced_accuracy": 1.0,
+    "plateau_low": 0.47986050275212633,
+    "plateau_high": 0.47986050275212633,
+    "tau_star": 0.47986050275212633
+  },
+  "val_separation_at_chosen_weights": {
+    "max_real": 0.41638608479988776,
+    "min_fake": 0.5433349207043648,
+    "separable": true,
+    "gap": 0.1269488359044771
+  },
+  "val_metrics_at_tau_star": {
+    "tau": 0.47986050275212633,
+    "tp": 119,
+    "tn": 119,
+    "fp": 0,
+    "fn": 0,
+    "accuracy": 1.0,
+    "balanced_accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "miscount": 0
+  },
+  "test_metrics_at_tau_star_FROZEN": {
+    "tau": 0.47986050275212633,
+    "tp": 2040,
+    "tn": 118,
+    "fp": 0,
+    "fn": 4,
+    "accuracy": 0.9981498612395929,
+    "balanced_accuracy": 0.9990215264187867,
+    "precision": 1.0,
+    "recall": 0.9980430528375733,
+    "f1": 0.999020568070519,
+    "miscount": 4
+  },
+  "test_metrics_at_paper_tau_0_37": {
+    "tau": 0.37,
+    "tp": 2043,
+    "tn": 113,
+    "fp": 5,
+    "fn": 1,
+    "accuracy": 0.9972247918593895,
+    "balanced_accuracy": 0.9785689409267306,
+    "precision": 0.99755859375,
+    "recall": 0.9995107632093934,
+    "f1": 0.998533724340176,
+    "miscount": 6
+  },
+  "reproduces_paper_tau": false,
+  "weights_match_paper": true
+}
