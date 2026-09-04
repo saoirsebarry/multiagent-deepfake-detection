@@ -1,0 +1,28 @@
+{
+ "composition": "retrained XceptionNet, FreqNet, Cross-Modal, ECAPA-TDNN + released Biometric-Quality",
+ "n": 2162,
+ "n_real": 118,
+ "n_fake": 2044,
+ "tau": 0.37,
+ "weights": {
+  "Visual (Spatial)": 0.2,
+  "Audio (Mel+CNN)": 0.15,
+  "Audio Forensics (ECAPA)": 0.2,
+  "Cross-Modal (Lip-Sync)": 0.25,
+  "Facial Biometric (Quality)": 0.2
+ },
+ "errors": 6,
+ "accuracy": 0.9972247918593895,
+ "auc_roc": 0.99996268532953,
+ "average_precision": 0.9999978493313801,
+ "margin": -0.10941182514652609,
+ "max_real_score": 0.4356288144364953,
+ "min_fake_score": 0.32621698928996923,
+ "per_agent_accuracy_at_tau": {
+  "Visual (Spatial)": 0.9338575393154487,
+  "Audio (Mel+CNN)": 0.9292321924144311,
+  "Audio Forensics (ECAPA)": 0.9819611470860314,
+  "Cross-Modal (Lip-Sync)": 0.9912118408880666,
+  "Facial Biometric (Quality)": 0.9555966697502313
+ }
+}
