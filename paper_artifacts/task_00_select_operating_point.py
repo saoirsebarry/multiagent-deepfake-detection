@@ -1,12 +1,13 @@
-"""Task 0: Derive the decision threshold (and document the agent weights) on the
-VALIDATION split, freeze them, and apply them to the TEST split.
+"""Task 0: Derive a decision threshold on a VALIDATION score file, freeze it, and
+apply it to the TEST split.
 
-This script makes the paper's "selected on the validation set" claim reproducible.
-It never reads the test labels to choose anything: tau and (optionally) the weights
-are selected only from `analysis_results_with_5_agents_VAL.csv`, then frozen and
-evaluated once on `analysis_results_with_5_agents.csv`. That val -> freeze -> test
-ordering is the whole point — it is what separates a genuine operating-point
-selection from threshold-tuning on the test set.
+This script codifies a val -> freeze -> test selection procedure: tau and
+(optionally) the weights are selected only from the validation CSV, then frozen and
+evaluated once on `analysis_results_with_5_agents.csv`. NOTE: no faithful validation
+score file currently exists — re-scoring from the released checkpoints does not
+reproduce the released FreqNet and Cross-Modal scores (see docs/REPRODUCE.md,
+"Known limitation"), so this script cannot presently audit the paper's operating
+point, and the paper makes no validation-provenance claim for it.
 
 Inputs (stdlib only — no numpy/pandas needed):
   --val   path to the validation per-agent score CSV
