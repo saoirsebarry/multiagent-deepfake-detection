@@ -183,3 +183,27 @@ python paper_artifacts/task_20_training_curves_figure.py \
 `recovered_curves.json` holds the XceptionNet, FreqNet and Cross-Modal histories parsed from their
 re-run logs; `biometric_training_history.json` is read out of the released Biometric-Quality
 checkpoint; `ecapa_training_log.csv` is written by the ECAPA trainer above.
+
+## Known limitation: checkpoint re-scoring does not reproduce two agents
+
+The released per-sample score CSVs in `paper_artifacts/source_csvs/` are the authoritative
+record behind every number in the paper, and every reported figure re-derives from them
+deterministically via `paper_artifacts/`.
+
+Re-scoring the preprocessed clips from the released checkpoints is only partially
+reproducible. Under the pinned `requirements.txt` environment (verified with torch
+2.11.0+cpu, librosa 0.11.0, numpy 2.4.4, Python 3.13), `src/orchestrator.py` reproduces the
+released per-clip scores for the Visual (Spatial), Audio Forensics (ECAPA) and Facial
+Biometric (Quality) agents to within rounding, but not for the two agents whose features
+come from `librosa.feature.melspectrogram`: FreqNet saturates at 1.0 on every clip, and
+Cross-Modal scores real clips in the 0.75–0.95 range where the released CSV records ~0.0.
+The environment or local code state that produced the released CSVs for those two agents
+was evidently not captured by this repository, and we have not been able to reconstruct it.
+
+Consequently `python src/orchestrator.py --split val` does not currently produce a
+validation score file faithful to the released system, and
+`task_00_select_operating_point.py` cannot be used to audit the operating point. The
+manuscript accordingly makes no validation-provenance claim for the operating threshold or
+the agent weights: both are described as fixed during system development, and the
+threshold-free metrics (AUC-ROC, AP), computed from the released CSVs, carry the primary
+claims.
