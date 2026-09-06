@@ -206,11 +206,11 @@
       "summed_peak_tensor_mem_mb": 539.13
     },
     "expected_adaptive": {
-      "escalation_rate": 0.0879,
+      "escalation_rate": 0.074,
       "description": "phase1 * (1 - escalation) + phase1+2 * escalation",
-      "latency_sequential_ms": 68.79,
-      "latency_parallel_ms": 37.94,
-      "param_mem_mb": 128.04
+      "latency_sequential_ms": 68.24,
+      "latency_parallel_ms": 37.57,
+      "param_mem_mb": 126.68
     }
   }
 }
