@@ -1,0 +1,15 @@
+{
+ "val": {
+  "n": 238,
+  "acc": 96.64
+ },
+ "test": {
+  "n": 2162,
+  "acc": 96.62
+ },
+ "train": {
+  "n": 1050,
+  "acc": 98.48
+ },
+ "ensemble_note": "Swapping this checkpoint into the frozen ensemble (weights 0.20/0.15/0.20/0.25/0.20, tau=0.5) gives 99.63% on test versus 99.81% with the original checkpoint; the released ensemble therefore retains the original."
+}
