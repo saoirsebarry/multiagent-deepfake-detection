@@ -1,0 +1,327 @@
+{
+ "auc": 0.999963,
+ "ap": 0.9999978,
+ "system_05": {
+  "acc": 99.81,
+  "prec": 100.0,
+  "rec": 99.8,
+  "f1": 99.9,
+  "tp": 2040,
+  "tn": 118,
+  "fp": 0,
+  "fn": 4
+ },
+ "per_agent": {
+  "Visual (XceptionNet)": {
+   "auc": 0.975,
+   "acc": 90.66,
+   "prec": 99.5,
+   "rec": 90.6,
+   "f1": 94.8,
+   "tp": 1852,
+   "tn": 108,
+   "fp": 10,
+   "fn": 192
+  },
+  "Audio (FreqNet)": {
+   "auc": 0.982,
+   "acc": 91.17,
+   "prec": 99.7,
+   "rec": 90.9,
+   "f1": 95.1,
+   "tp": 1858,
+   "tn": 113,
+   "fp": 5,
+   "fn": 186
+  },
+  "Audio (ECAPA-TDNN)": {
+   "auc": 0.993,
+   "acc": 97.96,
+   "prec": 99.7,
+   "rec": 98.1,
+   "f1": 98.9,
+   "tp": 2006,
+   "tn": 112,
+   "fp": 6,
+   "fn": 38
+  },
+  "Cross-Modal (Lip-Sync)": {
+   "auc": 0.998,
+   "acc": 98.89,
+   "prec": 99.8,
+   "rec": 99.1,
+   "f1": 99.4,
+   "tp": 2025,
+   "tn": 113,
+   "fp": 5,
+   "fn": 19
+  },
+  "Biometric-Quality": {
+   "auc": 0.988,
+   "acc": 95.42,
+   "prec": 99.5,
+   "rec": 95.6,
+   "f1": 97.5,
+   "tp": 1955,
+   "tn": 108,
+   "fp": 10,
+   "fn": 89
+  }
+ },
+ "score_corr": {
+  "VF": 0.379,
+  "VE": 0.51,
+  "VX": 0.625,
+  "VB": 0.456,
+  "FE": 0.639,
+  "FX": 0.581,
+  "FB": 0.436,
+  "EX": 0.783,
+  "EB": 0.593,
+  "XB": 0.687
+ },
+ "err_corr": {
+  "VF": -0.01,
+  "VE": -0.013,
+  "VX": 0.133,
+  "VB": 0.044,
+  "FE": 0.186,
+  "FX": 0.014,
+  "FB": -0.014,
+  "EX": 0.016,
+  "EB": -0.016,
+  "XB": 0.082
+ },
+ "score_corr_range": [
+  0.379,
+  0.783
+ ],
+ "err_corr_max": [
+  "FE",
+  0.186
+ ],
+ "err_corr_two_strongest": [
+  [
+   "X",
+   "E"
+  ],
+  0.016
+ ],
+ "ablation": {
+  "Visual (XceptionNet)": {
+   "errors": 6,
+   "fp": 1,
+   "fn": 5,
+   "acc": 99.72,
+   "b": 2,
+   "c": 0,
+   "mcnemar_p": 0.5,
+   "delta_pp": 0.093
+  },
+  "Audio (FreqNet)": {
+   "errors": 9,
+   "fp": 1,
+   "fn": 8,
+   "acc": 99.58,
+   "b": 5,
+   "c": 0,
+   "mcnemar_p": 0.0625,
+   "delta_pp": 0.231
+  },
+  "Audio (ECAPA-TDNN)": {
+   "errors": 14,
+   "fp": 2,
+   "fn": 12,
+   "acc": 99.35,
+   "b": 10,
+   "c": 0,
+   "mcnemar_p": 0.001953,
+   "delta_pp": 0.463
+  },
+  "Cross-Modal (Lip-Sync)": {
+   "errors": 5,
+   "fp": 0,
+   "fn": 5,
+   "acc": 99.77,
+   "b": 3,
+   "c": 2,
+   "mcnemar_p": 1.0,
+   "delta_pp": 0.046
+  },
+  "Biometric-Quality": {
+   "errors": 8,
+   "fp": 2,
+   "fn": 6,
+   "acc": 99.63,
+   "b": 5,
+   "c": 1,
+   "mcnemar_p": 0.21875,
+   "delta_pp": 0.185
+  }
+ },
+ "three_agent_tiered": {
+  "acc": 99.77,
+  "prec": 100.0,
+  "rec": 99.8,
+  "f1": 99.9,
+  "tp": 2040,
+  "tn": 117,
+  "fp": 1,
+  "fn": 4
+ },
+ "phase1_renorm": {
+  "acc": 99.68,
+  "prec": 100.0,
+  "rec": 99.7,
+  "f1": 99.8,
+  "tp": 2038,
+  "tn": 117,
+  "fp": 1,
+  "fn": 6
+ },
+ "best_single": [
+  "Cross-Modal (Lip-Sync)",
+  98.89
+ ],
+ "sweep": [
+  {
+   "tau": 0.3,
+   "acc": 99.769,
+   "fp": 5,
+   "fn": 0,
+   "mis": 5
+  },
+  {
+   "tau": 0.35,
+   "acc": 99.722,
+   "fp": 5,
+   "fn": 1,
+   "mis": 6
+  },
+  {
+   "tau": 0.4,
+   "acc": 99.769,
+   "fp": 3,
+   "fn": 2,
+   "mis": 5
+  },
+  {
+   "tau": 0.45,
+   "acc": 99.815,
+   "fp": 0,
+   "fn": 4,
+   "mis": 4
+  },
+  {
+   "tau": 0.5,
+   "acc": 99.815,
+   "fp": 0,
+   "fn": 4,
+   "mis": 4
+  },
+  {
+   "tau": 0.55,
+   "acc": 99.63,
+   "fp": 0,
+   "fn": 8,
+   "mis": 8
+  },
+  {
+   "tau": 0.6,
+   "acc": 99.352,
+   "fp": 0,
+   "fn": 14,
+   "mis": 14
+  }
+ ],
+ "disagree": [
+  {
+   "tau_d": 0.2,
+   "esc_pct": 7.7,
+   "acc": 99.81,
+   "mis": 4,
+   "avg_agents": 3.15
+  },
+  {
+   "tau_d": 0.25,
+   "esc_pct": 7.4,
+   "acc": 99.81,
+   "mis": 4,
+   "avg_agents": 3.15
+  },
+  {
+   "tau_d": 0.3,
+   "esc_pct": 7.4,
+   "acc": 99.81,
+   "mis": 4,
+   "avg_agents": 3.15
+  },
+  {
+   "tau_d": 0.35,
+   "esc_pct": 7.4,
+   "acc": 99.81,
+   "mis": 4,
+   "avg_agents": 3.15
+  },
+  {
+   "tau_d": 0.4,
+   "esc_pct": 7.4,
+   "acc": 99.81,
+   "mis": 4,
+   "avg_agents": 3.15
+  },
+  {
+   "tau_d": 0.5,
+   "esc_pct": 7.4,
+   "acc": 99.81,
+   "mis": 4,
+   "avg_agents": 3.15
+  }
+ ],
+ "cp_interval": [
+  0.9953,
+  0.9995
+ ],
+ "weight_perturb": {
+  "n": 3125,
+  "min_auc": 0.999871,
+  "max_auc": 0.999992
+ },
+ "auc_boot_ci": [
+  0.99988,
+  1.0
+ ],
+ "acc_boot_ci": [
+  99.63,
+  99.95
+ ],
+ "yt_cp_38_49": [
+  0.634,
+  0.882
+ ],
+ "ece": 0.074,
+ "grid": {
+  "n": 10626,
+  "min_auc": 0.9745,
+  "max_auc": 1.0,
+  "best_mis": 2,
+  "n_mis_le4": 179,
+  "paper_vec_auc": 0.999963,
+  "paper_vec_mis": 4
+ },
+ "perturb161k": {
+  "n": 161051,
+  "min_auc": 0.99987,
+  "max_auc": 0.999992
+ },
+ "cost_keys": [
+  "device",
+  "device_type",
+  "torch",
+  "platform",
+  "protocol",
+  "caveats",
+  "models",
+  "phases"
+ ]
+}
