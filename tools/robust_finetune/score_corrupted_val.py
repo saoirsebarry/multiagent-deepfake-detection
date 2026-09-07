@@ -119,7 +119,7 @@ with open(A.out_csv, "w", newline="") as fh:
         npz = np.load(os.path.join(d, f), allow_pickle=True); faces0 = npz["faces"]; w0 = npz["waveform"].astype(np.float32)
         gt = "Fake" if C.label_of(npz) else "Real"
         for k in range(A.k + 1):
-            random.seed(hash((f, k)) & 0xFFFFFFFF); np.random.seed(hash((f, k, "np")) & 0xFFFFFFFF)
+            C._seed(f, f"k{k}")
             if k == 0:
                 faces, w = faces0, w0
             else:
