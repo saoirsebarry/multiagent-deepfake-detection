@@ -84,23 +84,23 @@ class PolyglotFakeDataset(Dataset):
         }
 
     def _prepare_face_quality_data(self, faces: np.ndarray) -> torch.Tensor:
-        # Prepares the 5-channel tensor (RGB + blur + exposure).
+        # Prepares the 5-channel tensor (RGB + forensic maps).
         if len(faces) == 0:
             return torch.zeros((5, self.image_size, self.image_size)) # Handle empty face arrays.
-        
-        face = faces[len(faces) // 2] # Use middle face.
+
+        face = cv2.cvtColor(faces[len(faces) // 2], cv2.COLOR_BGR2RGB) # Use middle face.
+        face = cv2.resize(face, (self.image_size, self.image_size))
         face_tensor = self.transform(face)
         quality_features = self._extract_quality_metrics(face)
         return torch.cat([face_tensor, quality_features], dim=0)
 
-    def _extract_quality_metrics(self, face: np.ndarray) -> torch.Tensor:
-        # Calculates blur and exposure scores.
-        gray = cv2.cvtColor(face, cv2.COLOR_BGR2GRAY)
-        blur_score = cv2.Laplacian(gray, cv2.CV_64F).var() # Blur metric (Laplacian variance).
-        blur_tensor = torch.full((1, self.image_size, self.image_size), blur_score / 1000.0)
-        exposure_score = np.mean(gray) / 255.0 # Exposure metric (mean intensity).
-        exposure_tensor = torch.full((1, self.image_size, self.image_size), exposure_score)
-        return torch.cat([blur_tensor, exposure_tensor], dim=0)
+    def _extract_quality_metrics(self, face_rgb: np.ndarray) -> torch.Tensor:
+        # Per-pixel forensic maps: Laplacian sharpness and high-frequency residual.
+        gray = cv2.cvtColor(face_rgb, cv2.COLOR_RGB2GRAY).astype(np.float64)
+        lap = np.tanh(np.abs(cv2.Laplacian(gray, cv2.CV_64F)) / 64.0)
+        g = gray / 255.0
+        hf = np.clip(4.0 * (g - cv2.GaussianBlur(g, (5, 5), 1.0)), -1.0, 1.0)
+        return torch.from_numpy(np.stack([lap, hf]).astype(np.float32))
 
 
 class FaceQualityNet(nn.Module):

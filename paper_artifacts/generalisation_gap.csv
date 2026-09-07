@@ -1,6 +1,6 @@
 agent,dev_accuracy,test_accuracy,gap,dev_source
-Visual (XceptionNet),0.94,0.9107,0.0293,"§3.3.1, Stage 2 validation accuracy"
-Audio (FreqNet),0.98,0.8182,0.1618,"§3.3.2, reported accuracy for the final audio agent"
-Audio Forensics (ECAPA-TDNN),,0.9658,,no development accuracy reported
-Cross-Modal (Lip-Sync),0.99,0.9866,0.0034,"§3.3.3, cross-attention validation accuracy"
-Biometric-Quality,0.9958,0.9556,0.0402,released checkpoint val_metrics.accuracy at the best epoch
+Visual (XceptionNet),0.94,0.9066,0.0334,"§3.3.1, Stage 2 validation accuracy"
+Audio (FreqNet),0.98,0.9117,0.0683,"§3.3.2, reported accuracy for the final audio agent"
+Audio Forensics (ECAPA-TDNN),0.962,0.9796,-0.0176,released model validation accuracy at its best epoch (indicative)
+Cross-Modal (Lip-Sync),0.99,0.9889,0.0011,"§3.3.3, cross-attention validation accuracy"
+Biometric-Quality,0.9916,0.9931,-0.0015,"validation accuracy of the released model, Section 3.3.4"

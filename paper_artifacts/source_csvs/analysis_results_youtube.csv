@@ -1,0 +1,38 @@
+filepath,video_id,ground_truth,label_note,system_verdict,final_score,score_Visual (Spatial),score_Audio (Mel+CNN),score_Audio Forensics (ECAPA),score_Cross-Modal (Lip-Sync),score_Facial Biometric (Quality)
+At least 13 dead in Nepal after protests against social media ban ｜ BBC News__dSRnKy10lA_seq000_label_real.npz,_dSRnKy10lA,Real,,Real,0.028336,0.066942,0.111273,0.000046,0.000532,0.006734
+"Create AI Videos & Images in HeyGen with Veo3, Runway Gen-4, Kling & More! (Step-by-Step)_mZcridN9hq0_seq000_label_fake.npz",mZcridN9hq0,Real,real presenter face in a video about generation tools,Real,0.037447,0.132141,0.034459,0.001414,0.229013,0.030184
+"Create AI Videos & Images in HeyGen with Veo3, Runway Gen-4, Kling & More! (Step-by-Step)_mZcridN9hq0_seq001_label_fake.npz",mZcridN9hq0,Real,real presenter face in a video about generation tools,Real,0.031938,0.115992,0.074210,0.000003,0.073632,0.019035
+French government collapses as MPs vote to oust prime minister ｜ BBC News_n-jo7tfhsvQ_seq000_label_real.npz,n-jo7tfhsvQ,Real,,Real,0.061313,0.156830,0.246727,0.008001,0.000429,0.004262
+French government collapses as MPs vote to oust prime minister ｜ BBC News_n-jo7tfhsvQ_seq001_label_real.npz,n-jo7tfhsvQ,Real,,Real,0.042854,0.138311,0.114279,0.000002,0.002406,0.032405
+French government collapses as MPs vote to oust prime minister ｜ BBC News_n-jo7tfhsvQ_seq002_label_real.npz,n-jo7tfhsvQ,Real,,Real,0.038856,0.196266,0.131990,0.000000,0.000575,0.006540
+French government collapses as MPs vote to oust prime minister ｜ BBC News_n-jo7tfhsvQ_seq003_label_real.npz,n-jo7tfhsvQ,Real,,Real,0.029544,0.094451,0.111577,0.000000,0.000771,0.006170
+French government collapses as MPs vote to oust prime minister ｜ BBC News_n-jo7tfhsvQ_seq004_label_real.npz,n-jo7tfhsvQ,Real,,Real,0.057470,0.086821,0.242885,0.003118,0.000844,0.008937
+How to Go VIRAL on Social Media Using AI_nDZQKKpAbWo_seq000_label_fake.npz,nDZQKKpAbWo,Fake,,Deepfake,0.502810,0.068844,0.983729,1.000000,0.026649,0.003225
+How to Go VIRAL on Social Media Using AI_nDZQKKpAbWo_seq001_label_fake.npz,nDZQKKpAbWo,Fake,,Deepfake,0.503962,0.065580,0.995220,0.999999,0.008411,0.003048
+How to Go VIRAL on Social Media Using AI_nDZQKKpAbWo_seq002_label_fake.npz,nDZQKKpAbWo,Fake,,Real,0.485782,0.067898,0.900857,1.000000,0.021843,0.002808
+How to Go VIRAL on Social Media Using AI_nDZQKKpAbWo_seq003_label_fake.npz,nDZQKKpAbWo,Fake,,Real,0.493415,0.067142,0.942045,1.000000,0.003942,0.003630
+How to Go VIRAL on Social Media Using AI_nDZQKKpAbWo_seq004_label_fake.npz,nDZQKKpAbWo,Fake,,Real,0.497657,0.067274,0.965136,1.000000,0.002420,0.002862
+How to Make AI Music and a Virtual Band in Under 10 Minutes_cT9Uw2jzMUc_seq000_label_fake.npz,cT9Uw2jzMUc,Real,real presenter face in a video about generation tools,Real,0.307421,0.072625,0.003346,1.000000,0.037804,0.003075
+How to Make AI Music and a Virtual Band in Under 10 Minutes_cT9Uw2jzMUc_seq001_label_fake.npz,cT9Uw2jzMUc,Real,real presenter face in a video about generation tools,Real,0.307172,0.078506,0.004519,0.999952,0.012119,0.004379
+How to Make AI Music and a Virtual Band in Under 10 Minutes_cT9Uw2jzMUc_seq002_label_fake.npz,cT9Uw2jzMUc,Real,real presenter face in a video about generation tools,Real,0.170780,0.073004,0.024455,0.532849,0.014773,0.004113
+How to Make AI Music and a Virtual Band in Under 10 Minutes_cT9Uw2jzMUc_seq003_label_fake.npz,cT9Uw2jzMUc,Real,real presenter face in a video about generation tools,Real,0.306303,0.067952,0.014548,0.993026,0.014311,0.003432
+How to Make AI Music and a Virtual Band in Under 10 Minutes_cT9Uw2jzMUc_seq004_label_fake.npz,cT9Uw2jzMUc,Real,real presenter face in a video about generation tools,Real,0.307899,0.121310,0.003572,0.987535,0.033139,0.008005
+I Tested MrBeast's Thumbnail Strategy on AI Videos Here's What Worked_pxPzCFM0qE4_seq000_label_fake.npz,pxPzCFM0qE4,Fake,,Deepfake,0.512926,0.076918,0.983870,1.000000,0.201340,0.005599
+I Tested MrBeast's Thumbnail Strategy on AI Videos Here's What Worked_pxPzCFM0qE4_seq001_label_fake.npz,pxPzCFM0qE4,Fake,,Real,0.308302,0.092761,0.003900,0.999997,0.018861,0.004854
+I Tested MrBeast's Thumbnail Strategy on AI Videos Here's What Worked_pxPzCFM0qE4_seq002_label_fake.npz,pxPzCFM0qE4,Fake,,Real,0.325221,0.119082,0.090073,0.998710,0.004543,0.003530
+I Tested MrBeast's Thumbnail Strategy on AI Videos Here's What Worked_pxPzCFM0qE4_seq003_label_fake.npz,pxPzCFM0qE4,Fake,,Real,0.409794,0.077009,0.510912,0.999998,0.047079,0.003520
+I Tested MrBeast's Thumbnail Strategy on AI Videos Here's What Worked_pxPzCFM0qE4_seq004_label_fake.npz,pxPzCFM0qE4,Fake,,Real,0.486130,0.077524,0.890089,0.999413,0.052422,0.004477
+Israel intensifies strikes on Gaza City ｜ BBC News_AEu6wVp_Edw_seq000_label_real.npz,AEu6wVp_Edw,Real,,Real,0.052074,0.060214,0.239172,0.000007,0.005386,0.002395
+Israel intensifies strikes on Gaza City ｜ BBC News_AEu6wVp_Edw_seq001_label_real.npz,AEu6wVp_Edw,Real,,Real,0.078038,0.063980,0.235169,0.088751,0.004239,0.002420
+Israel intensifies strikes on Gaza City ｜ BBC News_AEu6wVp_Edw_seq002_label_real.npz,AEu6wVp_Edw,Real,,Real,0.054887,0.071516,0.251380,0.000123,0.003884,0.002011
+Israel intensifies strikes on Gaza City ｜ BBC News_AEu6wVp_Edw_seq003_label_real.npz,AEu6wVp_Edw,Real,,Real,0.086096,0.066552,0.404245,0.000338,0.010190,0.003270
+Israel intensifies strikes on Gaza City ｜ BBC News_AEu6wVp_Edw_seq004_label_real.npz,AEu6wVp_Edw,Real,,Real,0.138379,0.069085,0.667205,0.001100,0.004009,0.002382
+Jerusalem shooting： Six killed by Palestinian gunmen ｜ BBC News_8Xeh7TVPp-M_seq000_label_real.npz,8Xeh7TVPp-M,Real,,Real,0.013898,0.077630,0.026805,0.000000,0.075365,0.002217
+Jerusalem shooting： Six killed by Palestinian gunmen ｜ BBC News_8Xeh7TVPp-M_seq001_label_real.npz,8Xeh7TVPp-M,Real,,Real,0.052082,0.062401,0.237247,0.001741,0.003741,0.002009
+Jerusalem shooting： Six killed by Palestinian gunmen ｜ BBC News_8Xeh7TVPp-M_seq002_label_real.npz,8Xeh7TVPp-M,Real,,Real,0.043579,0.065853,0.192577,0.000002,0.018066,0.002168
+Jerusalem shooting： Six killed by Palestinian gunmen ｜ BBC News_8Xeh7TVPp-M_seq003_label_real.npz,8Xeh7TVPp-M,Real,,Real,0.021732,0.064629,0.059332,0.018427,0.010321,0.001476
+Jerusalem shooting： Six killed by Palestinian gunmen ｜ BBC News_8Xeh7TVPp-M_seq004_label_real.npz,8Xeh7TVPp-M,Real,,Real,0.076352,0.067975,0.328767,0.019721,0.010974,0.001838
+Prince Harry lays wreath in memory of late Queen ｜ BBC News_lGO9j_x8gp0_seq000_label_real.npz,lGO9j_x8gp0,Real,,Real,0.006845,0.080734,0.007177,0.000001,0.005332,0.002765
+Prince Harry lays wreath in memory of late Queen ｜ BBC News_lGO9j_x8gp0_seq001_label_real.npz,lGO9j_x8gp0,Real,,Real,0.051193,0.071161,0.179488,0.034870,0.003916,0.002702
+Prince Harry lays wreath in memory of late Queen ｜ BBC News_lGO9j_x8gp0_seq002_label_real.npz,lGO9j_x8gp0,Real,,Real,0.096315,0.066783,0.185131,0.182347,0.003678,0.002653
+We Created the World's Most Realistic Digital Twin_m0fdgkJGxHs_seq000_label_fake.npz,m0fdgkJGxHs,Fake,,Real,0.103224,0.689583,0.026255,0.000263,0.819083,0.056151

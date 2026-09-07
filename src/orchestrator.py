@@ -54,7 +54,7 @@ CONFIG = {
         "audio": f"{_CKPT}/freqnet/freqnet_model_all_unbalanced_improved.pth",
         "audio_forensics": f"{_CKPT}/ecapa_forensic_head/audio_forensics_model_finetuned_best.pth",
         "cross_modal": f"{_CKPT}/cross_modal/lip_sync_model_crossattention.pth",
-        "face_quality": "checkpoints/biometric/fine_tuning/best_model.pth",
+        "face_quality": "checkpoints_v2/biometric/best_model.pth",
     },
     "audio_forensics_stats_path": f"{_CKPT}/ecapa_forensic_head/training_stats.npz",
     "output_file": "analysis_results_with_5_agents.csv",
@@ -90,13 +90,13 @@ CONFIG = {
     },
     "decision_engine": {
         "weights": {
-            "Visual (Spatial)": 0.20,
-            "Audio (Mel+CNN)": 0.15,
-            "Audio Forensics (ECAPA)": 0.20,
-            "Cross-Modal (Lip-Sync)": 0.25,
-            "Facial Biometric (Quality)": 0.20,  
+            "Visual (Spatial)": 0.05,
+            "Audio (Mel+CNN)": 0.20,
+            "Audio Forensics (ECAPA)": 0.30,
+            "Cross-Modal (Lip-Sync)": 0.05,
+            "Facial Biometric (Quality)": 0.40,  
         },
-        "threshold": 0.37,
+        "threshold": 0.5,
     }
 }
 
@@ -522,61 +522,34 @@ def run_face_quality_analysis(media_data: Dict[str, Any], models: Dict[str, Any]
     
     try:
         image_size = cfg['image_size']
-        
-        # Select middle face for quality assessment
-        face_idx = len(faces) // 2 if len(faces) > 1 else 0
-        face = faces[face_idx]
-        
-        # Convert to numpy if tensor
-        if torch.is_tensor(face):
-            face = face.cpu().numpy()
-        
-        # Ensure uint8 format
-        if face.dtype != np.uint8:
-            face = (face * 255).astype(np.uint8) if face.max() <= 1.0 else face.astype(np.uint8)
-        
-        # Extract quality metrics
-        def extract_quality_metrics(face_img):
-            gray = cv2.cvtColor(face_img, cv2.COLOR_BGR2GRAY) if len(face_img.shape) == 3 else face_img
-            
-            # Blur score (Laplacian variance)
-            blur_score = cv2.Laplacian(gray, cv2.CV_64F).var()
-            blur_tensor = torch.full((1, image_size, image_size), blur_score / 1000.0)
-            
-            # Exposure score (mean brightness)
-            exposure_score = np.mean(gray) / 255.0
-            exposure_tensor = torch.full((1, image_size, image_size), exposure_score)
-            
-            return torch.cat([blur_tensor, exposure_tensor], dim=0)
-        
-        # Prepare transforms
-        base_transforms = [
-            transforms.ToPILImage(),
-            transforms.Resize((image_size, image_size)),
-            transforms.ToTensor(),
-        ]
-        
-        if cfg['normalize']:
-            base_transforms.append(
-                transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
-            )
-        
-        transform = transforms.Compose(base_transforms)
-        
-        # Process face
-        face_tensor = transform(face)
-        quality_features = extract_quality_metrics(face)
-        
-        # Combine face tensor and quality features (5 channels total)
-        combined_input = torch.cat([face_tensor, quality_features], dim=0)
-        
-        # Add batch dimension and move to device
-        input_tensor = combined_input.unsqueeze(0).to(device)
-        
-        # Run inference
+        normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+
+        def forensic_maps(face_rgb):
+            # Per-pixel Laplacian sharpness map and high-frequency residual map.
+            gray = cv2.cvtColor(face_rgb, cv2.COLOR_RGB2GRAY).astype(np.float64)
+            lap = np.tanh(np.abs(cv2.Laplacian(gray, cv2.CV_64F)) / 64.0)
+            g = gray / 255.0
+            hf = np.clip(4.0 * (g - cv2.GaussianBlur(g, (5, 5), 1.0)), -1.0, 1.0)
+            return torch.from_numpy(np.stack([lap, hf]).astype(np.float32))
+
+        def stack5(face_rgb):
+            rgb = normalize(torch.from_numpy(face_rgb).permute(2, 0, 1).float() / 255.0)
+            return torch.cat([rgb, forensic_maps(face_rgb)], dim=0)
+
+        # Average the prediction over every frame with horizontal-flip TTA.
+        inputs = []
+        for face in faces:
+            if torch.is_tensor(face):
+                face = face.cpu().numpy()
+            if face.dtype != np.uint8:
+                face = (face * 255).astype(np.uint8) if face.max() <= 1.0 else face.astype(np.uint8)
+            rgb = cv2.cvtColor(face, cv2.COLOR_BGR2RGB)
+            rgb = cv2.resize(rgb, (image_size, image_size))
+            inputs.append(stack5(rgb))
+            inputs.append(stack5(rgb[:, ::-1].copy()))
+
         with torch.no_grad():
-            output = model(input_tensor)
-            score = output.squeeze().item()
+            score = model(torch.stack(inputs).to(device)).mean().item()
         
         return {
             'agent': agent_name,

@@ -59,7 +59,7 @@ CONFIG = {
         "audio": "checkpoints/freqnet/freqnet_model_all_unbalanced_improved.pth",
         "audio_forensics": "checkpoints/ecapa_forensic_head/audio_forensics_model_finetuned_best.pth",
         "cross_modal": "checkpoints/cross_modal/lip_sync_model_crossattention.pth",
-        "face_quality": "checkpoints/biometric/fine_tuning/best_model.pth",
+        "face_quality": "checkpoints_v2/biometric/best_model.pth",
     },
     "audio_forensics_stats_path": "checkpoints/ecapa_forensic_head/training_stats.npz",
     "gradcam_output_dir": "multiagent_xai_results_5agents",
@@ -78,7 +78,7 @@ CONFIG = {
     "debug_mode": True,
     "target_file": None,
     "decision_engine": {
-        "threshold": 0.37,
+        "threshold": 0.5,
     },
     "multi_agent": {
         "confidence_threshold": 0.7,
@@ -825,25 +825,33 @@ def run_face_quality_analysis(media_data: Dict[str, Any], models: Dict[str, Any]
         face_bgr = faces[len(faces) // 2]
         face_rgb = cv2.cvtColor(face_bgr, cv2.COLOR_BGR2RGB)
         
-        # --- Preprocessing & Inference (based on the middle frame) ---
-        transform = transforms.Compose([
-            transforms.ToPILImage(),
-            transforms.Resize((image_size, image_size)),
-            transforms.ToTensor()
-        ])
-        
+        # --- Preprocessing & Inference (all frames, per-pixel forensic maps, flip TTA) ---
+        normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+
+        def forensic_maps(rgb):
+            g = cv2.cvtColor(rgb, cv2.COLOR_RGB2GRAY).astype(np.float64)
+            lap = np.tanh(np.abs(cv2.Laplacian(g, cv2.CV_64F)) / 64.0)
+            hf = np.clip(4.0 * (g / 255.0 - cv2.GaussianBlur(g / 255.0, (5, 5), 1.0)), -1.0, 1.0)
+            return torch.from_numpy(np.stack([lap, hf]).astype(np.float32))
+
+        def stack5(rgb):
+            t = normalize(torch.from_numpy(rgb).permute(2, 0, 1).float() / 255.0)
+            return torch.cat([t, forensic_maps(rgb)], dim=0)
+
+        inputs = []
+        for f in faces:
+            rgb = cv2.resize(cv2.cvtColor(f, cv2.COLOR_BGR2RGB), (image_size, image_size))
+            inputs.append(stack5(rgb))
+            inputs.append(stack5(rgb[:, ::-1].copy()))
+
+        with torch.no_grad():
+            score = model(torch.stack(inputs).to(CONFIG['device'])).mean().item()
+
+        # Metrics for the visualization panels below.
         gray = cv2.cvtColor(face_bgr, cv2.COLOR_BGR2GRAY)
         blur_score = cv2.Laplacian(gray, cv2.CV_64F).var()
         blur_model_input = blur_score / 1000.0
         exposure_model_input = np.mean(gray) / 255.0
-        
-        rgb_tensor = transform(face_rgb)
-        blur_tensor = torch.full((1, image_size, image_size), blur_model_input)
-        exposure_tensor = torch.full((1, image_size, image_size), exposure_model_input)
-        input_tensor = torch.cat([rgb_tensor, blur_tensor, exposure_tensor], dim=0).unsqueeze(0).to(CONFIG['device'])
-        
-        with torch.no_grad():
-            score = model(input_tensor).squeeze().item()
             
         # --- XAI Visualization Generation ---
         base_filename = os.path.basename(media_data['filepath']).replace('.npz', '')

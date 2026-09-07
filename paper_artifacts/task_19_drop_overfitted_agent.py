@@ -6,7 +6,7 @@ whether the ensemble is better off without it. This re-aggregates the stored
 per-agent scores for every configuration, so no retraining is involved.
 
 Reported per configuration: threshold-free AUC-ROC and average precision, accuracy
-and errors at tau = 0.37, the separation margin, and recall on each manipulation
+and errors at tau = 0.5, the separation margin, and recall on each manipulation
 method - because a method-level view is the only way to see whether an over-fitted
 member drags the ensemble down where it is weak.
 """
@@ -22,7 +22,7 @@ from sklearn.metrics import average_precision_score, roc_auc_score
 
 HERE = Path(__file__).resolve().parent
 CSV = HERE / "source_csvs" / "analysis_results_with_5_agents.csv"
-TAU = 0.37
+TAU = 0.5
 AGENTS = {
     "Visual": ("score_Visual (Spatial)", 0.20),
     "FreqNet": ("score_Audio (Mel+CNN)", 0.15),

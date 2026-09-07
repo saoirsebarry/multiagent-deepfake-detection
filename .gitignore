@@ -18,3 +18,4 @@ data/
 
 # macOS
 .DS_Store
+checkpoints/speechbrain_cache/
