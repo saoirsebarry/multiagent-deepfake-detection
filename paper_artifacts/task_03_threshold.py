@@ -1,7 +1,8 @@
 """Task 3: Supplementary threshold-robustness table.
 
 Purpose: robustness check, NOT threshold selection. The paper's operating
-point is the conventional tau = 0.5, certified on the validation partition (see
+sweep runs on the VALIDATION partition — the split the operating point is certified
+on; the test set is read out once at tau = 0.5 (see
 task_00_select_operating_point.py for the selection procedure).
 """
 from __future__ import annotations
@@ -16,7 +17,10 @@ TAU_SWEEP = [0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60]
 
 
 def main() -> None:
-    df = load_five_agent()
+    import pandas as pd
+    from _common import CSV_DIR
+    df = pd.read_csv(CSV_DIR / "analysis_results_VAL.csv")
+    df["y_true"] = (df["ground_truth"] == "Fake").astype(int)
     y_true = df["y_true"].values
     score = df["final_score"].values
 
