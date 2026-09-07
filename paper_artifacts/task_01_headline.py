@@ -23,7 +23,7 @@ def main() -> None:
     counts = confusion_counts(df["y_true"].values, y_pred)
     metrics = metrics_from_counts(counts)
 
-    EXPECTED = {"fn": 3, "fp": 0, "accuracy": 0.99861, "precision": 1.0, "recall": 0.99853, "f1": 0.99927}
+    EXPECTED = {"fn": 0, "fp": 1, "accuracy": 0.99954, "precision": 0.99951, "recall": 1.0, "f1": 0.99976}
     for k in ("fn", "fp"):
         if counts[k] != EXPECTED[k]:
             print(f"STOP: headline {k} = {counts[k]}, expected {EXPECTED[k]}", file=sys.stderr)

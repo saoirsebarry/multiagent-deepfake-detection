@@ -6,16 +6,16 @@
   "n_fake": 11,
   "tau": 0.5,
   "confusion_matrix": {
-    "TP": 3,
+    "TP": 0,
     "TN": 26,
     "FP": 0,
-    "FN": 8
+    "FN": 11
   },
-  "accuracy": 0.7837837837837838,
-  "precision": 1.0,
-  "recall": 0.2727272727272727,
-  "f1": 0.42857142857142855,
-  "miscount": 8,
+  "accuracy": 0.7027027027027027,
+  "precision": 0.0,
+  "recall": 0.0,
+  "f1": 0.0,
+  "miscount": 11,
   "phase_counts": {},
   "escalation_rate": null,
   "note": "The orchestration CSV records a 'phase' field directly. 'quick' = Phase 1 only (no escalation); 'iterative' and 'strong' = Phase 2 deployed. Escalation rate = (iterative + strong) / total."

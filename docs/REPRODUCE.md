@@ -117,8 +117,9 @@ After re-running C, run Path A to regenerate all downstream artifacts from the f
 ## Path D — Reproduce the operating-point provenance (validation-selected weights)
 
 The paper selects the agent weight vector on the **validation** partition by exhaustive
-grid search (0.05-step simplex, all five agents active; minimise validation errors at the
-conventional τ = 0.5, tie-break on the separating margin), then freezes it and reports the
+grid search (0.05-step simplex, all five agents active; minimise validation errors of the
+deployed tiered verdict at the conventional τ = 0.5, tie-break on the two-sided clearance
+around the threshold), then freezes it and reports the
 single test read-out. This path reruns that selection from the released validation scores
 and asserts it lands on the released vector.
 
@@ -129,7 +130,7 @@ python paper_artifacts/task_00_select_operating_point.py
 This reruns the released grid search on `analysis_results_VAL.csv`, fails loudly if the
 argmax is not the released vector, and writes
 `paper_artifacts/operating_point_provenance.json`: the grid size, the number of vectors
-that classify validation perfectly (139 of 3,876), the selected vector's validation margin
+that classify validation perfectly (102 of 3,876), the selected vector's validation margin
 and band (the conventional τ = 0.5 sits inside it), and the frozen test read-out.
 
 ## Known-good environment
@@ -185,7 +186,7 @@ python src/orchestrator.py --split test --output_file /tmp/rescored.csv
 
 This configuration is verified reproducible: re-scoring the released test partition
 reproduces `paper_artifacts/source_csvs/analysis_results_with_5_agents.csv`
-(AUC-ROC 1.000, 99.86% accuracy at τ = 0.5). In an 8-clip cross-machine spot-check, 39 of
+(AUC-ROC 0.99998, 99.95% accuracy at τ = 0.5). In an 8-clip cross-machine spot-check, 39 of
 40 per-agent scores matched within 0.02. `SHA256SUMS` lists the checkpoint digests.
 
 The released per-sample score CSVs in `paper_artifacts/source_csvs/` are the authoritative
