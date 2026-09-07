@@ -1,0 +1,5 @@
+{"agent": "ecapa", "released_val": {"epoch": 0, "auc": 0.99315, "logloss": 0.17765, "acc": 0.96218, "corr_auc": 0.99216, "corr_logloss": 0.18407, "corr_acc": 0.95798},
+ "rule1": {"adopted": true, "best": {"epoch": 55, "train_loss": 0.24518, "auc": 0.99703, "logloss": 0.10891, "acc": 0.97479, "corr_auc": 0.99682, "corr_logloss": 0.10459, "corr_acc": 0.98739}},
+ "rule2": {"adopted": true, "best": {"epoch": 51, "train_loss": 0.24162, "auc": 0.9964, "logloss": 0.10917, "acc": 0.97479, "corr_auc": 0.9964, "corr_logloss": 0.10359, "corr_acc": 0.98319}, "released_robust_logloss": 0.18086, "best_robust_logloss": 0.10638},
+ "adopted": true, "adopted_rule": "rule1", "adopted_epoch": 55,
+ "_note": "released row = released head scored on features recomputed on the Colab runtime (distribution fidelity gate: p95 0.021, AUC 0.99315 vs 0.99343); transcribed from the Colab terminal (2026-09-07 20:50 UTC); 5-dp rounding"}

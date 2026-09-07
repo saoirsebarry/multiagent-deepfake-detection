@@ -22,7 +22,13 @@ HERE = Path(__file__).resolve().parent
 SRC = HERE / "source_csvs"
 C5 = ["score_Visual (Spatial)", "score_Audio (Mel+CNN)", "score_Audio Forensics (ECAPA)",
       "score_Cross-Modal (Lip-Sync)", "score_Facial Biometric (Quality)"]
-RELEASED = np.array([0.05, 0.05, 0.40, 0.05, 0.45])
+import json
+# the clean-validation rule below reproduces the clean-rule vector; the released weights are the
+# corrupted-validation re-selection recorded by the retraining pass (paper_artifacts/retraining/readout.json)
+_RO = json.load(open(HERE / "retraining" / "readout.json"))
+_ORDER = ["visual", "freqnet", "ecapa", "crossmodal", "biometric"]
+RELEASED = np.array([_RO["weights_clean_rule"]["weights"][a] for a in _ORDER])
+FINAL = np.array([_RO["weights_final"]["weights"][a] for a in _ORDER])
 TAU = 0.5
 
 
@@ -57,7 +63,8 @@ def main() -> None:
     w_star = active[i_best]
 
     if not np.allclose(w_star, RELEASED):
-        raise SystemExit(f"FAIL: selection reproduces {w_star.tolist()}, released is {RELEASED.tolist()}")
+        raise SystemExit(f"FAIL: selection reproduces {w_star.tolist()}, clean-rule vector is {RELEASED.tolist()}")
+    print(f"clean-validation rule reproduces {w_star.tolist()}; released weights after the clean+corrupted re-selection: {FINAL.tolist()}")
 
     dt = pd.read_csv(SRC / "analysis_results_with_5_agents.csv")
     St = dt[C5].to_numpy()

@@ -6,7 +6,7 @@ Code and data release accompanying:
 > *A Multi-Agent Framework with Adaptive Orchestration for Explainable Multi-Modal Deepfake Detection*.
 > MDPI Informatics Journal, 2026.
 
-**Headline result.** On the PolyGlotFake test set (2,162 samples) the five-agent ensemble achieves AUC-ROC = 0.99998 and average precision = 0.999999, and 99.95 % accuracy at the conventional threshold τ = 0.5, with zero missed fakes and a single false positive. Real- and fake-class aggregate-score distributions are fully separable (validation band 0.434–0.544 centred on τ).
+**Headline result.** On the PolyGlotFake test set (2,162 samples) the five-agent ensemble achieves AUC-ROC = 0.99999 and average precision = 0.999999, and 99.91 % accuracy at the conventional threshold τ = 0.5, with 1 missed fake and 1 false positive. Real- and fake-class aggregate-score distributions are fully separable (validation band 0.349–0.495 centred on τ).
 
 ---
 
@@ -97,7 +97,7 @@ Phase 1 (always)                    Phase 2 (on disagreement)
 ```
 
 - **Weights** (selected on the validation partition by exhaustive 0.05-step grid search — `paper_artifacts/task_00_select_operating_point.py` reruns the selection):
-  `(w_visual, w_freqnet, w_ecapa, w_crossmodal, w_biometric) = (0.05, 0.05, 0.40, 0.05, 0.45)`.
+  `(w_visual, w_freqnet, w_ecapa, w_crossmodal, w_biometric) = (0.05, 0.05, 0.45, 0.10, 0.35)`.
   In Phase 1, the remaining three weights are renormalised to sum to 1.
 - **Disagreement metric.** `d = std(phase-1 scores)`. If any two Phase-1 agents disagree on verdict at τ = 0.5, `d ← max(d, 0.30)` — forcing Phase 2.
 - **Decision threshold τ = 0.5.** The conventional midpoint, certified on the validation partition: validation separates fully and 0.5 lies inside its separating band (0.335–0.507).
@@ -125,7 +125,7 @@ Everything the paper cites can be regenerated from the CSVs in `paper_artifacts/
 
 | Paper claim | Task script | Output file |
 |---|---|---|
-| Abstract / Section 4.1 headline (99.95 % / 1 error at τ = 0.5) | `task_01_headline.py` | `headline_metrics.json` |
+| Abstract / Section 4.1 headline (99.91 % / 2 errors at τ = 0.5) | `task_01_headline.py` | `headline_metrics.json` |
 | AUC = 1.000, AP = 1.000, operating-point marker | `task_02_roc_pr.py` | `roc_curve_system.{pdf,png}`, `pr_curve_system.{pdf,png}` |
 | Threshold robustness (accuracy ≥ 99.0 % over [0.30, 0.60]) | `task_03_threshold.py` | `threshold_robustness.csv`, `threshold_robustness_table.tex` |
 | 95 % CI on every metric | `task_04_bootstrap.py` | `bootstrap_cis.json` |
@@ -166,7 +166,7 @@ Our identity-based test split has 118 real + 2,044 fake = **2,162 samples**. The
 
 ### 5.2 YouTube distribution-shift benchmark
 
-49 clips drawn from BBC News livestreams (real) and HeyGen sample content (fake). Per-clip URLs and timestamps are listed in `paper_artifacts/source_csvs/analysis_results_with_5_agents_orchestration.csv` (column `filepath`); raw videos are not redistributed (copyright).
+100 clips from 26 public YouTube videos uploaded between April and November 2025 (the period of the original sources), at 1080p and with an audio track: BBC News bulletins (real), the Aaj Tak and OTV AI news anchors and AI-avatar creator channels (fake). Every clip passed the per-frame gates of `youtube_eval/extract_clips.py`, its label follows the provenance of the face shown (verified per clip from contact sheets, full frames, video descriptions and transcripts), and the clip list and labels were frozen and hashed before any clip was scored (`youtube_eval/manifest.json`, `youtube_eval/clip_provenance.json`; the manifest also lists every excluded source and why). Per-clip agent scores are in `paper_artifacts/source_csvs/analysis_results_youtube.csv`; regenerate the clips with `extract_clips.py` and score them with `youtube_eval/score_clips.py`. Raw videos are not redistributed (copyright).
 
 ---
 
@@ -178,7 +178,7 @@ Our identity-based test split has 118 real + 2,044 fake = **2,162 samples**. The
 |---|---|---|
 | Decision threshold τ | 0.5 | [`src/detect.py:81`](src/detect.py#L81) |
 | Disagreement threshold τ_d | 0.30 | [`src/detect.py:85`](src/detect.py#L85) |
-| Agent weights | (0.05, 0.05, 0.40, 0.05, 0.45) | [`src/orchestrator.py:82-88`](src/orchestrator.py#L82) |
+| Agent weights | (0.05, 0.05, 0.45, 0.10, 0.35) | [`src/orchestrator.py:82-88`](src/orchestrator.py#L82) |
 | Aggregation | Weighted mean, renormalised | [`src/orchestrator.py:635-641`](src/orchestrator.py#L635) |
 
 ### 6.2 Per-agent training
@@ -209,8 +209,8 @@ Every number cited in the paper traces back to one of three CSVs:
 | CSV | Produces | Used for |
 |---|---|---|
 | `paper_artifacts/source_csvs/analysis_results_with_5_agents.csv` | 2,162-row PolyGlotFake test set with 5-agent per-sample scores and orchestrator `final_score` (weighted mean) | Headline, AUC, AP, CIs, ablation, threshold sweep, disagreement sweep, calibration |
-| `paper_artifacts/source_csvs/analysis_results_with_3_agents.csv` | 2,162-row PolyGlotFake test set with 3-agent Phase-1 scores | 3-agent comparison row of Table 8 |
-| `paper_artifacts/source_csvs/analysis_results_with_5_agents_orchestration.csv` | 49-row YouTube benchmark with 5-agent scores, recorded phase, consensus rate, and analysis time | YouTube evaluation (§4.10), distribution-shift analysis |
+| `paper_artifacts/source_csvs/analysis_results_VAL.csv` | 238-row PolyGlotFake validation partition with 5-agent per-sample scores | Weight selection (Table 7), threshold robustness (Table 12) |
+| `paper_artifacts/source_csvs/analysis_results_youtube.csv` | 100-row YouTube evaluation set with 5-agent scores, provenance labels and the aggregate `final_score` | YouTube evaluation (Section 4.11), escalation under shift (Table 18) |
 
 Each CSV can be regenerated by running the matching orchestrator script in `src/` against the preprocessed dataset. The published CSVs are the exact files used to produce the paper; checksums are recorded in `paper_artifacts/source_csvs/.sha256`.
 

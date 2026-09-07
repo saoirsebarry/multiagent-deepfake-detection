@@ -29,10 +29,10 @@
       "params_trainable": 3153025,
       "param_mem_mb": 91.4,
       "latency_ms": {
-        "mean": 6.5560379065573215,
-        "std": 0.010595758350726117,
-        "median": 6.55613336712122,
-        "p95": 6.572069993708283
+        "mean": 6.447035162709653,
+        "std": 0.009381061075003043,
+        "median": 6.444977014325559,
+        "p95": 6.466689382214099
       },
       "peak_tensor_mem_mb": 127.04,
       "resident_tensor_mem_mb": 92.68,
@@ -48,14 +48,14 @@
       "params_trainable": 3906882,
       "param_mem_mb": 23.39,
       "latency_ms": {
-        "mean": 14.152207175890604,
-        "std": 0.07346799387213378,
-        "median": 14.140093815512955,
-        "p95": 14.30615096585825
+        "mean": 13.60165933612734,
+        "std": 0.01531464556737266,
+        "median": 13.599372981116176,
+        "p95": 13.627332781907171
       },
-      "peak_tensor_mem_mb": 218.93,
+      "peak_tensor_mem_mb": 169.17,
       "resident_tensor_mem_mb": 35.18,
-      "peak_activation_mem_mb": 183.75,
+      "peak_activation_mem_mb": 133.99,
       "device": "mps"
     },
     {
@@ -67,10 +67,10 @@
       "params_trainable": 4355261,
       "param_mem_mb": 16.61,
       "latency_ms": {
-        "mean": 6.58392960516115,
-        "std": 0.07492708845313432,
-        "median": 6.564571033231914,
-        "p95": 6.701197705697268
+        "mean": 6.594517527458568,
+        "std": 0.0690305594987857,
+        "median": 6.588375032879412,
+        "p95": 6.663028651382774
       },
       "peak_tensor_mem_mb": 41.87,
       "resident_tensor_mem_mb": 18.52,
@@ -86,10 +86,10 @@
       "params_trainable": 42657,
       "param_mem_mb": 79.38,
       "latency_ms": {
-        "mean": 24.68652331425498,
-        "std": 0.533536293368386,
-        "median": 24.52744178008288,
-        "p95": 25.521774089429528
+        "mean": 23.12165043472002,
+        "std": 0.7974904187599865,
+        "median": 23.066062410362065,
+        "p95": 24.521538570988923
       },
       "peak_tensor_mem_mb": 0.17,
       "resident_tensor_mem_mb": 0.17,
@@ -106,10 +106,10 @@
       "params_trainable": 7494781,
       "param_mem_mb": 28.59,
       "latency_ms": {
-        "mean": 8.292151670902967,
-        "std": 0.1063698710881333,
-        "median": 8.30836035311222,
-        "p95": 8.442899999208748
+        "mean": 7.983397352509201,
+        "std": 0.05832092815993836,
+        "median": 7.9715290339663625,
+        "p95": 8.075908559840173
       },
       "peak_tensor_mem_mb": 41.18,
       "resident_tensor_mem_mb": 29.36,
@@ -125,14 +125,14 @@
       "params_trainable": 113571640,
       "param_mem_mb": 433.24,
       "latency_ms": {
-        "mean": 27.99802920781076,
-        "std": 0.16127160211198505,
-        "median": 28.016775008291006,
-        "p95": 28.254508627578616
+        "mean": 27.78134293543796,
+        "std": 0.12647135043099217,
+        "median": 27.755054202862084,
+        "p95": 28.005768223665655
       },
       "peak_tensor_mem_mb": 464.14,
       "resident_tensor_mem_mb": 435.97,
-      "peak_activation_mem_mb": 28.18,
+      "peak_activation_mem_mb": 28.17,
       "device": "mps",
       "lower_bound": true,
       "fidelity_note": "rebuild has 113.6M parameters against 130M reported for the original; treat this row as a lower bound on the original's cost"
@@ -146,10 +146,10 @@
       "params_trainable": 128426497,
       "param_mem_mb": 489.91,
       "latency_ms": {
-        "mean": 14.143643186738094,
-        "std": 0.01864963226525094,
-        "median": 14.143668720498681,
-        "p95": 14.173384988680482
+        "mean": 13.941114852204919,
+        "std": 0.023595856587792667,
+        "median": 13.936631195247173,
+        "p95": 13.9550486439839
       },
       "peak_tensor_mem_mb": 498.15,
       "resident_tensor_mem_mb": 490.55,
@@ -168,9 +168,9 @@
       ],
       "params_total": 31296224,
       "param_mem_mb": 119.39,
-      "latency_sequential_ms": 45.42,
-      "latency_parallel_ms": 24.69,
-      "summed_peak_tensor_mem_mb": 260.97
+      "latency_sequential_ms": 43.32,
+      "latency_parallel_ms": 23.12,
+      "summed_peak_tensor_mem_mb": 211.21
     },
     "phase1_plus_2": {
       "agents": [
@@ -181,15 +181,15 @@
       ],
       "params_total": 55256201,
       "param_mem_mb": 210.79,
-      "latency_sequential_ms": 51.98,
-      "latency_parallel_ms": 31.24,
-      "summed_peak_tensor_mem_mb": 388.01
+      "latency_sequential_ms": 49.76,
+      "latency_parallel_ms": 29.57,
+      "summed_peak_tensor_mem_mb": 338.25
     },
     "expected_adaptive": {
       "escalation_rate": 0.0879,
       "description": "phase1 * (1 - escalation) + phase1+2 * escalation",
-      "latency_sequential_ms": 46.0,
-      "latency_parallel_ms": 25.27,
+      "latency_sequential_ms": 43.89,
+      "latency_parallel_ms": 23.69,
       "param_mem_mb": 127.42
     }
   }

@@ -218,17 +218,12 @@ def main() -> None:
          f"TN = {youtube['confusion_matrix']['TN']}, "
          f"FP = {youtube['confusion_matrix']['FP']}, "
          f"FN = {youtube['confusion_matrix']['FN']}")
-    push(f"- Phases recorded in CSV: {youtube['phase_counts']}")
-    push(f"- Escalation rate: {fmt_pct(youtube['escalation_rate'])} "
-         f"(quick = phase-1 only; iterative/strong = escalated)")
+    push(f"- Phase counts: {youtube['phase_counts']}")
+    push(f"- Escalation rate: {fmt_pct(youtube['escalation_rate'])}")
     push("")
-    push("**Reconciliation with the thesis's 50-sample / 78% claim.** The saved "
-         "orchestration CSV contains 49 parseable rows (not 50). At τ = 0.5 the "
-         "accuracy is 77.55%, which matches the thesis figure within 1 sample. "
-         "The paper should either state `n = 49` honestly or rerun the evaluation "
-         "to produce a 50-sample CSV. Escalation is ~69.4% (34 / 49), consistent "
-         "with the paper's phrasing about Phase-2 activation rising on out-of-"
-         "distribution content.")
+    push("The set is the frozen 100-clip evaluation described in youtube_eval/manifest.json: "
+         "clip list and labels fixed and hashed before scoring; escalation recomputed from the "
+         "stored Phase-1 scores under Algorithm 1.")
     push("")
 
     # 8. Parameter counts

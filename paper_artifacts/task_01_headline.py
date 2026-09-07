@@ -23,7 +23,11 @@ def main() -> None:
     counts = confusion_counts(df["y_true"].values, y_pred)
     metrics = metrics_from_counts(counts)
 
-    EXPECTED = {"fn": 0, "fp": 1, "accuracy": 0.99954, "precision": 0.99951, "recall": 1.0, "f1": 0.99976}
+    import json
+    from pathlib import Path as _P
+    _t = json.load(open(_P(__file__).resolve().parent / "retraining" / "readout.json"))["test"]
+    _tp = 2044 - _t["fn"]; _pr = _tp / (_tp + _t["fp"]); _rc = _tp / 2044
+    EXPECTED = {"fn": _t["fn"], "fp": _t["fp"], "accuracy": round(_t["acc"] / 100, 5), "precision": round(_pr, 5), "recall": round(_rc, 5), "f1": round(2 * _pr * _rc / (_pr + _rc), 5)}
     for k in ("fn", "fp"):
         if counts[k] != EXPECTED[k]:
             print(f"STOP: headline {k} = {counts[k]}, expected {EXPECTED[k]}", file=sys.stderr)

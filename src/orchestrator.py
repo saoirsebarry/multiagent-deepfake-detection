@@ -49,12 +49,12 @@ CONFIG = {
     "data_dir": "data/polyglot_processed_all_unbalanced",
     "model_files": {
         "spatial": f"{_CKPT}/xception/polyglotfake_xception_best_unbal_all_faceaug.pth",
-        "audio": f"{_CKPT}/freqnet/freqnet_model_all_unbalanced_improved.pth",
-        "audio_forensics": f"{_CKPT}/ecapa_forensic_head/audio_forensics_model_finetuned_best.pth",
-        "cross_modal": f"{_CKPT}/cross_modal/lip_sync_model_crossattention.pth",
+        "audio": f"{_CKPT}/freqnet/freqnet_model_finetuned_robust.pth",
+        "audio_forensics": f"{_CKPT}/ecapa_forensic_head/audio_forensics_model_finetuned_robust.pth",
+        "cross_modal": f"{_CKPT}/cross_modal/lip_sync_model_crossattention_finetuned_robust.pth",
         "face_quality": f"{_CKPT}/biometric/best_model.pth",
     },
-    "audio_forensics_stats_path": f"{_CKPT}/ecapa_forensic_head/training_stats.npz",
+    "audio_forensics_stats_path": f"{_CKPT}/ecapa_forensic_head/training_stats_finetuned_robust.npz",
     "output_file": "analysis_results_with_5_agents.csv",
     "visual_agent": {
         "image_size": 299,
@@ -90,9 +90,9 @@ CONFIG = {
         "weights": {
             "Visual (Spatial)": 0.05,
             "Audio (Mel+CNN)": 0.05,
-            "Audio Forensics (ECAPA)": 0.40,
-            "Cross-Modal (Lip-Sync)": 0.05,
-            "Facial Biometric (Quality)": 0.45,  
+            "Audio Forensics (ECAPA)": 0.45,
+            "Cross-Modal (Lip-Sync)": 0.10,
+            "Facial Biometric (Quality)": 0.35,  
         },
         "threshold": 0.5,
     }

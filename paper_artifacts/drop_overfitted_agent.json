@@ -9,20 +9,20 @@
     ],
     "auc": 1.0,
     "ap": 1.0,
-    "accuracy": 0.9990749306197965,
-    "errors": 2,
+    "accuracy": 0.9986123959296948,
+    "errors": 3,
     "false_pos": 0,
-    "false_neg": 2,
-    "margin": 0.11093194136962892,
+    "false_neg": 3,
+    "margin": 0.06057090000000004,
     "recall_by_method": {
       "MicroTts": 0.9985,
       "Xtts": 0.998,
       "Bark": 1.0,
       "Tacotron": 1.0,
-      "Vall": 1.0
+      "Vall": 0.9873
     },
-    "worst_method_recall": 0.9980237154150198,
-    "recall_spread": 0.0019762845849802257
+    "worst_method_recall": 0.9873417721518988,
+    "recall_spread": 0.012658227848101222
   },
   "without FreqNet": {
     "members": [
@@ -31,22 +31,22 @@
       "CrossModal",
       "Biometric"
     ],
-    "auc": 0.9999917078510067,
-    "ap": 0.999999521762668,
-    "accuracy": 0.9986123959296948,
-    "errors": 3,
+    "auc": 0.9999958539255034,
+    "ap": 0.9999997607644056,
+    "accuracy": 0.9958371877890841,
+    "errors": 9,
     "false_pos": 0,
-    "false_neg": 3,
-    "margin": -0.027206470588235276,
+    "false_neg": 9,
+    "margin": -0.007243941176470536,
     "recall_by_method": {
-      "MicroTts": 0.9969,
-      "Xtts": 0.998,
-      "Bark": 1.0,
-      "Tacotron": 1.0,
+      "MicroTts": 0.9954,
+      "Xtts": 0.9941,
+      "Bark": 0.9957,
+      "Tacotron": 0.997,
       "Vall": 1.0
     },
-    "worst_method_recall": 0.9969278033794163,
-    "recall_spread": 0.003072196620583667
+    "worst_method_recall": 0.9940711462450593,
+    "recall_spread": 0.005928853754940677
   },
   "without Visual": {
     "members": [
@@ -57,20 +57,20 @@
     ],
     "auc": 1.0,
     "ap": 1.0,
-    "accuracy": 0.9995374653098983,
-    "errors": 1,
+    "accuracy": 0.9990749306197965,
+    "errors": 2,
     "false_pos": 0,
-    "false_neg": 1,
-    "margin": 0.14584872004810345,
+    "false_neg": 2,
+    "margin": 0.032668437500000036,
     "recall_by_method": {
       "MicroTts": 1.0,
       "Xtts": 0.998,
       "Bark": 1.0,
       "Tacotron": 1.0,
-      "Vall": 1.0
+      "Vall": 0.9873
     },
-    "worst_method_recall": 0.9980237154150198,
-    "recall_spread": 0.0019762845849802257
+    "worst_method_recall": 0.9873417721518988,
+    "recall_spread": 0.012658227848101222
   },
   "without ECAPA": {
     "members": [
@@ -79,22 +79,22 @@
       "CrossModal",
       "Biometric"
     ],
-    "auc": 0.9999917078510067,
-    "ap": 0.9999995214117683,
-    "accuracy": 0.9981498612395929,
-    "errors": 4,
+    "auc": 0.9999502471060401,
+    "ap": 0.9999971267109515,
+    "accuracy": 0.9967622571692877,
+    "errors": 7,
     "false_pos": 0,
-    "false_neg": 4,
-    "margin": -0.07464540778113526,
+    "false_neg": 7,
+    "margin": -0.07333343749999999,
     "recall_by_method": {
-      "MicroTts": 0.9969,
-      "Xtts": 0.996,
-      "Bark": 1.0,
-      "Tacotron": 1.0,
+      "MicroTts": 0.9954,
+      "Xtts": 0.998,
+      "Bark": 0.9957,
+      "Tacotron": 0.997,
       "Vall": 1.0
     },
-    "worst_method_recall": 0.9960474308300395,
-    "recall_spread": 0.0039525691699604515
+    "worst_method_recall": 0.9953917050691244,
+    "recall_spread": 0.004608294930875556
   },
   "without CrossModal": {
     "members": [
@@ -103,16 +103,16 @@
       "ECAPA",
       "Biometric"
     ],
-    "auc": 0.9999917078510067,
-    "ap": 0.999999521762668,
-    "accuracy": 0.9986123959296948,
-    "errors": 3,
+    "auc": 1.0,
+    "ap": 1.0,
+    "accuracy": 0.9990749306197965,
+    "errors": 2,
     "false_pos": 0,
-    "false_neg": 3,
-    "margin": -0.02829218798536509,
+    "false_neg": 2,
+    "margin": 0.040601000000000054,
     "recall_by_method": {
       "MicroTts": 1.0,
-      "Xtts": 0.998,
+      "Xtts": 1.0,
       "Bark": 1.0,
       "Tacotron": 1.0,
       "Vall": 0.9747
@@ -127,16 +127,16 @@
       "ECAPA",
       "CrossModal"
     ],
-    "auc": 1.0,
-    "ap": 1.0,
-    "accuracy": 0.9990749306197965,
-    "errors": 2,
-    "false_pos": 0,
-    "false_neg": 2,
-    "margin": 0.029299758844554435,
+    "auc": 0.9999751235530201,
+    "ap": 0.9999985642346175,
+    "accuracy": 0.9981498612395929,
+    "errors": 4,
+    "false_pos": 1,
+    "false_neg": 3,
+    "margin": -0.152124875,
     "recall_by_method": {
       "MicroTts": 1.0,
-      "Xtts": 0.998,
+      "Xtts": 0.996,
       "Bark": 1.0,
       "Tacotron": 1.0,
       "Vall": 0.9873

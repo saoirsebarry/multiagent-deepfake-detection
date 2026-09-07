@@ -1,0 +1,99 @@
+{
+ "adopted": {
+  "visual": false,
+  "freqnet": true,
+  "ecapa": true,
+  "crossmodal": true,
+  "biometric": false
+ },
+ "adopted_rule": {
+  "visual": null,
+  "freqnet": "rule1",
+  "ecapa": "rule1",
+  "crossmodal": "rule2"
+ },
+ "overrides": {
+  "freqnet": "/content/drive/MyDrive/polyglotfake/robust_ft/freqnet/best_model.pth",
+  "ecapa": "/content/drive/MyDrive/polyglotfake/robust_ft/ecapa/best_model.pth",
+  "crossmodal": "/content/drive/MyDrive/polyglotfake/robust_ft/crossmodal/best_robust.pth",
+  "ecapa_stats": "/content/drive/MyDrive/polyglotfake/robust_ft/ecapa/training_stats.npz"
+ },
+ "weights_clean_rule": {
+  "weights": {
+   "visual": 0.05,
+   "freqnet": 0.05,
+   "ecapa": 0.5,
+   "crossmodal": 0.05,
+   "biometric": 0.35
+  },
+  "errors": 0,
+  "clearance": 0.001926749999999977,
+  "n_rows": 238
+ },
+ "weights_final_rule": "clean+corrupted",
+ "weights_final": {
+  "weights": {
+   "visual": 0.05,
+   "freqnet": 0.05,
+   "ecapa": 0.45,
+   "crossmodal": 0.1,
+   "biometric": 0.35
+  },
+  "errors": 4,
+  "clearance": -0.004792649999999954,
+  "n_rows": 714
+ },
+ "validation": {
+  "tiered_errors": 1,
+  "auc_full": 1.0,
+  "band": {
+   "max_real": 0.3493151500000001,
+   "min_fake": 0.49520735000000005
+  }
+ },
+ "test": {
+  "n": 2162,
+  "acc": 99.90749306197965,
+  "fp": 1,
+  "fn": 1,
+  "auc_full": 0.99998756177651,
+  "auc_tiered": 0.99998756177651,
+  "esc_pct": 4.394079555966698,
+  "band_full": {
+   "max_real": 0.5147419000000001,
+   "min_fake": 0.3873025
+  },
+  "per_agent": {
+   "visual": {
+    "auc": 0.9977403893993168,
+    "acc": 96.48473635522664,
+    "fp": 2,
+    "fn": 74
+   },
+   "freqnet": {
+    "auc": 0.9916124912932436,
+    "acc": 93.57076780758557,
+    "fp": 3,
+    "fn": 136
+   },
+   "ecapa": {
+    "auc": 0.9966168032107201,
+    "acc": 97.77983348751155,
+    "fp": 2,
+    "fn": 46
+   },
+   "crossmodal": {
+    "auc": 0.9979850077946201,
+    "acc": 98.01110083256243,
+    "fp": 4,
+    "fn": 39
+   },
+   "biometric": {
+    "auc": 0.99985074131812,
+    "acc": 99.30619796484737,
+    "fp": 1,
+    "fn": 14
+   }
+  }
+ }
+}
