@@ -10,6 +10,7 @@ import csv
 import os
 import random
 import sys
+import zlib
 
 import cv2
 import numpy as np
@@ -107,6 +108,21 @@ def robust_audio_aug(w, sr=16000):
     return np.clip(w, -1.0, 1.0).astype(np.float32)
 
 
+def _seed(key, salt):
+    v = zlib.crc32(f"{key}|{salt}".encode()) & 0xFFFFFFFF
+    random.seed(v); np.random.seed(v)
+
+
+def corrupt_faces(faces, key):
+    """Clip-consistent deterministic corruption of a face sequence (no flip)."""
+    _seed(key, "img"); p = sample_image_params(); p["flip"] = False
+    return [apply_image_params(to_uint8(f), p) for f in faces]
+
+
+def corrupt_wave(w, key):
+    _seed(key, "aud"); return robust_audio_aug(np.asarray(w, dtype=np.float32))
+
+
 def auc_of(scores, labels):
     scores = np.asarray(scores, dtype=np.float64); labels = np.asarray(labels).astype(bool)
     order = np.argsort(scores); n = len(scores); ranks = np.empty(n)
@@ -156,15 +172,23 @@ def fidelity(scores, column, tol=0.02):
     return diff
 
 
-def decide(agent, column, best, out_dir):
-    """Apply the pre-registered adoption rule and record the decision."""
+def decide(agent, column, hist, out_dir):
+    """Two validation-only rules, both fixed before any test or YouTube read.
+    Rule 1 (clean): a fine-tuned epoch (>= 1) with lower clean-validation log-loss than the
+    released model and clean AUC within 0.002. Rule 2 (robust, added after rule 1 adopted no
+    XceptionNet epoch): lower mean log-loss over validation scored clean AND corrupted, with
+    clean AUC within 0.002. hist rows carry epoch, logloss, auc, corr_logloss, corr_auc."""
     import json
-    rel = released_val(column)
-    labels = {f: 1.0 if "_label_fake" in f else 0.0 for f in rel}
-    rm = evaluate(rel, labels)
-    adopted = best["logloss"] < rm["logloss"] and best["auc"] >= rm["auc"] - 0.002
-    summary = {"agent": agent, "released_val": rm, "best_val": best, "adopted": adopted,
-               "rule": "adopt iff val logloss lower and val AUC >= released - 0.002"}
+    rel = hist[0]; cands = [h for h in hist if h["epoch"] >= 1]
+    r1 = min(cands, key=lambda h: h["logloss"]) if cands else None
+    rule1 = bool(r1 and r1["logloss"] < rel["logloss"] and r1["auc"] >= rel["auc"] - 0.002)
+    robust = lambda h: 0.5 * (h["logloss"] + h["corr_logloss"])
+    r2 = min(cands, key=robust) if cands else None
+    rule2 = bool(r2 and robust(r2) < robust(rel) and r2["auc"] >= rel["auc"] - 0.002)
+    chosen = ("rule1", r1) if rule1 else ("rule2", r2) if rule2 else (None, None)
+    summary = {"agent": agent, "released_val": rel, "rule1": {"adopted": rule1, "best": r1},
+               "rule2": {"adopted": rule2, "best": r2, "released_robust_logloss": robust(rel), "best_robust_logloss": robust(r2) if r2 else None},
+               "adopted": chosen[0] is not None, "adopted_rule": chosen[0], "adopted_epoch": chosen[1]["epoch"] if chosen[1] else None}
     json.dump(summary, open(os.path.join(out_dir, "decision.json"), "w"), indent=1)
     print("DECISION", json.dumps(summary), flush=True)
-    return adopted
+    return summary

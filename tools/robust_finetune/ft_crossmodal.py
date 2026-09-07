@@ -81,13 +81,16 @@ class CMSet(Dataset):
         return frames_tensor(d["faces"], self.aug), torch.from_numpy(mel).unsqueeze(0), torch.tensor(int(C.label_of(d)))
 
 
-def score_split(model, root, split):
+def score_split(model, root, split, corrupt=False):
     model.eval(); d, files = C.split_files(root, split); out = {}
     with torch.no_grad():
         for f in files:
             npz = np.load(os.path.join(d, f), allow_pickle=True)
-            vis = frames_tensor(npz["faces"]).unsqueeze(0).to(device)
-            mel = torch.from_numpy(mel_of(npz["waveform"])).unsqueeze(0).unsqueeze(0).to(device)
+            faces, w = npz["faces"], npz["waveform"]
+            if corrupt:
+                faces, w = C.corrupt_faces(faces, f), C.corrupt_wave(w, f)
+            vis = frames_tensor(faces).unsqueeze(0).to(device)
+            mel = torch.from_numpy(mel_of(np.asarray(w))).unsqueeze(0).unsqueeze(0).to(device)
             logits, _ = model(vis, mel); out[f] = float(torch.softmax(logits, dim=1)[0, 1].item())
     return out
 
@@ -95,9 +98,13 @@ def score_split(model, root, split):
 model = CrossModal_CNN_LSTM().to(device)
 model.load_state_dict(torch.load(os.path.join(C.REPO, "checkpoints/cross_modal/lip_sync_model_crossattention.pth"), map_location=device, weights_only=False))
 labels_of = lambda ss: {f: 1.0 if "_label_fake" in f else 0.0 for f in ss}
+LABELS_V = {f: 1.0 if "_label_fake" in f else 0.0 for f in C.split_files(A.data_dir, "val")[1]}
+def score_split_corrupt():
+    return score_split(model, A.data_dir, "val", corrupt=True)
 vs = score_split(model, A.data_dir, "val"); C.fidelity(vs, C.COLUMNS["crossmodal"])
-hist = [{"epoch": 0, **C.evaluate(vs, labels_of(vs))}]; print("epoch 00", hist[-1], flush=True)
-best = dict(hist[-1]); best_path = os.path.join(A.out_dir, "best_model.pth"); torch.save(model.state_dict(), best_path)
+vc = score_split_corrupt()
+hist = [{"epoch": 0, **C.evaluate(vs, labels_of(vs)), **{"corr_" + k: v for k, v in C.evaluate(vc, LABELS_V).items()}}]; print("epoch 00", hist[-1], flush=True)
+best = dict(hist[-1]); best_r = 0.5 * (hist[0]["logloss"] + hist[0]["corr_logloss"]); best_path = os.path.join(A.out_dir, "best_model.pth"); torch.save(model.state_dict(), best_path)
 for p in model.cnn_base[0][15:].parameters():
     p.requires_grad = True
 ft = list(model.cnn_base[0][15:].parameters()); ft_ids = {id(p) for p in ft}
@@ -113,13 +120,18 @@ for ep in range(1, A.epochs + 1):
         opt.zero_grad(); logits, _ = model(vis, mel); loss = crit(logits, y); loss.backward(); opt.step(); tl.append(loss.item())
     sched.step()
     vs = score_split(model, A.data_dir, "val"); m = C.evaluate(vs, labels_of(vs))
-    hist.append({"epoch": ep, "train_loss": float(np.mean(tl)), **m})
+    mc = C.evaluate(score_split_corrupt(), LABELS_V); hist.append({"epoch": ep, "train_loss": float(np.mean(tl)), **m, **{"corr_" + k: v for k, v in mc.items()}})
+    torch.save(model.state_dict(), os.path.join(A.out_dir, f"epoch{ep:02d}.pth"))
+    rob = 0.5 * (m["logloss"] + mc["logloss"])
+    if rob < best_r - 1e-4:
+        best_r = rob; torch.save(model.state_dict(), os.path.join(A.out_dir, "best_robust.pth"))
     print(f"epoch {ep:02d} train {np.mean(tl):.4f} val logloss {m['logloss']:.4f} auc {m['auc']:.5f} acc {m['acc']:.4f}", flush=True)
     if m["logloss"] < best["logloss"] - 1e-4:
         best = {"epoch": ep, **m}; torch.save(model.state_dict(), best_path); print("  -> new best", flush=True)
 json.dump(hist, open(os.path.join(A.out_dir, "history.json"), "w"), indent=1)
-C.decide("crossmodal", C.COLUMNS["crossmodal"], best, A.out_dir)
-model.load_state_dict(torch.load(best_path, map_location=device, weights_only=False))
+summary = C.decide("crossmodal", C.COLUMNS["crossmodal"], hist, A.out_dir)
+final_path = best_path if summary["adopted_rule"] == "rule1" else os.path.join(A.out_dir, "best_robust.pth") if summary["adopted_rule"] == "rule2" else best_path
+model.load_state_dict(torch.load(final_path, map_location=device, weights_only=False))
 for split in ("val", "test"):
     if os.path.isdir(os.path.join(A.data_dir, split)):
         ss = score_split(model, A.data_dir, split)

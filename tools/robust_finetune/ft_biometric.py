@@ -18,6 +18,21 @@ sys.path.insert(0, os.path.join(HERE, "..")); sys.path.insert(0, HERE)
 from train_biometric import FaceQualityNet, stack5, score_split, IMAGE_SIZE  # noqa: E402
 import common as C  # noqa: E402
 
+
+def score_split_c(model, root, split, device):
+    d, files = C.split_files(root, split); out = {}; model.eval()
+    for f in files:
+        faces = np.load(os.path.join(d, f), allow_pickle=True)["faces"]
+        if len(faces) == 0:
+            out[f] = 0.5; continue
+        xs = []
+        for face in C.corrupt_faces(faces, f):
+            rgb = cv2.cvtColor(face, cv2.COLOR_BGR2RGB); rgb = np.array(Image.fromarray(rgb).resize((IMAGE_SIZE, IMAGE_SIZE)))
+            xs.append(stack5(rgb)); xs.append(stack5(rgb[:, ::-1].copy()))
+        with torch.no_grad():
+            out[f] = float(model(torch.stack(xs).to(device)).mean().item())
+    return out
+
 ap = argparse.ArgumentParser()
 ap.add_argument("--data_dir", required=True); ap.add_argument("--out_dir", required=True)
 ap.add_argument("--epochs", type=int, default=15); ap.add_argument("--lr", type=float, default=5e-5)
@@ -53,11 +68,15 @@ model = FaceQualityNet().to(device)
 model.load_state_dict(torch.load(os.path.join(C.REPO, "checkpoints/biometric/best_model.pth"), map_location=device, weights_only=False)["model_state_dict"])
 val_dir, val_files = C.split_files(A.data_dir, "val")
 val_labels = {f: 1.0 if "_label_fake" in f else 0.0 for f in val_files}
+LABELS_V = val_labels
+def score_split_corrupt():
+    return score_split_c(model, A.data_dir, "val", device)
 vs = score_split(model, A.data_dir, "val", device)
 C.fidelity(vs, C.COLUMNS["biometric"])
-hist = [{"epoch": 0, **C.evaluate(vs, val_labels)}]
+vc = score_split_corrupt()
+hist = [{"epoch": 0, **C.evaluate(vs, val_labels), **{"corr_" + k: v for k, v in C.evaluate(vc, val_labels).items()}}]
 print("epoch 00", hist[-1], flush=True)
-best = dict(hist[-1]); best_path = os.path.join(A.out_dir, "best_model.pth")
+best = dict(hist[-1]); best_r = 0.5 * (hist[0]["logloss"] + hist[0]["corr_logloss"]); best_path = os.path.join(A.out_dir, "best_model.pth")
 torch.save({"epoch": 0, "model_state_dict": model.state_dict()}, best_path)
 
 dl = DataLoader(TrainSet(A.data_dir), batch_size=A.batch, shuffle=True, num_workers=C.NUM_WORKERS, drop_last=True)
@@ -72,14 +91,19 @@ for ep in range(1, A.epochs + 1):
         loss.backward(); opt.step(); tl.append(loss.item())
     sched.step()
     vs = score_split(model, A.data_dir, "val", device)
-    m = C.evaluate(vs, val_labels); hist.append({"epoch": ep, "train_loss": float(np.mean(tl)), **m})
+    m = C.evaluate(vs, val_labels); mc = C.evaluate(score_split_corrupt(), LABELS_V); hist.append({"epoch": ep, "train_loss": float(np.mean(tl)), **m, **{"corr_" + k: v for k, v in mc.items()}})
+    torch.save({"epoch": ep, "model_state_dict": model.state_dict()}, os.path.join(A.out_dir, f"epoch{ep:02d}.pth"))
+    rob = 0.5 * (m["logloss"] + mc["logloss"])
+    if rob < best_r - 1e-4:
+        best_r = rob; torch.save({"epoch": ep, "model_state_dict": model.state_dict()}, os.path.join(A.out_dir, "best_robust.pth"))
     print(f"epoch {ep:02d} train {np.mean(tl):.4f} val logloss {m['logloss']:.4f} auc {m['auc']:.5f} acc {m['acc']:.4f}", flush=True)
     if m["logloss"] < best["logloss"] - 1e-4:
         best = {"epoch": ep, **m}; torch.save({"epoch": ep, "model_state_dict": model.state_dict()}, best_path)
         print("  -> new best", flush=True)
 json.dump(hist, open(os.path.join(A.out_dir, "history.json"), "w"), indent=1)
-adopted = C.decide("biometric", C.COLUMNS["biometric"], best, A.out_dir)
-model.load_state_dict(torch.load(best_path, map_location=device, weights_only=False)["model_state_dict"])
+summary = C.decide("biometric", C.COLUMNS["biometric"], hist, A.out_dir)
+final_path = best_path if summary["adopted_rule"] == "rule1" else os.path.join(A.out_dir, "best_robust.pth") if summary["adopted_rule"] == "rule2" else best_path
+model.load_state_dict(torch.load(final_path, map_location=device, weights_only=False)["model_state_dict"])
 for split in ("val", "test"):
     if os.path.isdir(os.path.join(A.data_dir, split)):
         ss = score_split(model, A.data_dir, split, device)

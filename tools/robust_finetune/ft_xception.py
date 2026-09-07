@@ -47,13 +47,15 @@ class FrameSet(Dataset):
         return TRAIN_GEO(C.robust_image_aug(face)), torch.tensor(y, dtype=torch.float32)
 
 
-def score_split(model, root, split):
+def score_split(model, root, split, corrupt=False):
     model.eval(); d, files = C.split_files(root, split); out = {}
     with torch.no_grad():
         for f in files:
             faces = np.load(os.path.join(d, f), allow_pickle=True)["faces"]
             if len(faces) == 0:
                 out[f] = 0.5; continue
+            if corrupt:
+                faces = C.corrupt_faces(faces, f)
             ts = []
             for face in faces:
                 t = TF(C.to_uint8(face)); ts.append(t); ts.append(torch.flip(t, dims=[2]))
@@ -65,9 +67,13 @@ model = XceptionDeepfakeDetector(num_classes=1).to(device)
 ck = torch.load(os.path.join(C.REPO, "checkpoints/xception/polyglotfake_xception_best_unbal_all_faceaug.pth"), map_location=device, weights_only=False)
 model.load_state_dict(ck.get("model_state_dict", ck))
 labels_of = lambda ss: {f: 1.0 if "_label_fake" in f else 0.0 for f in ss}
+LABELS_V = {f: 1.0 if "_label_fake" in f else 0.0 for f in C.split_files(A.data_dir, "val")[1]}
+def score_split_corrupt():
+    return score_split(model, A.data_dir, "val", corrupt=True)
 vs = score_split(model, A.data_dir, "val"); C.fidelity(vs, C.COLUMNS["visual"])
-hist = [{"epoch": 0, **C.evaluate(vs, labels_of(vs))}]; print("epoch 00", hist[-1], flush=True)
-best = dict(hist[-1]); best_path = os.path.join(A.out_dir, "best_model.pth"); torch.save({"epoch": 0, "model_state_dict": model.state_dict()}, best_path)
+vc = score_split_corrupt()
+hist = [{"epoch": 0, **C.evaluate(vs, labels_of(vs)), **{"corr_" + k: v for k, v in C.evaluate(vc, LABELS_V).items()}}]; print("epoch 00", hist[-1], flush=True)
+best = dict(hist[-1]); best_r = 0.5 * (hist[0]["logloss"] + hist[0]["corr_logloss"]); best_path = os.path.join(A.out_dir, "best_model.pth"); torch.save({"epoch": 0, "model_state_dict": model.state_dict()}, best_path)
 dl = DataLoader(FrameSet(A.data_dir), batch_size=A.batch, shuffle=True, num_workers=C.NUM_WORKERS, drop_last=True)
 opt = torch.optim.AdamW(model.parameters(), lr=A.lr, weight_decay=1e-4)
 sched = torch.optim.lr_scheduler.CosineAnnealingLR(opt, T_max=A.epochs)
@@ -79,13 +85,18 @@ for ep in range(1, A.epochs + 1):
         opt.zero_grad(); loss = crit(model(x).squeeze(1), y * (1 - 2 * eps) + eps); loss.backward(); opt.step(); tl.append(loss.item())
     sched.step()
     vs = score_split(model, A.data_dir, "val"); m = C.evaluate(vs, labels_of(vs))
-    hist.append({"epoch": ep, "train_loss": float(np.mean(tl)), **m})
+    mc = C.evaluate(score_split_corrupt(), LABELS_V); hist.append({"epoch": ep, "train_loss": float(np.mean(tl)), **m, **{"corr_" + k: v for k, v in mc.items()}})
+    torch.save({"epoch": ep, "model_state_dict": model.state_dict()}, os.path.join(A.out_dir, f"epoch{ep:02d}.pth"))
+    rob = 0.5 * (m["logloss"] + mc["logloss"])
+    if rob < best_r - 1e-4:
+        best_r = rob; torch.save({"epoch": ep, "model_state_dict": model.state_dict()}, os.path.join(A.out_dir, "best_robust.pth"))
     print(f"epoch {ep:02d} train {np.mean(tl):.4f} val logloss {m['logloss']:.4f} auc {m['auc']:.5f} acc {m['acc']:.4f}", flush=True)
     if m["logloss"] < best["logloss"] - 1e-4:
         best = {"epoch": ep, **m}; torch.save({"epoch": ep, "model_state_dict": model.state_dict()}, best_path); print("  -> new best", flush=True)
 json.dump(hist, open(os.path.join(A.out_dir, "history.json"), "w"), indent=1)
-C.decide("visual", C.COLUMNS["visual"], best, A.out_dir)
-model.load_state_dict(torch.load(best_path, map_location=device, weights_only=False)["model_state_dict"])
+summary = C.decide("visual", C.COLUMNS["visual"], hist, A.out_dir)
+final_path = best_path if summary["adopted_rule"] == "rule1" else os.path.join(A.out_dir, "best_robust.pth") if summary["adopted_rule"] == "rule2" else best_path
+model.load_state_dict(torch.load(final_path, map_location=device, weights_only=False)["model_state_dict"])
 for split in ("val", "test"):
     if os.path.isdir(os.path.join(A.data_dir, split)):
         ss = score_split(model, A.data_dir, split)
