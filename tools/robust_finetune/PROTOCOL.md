@@ -40,3 +40,27 @@ reported. Rule 2: a fine-tuned epoch is adopted if its mean log-loss over the va
 split scored clean and under a fixed deterministic corruption is lower than the released
 model's, with clean validation AUC within 0.002. Rule 1 takes precedence when both hold.
 Every agent is judged under both rules; the paper states which rule adopted each agent.
+
+## XceptionNet retrain from ImageNet weights (added 2026-09-07 20:05 UTC, before the run)
+
+The released visual agent was itself produced by the two-stage recipe in
+`src/agents/visual_xception.py` (5 head-only epochs at 1e-3, then 20 OneCycle epochs at
+1e-5 from block 11 with Mixup 0.2, label smoothing 0.1 and balanced class weights).
+`retrain_xception.py` re-runs that recipe from ImageNet weights on the training split with
+three fixes fixed here:
+
+1. Deployment-corruption augmentation on every training crop (down/up-scaling 0.3-0.9,
+   JPEG 30-90, blur, noise, gain) ahead of the released augmentation family. Rationale
+   measured on the training split before the run: stored fake crops are systematically
+   blurrier than real ones (median Laplacian variance 7.5 vs 19.3 on a 300-clip sample), a
+   shortcut that cannot transfer to sharp in-the-wild fakes. The run records the per-class
+   sharpness before and after the block in `sharpness_diagnostic.json`.
+2. Selection on clip-level validation log-loss under the released inference recipe (mean
+   over frames and flips) instead of per-face validation accuracy; early stop with the
+   released patience (7) on that criterion.
+3. Per-epoch checkpoints so rules 1 and 2 above judge every epoch; the released checkpoint
+   is the reference row, fidelity-gated against the released validation CSV.
+
+Architecture, loss, optimiser, schedule, image size and inference are the released ones.
+The warm-start fine-tune of the released XceptionNet (`ft_xception.py`) is superseded by
+this retrain for the visual agent; if neither rule adopts an epoch, the released agent stays.
