@@ -1,263 +1,308 @@
 {
- "description": "100-clip YouTube distribution-shift evaluation set: clip list and labels were frozen (hashed) before any clip was scored. Labels follow the provenance of the face shown, verified per clip from contact sheets, full frames, video descriptions and transcripts. Videos are not redistributed; regenerate the clips with extract_clips.py.",
+ "description": "100-clip YouTube distribution-shift evaluation set: clip list and labels frozen (hashed) before any clip was scored. Labels follow the provenance of the face shown, verified per clip from contact sheets, full frames, video descriptions and transcripts. Videos are not redistributed; regenerate the clips with extract_clips.py.",
  "frozen": {
   "n_clips": 100,
-  "n_fake": 44,
-  "n_real": 56,
-  "n_videos": 25,
-  "frozen_at_utc": "2026-09-07T15:52:28Z",
-  "sha256_over_clip_names_and_labels": "ea83056667f7a65f68f118940a1481c1c7f5c3bd4e0ead3b164f93cdd256f733"
+  "n_fake": 49,
+  "n_real": 51,
+  "n_videos": 26,
+  "frozen_at_utc": "2026-09-07T16:57:54Z",
+  "sha256_over_clip_names_and_labels": "718ee634c175b195f4b9f751077caacb25d6d65fed7b6dca5ebe97e31dc2ff90"
  },
- "selection_rule": "(1) every clip of the earlier released 37-clip set is kept with its label; (2) every verified fake-provenance clip is kept, up to 50, taking source videos in the order listed in clip_provenance.json and clips in sequence order; (3) real clips fill to 100 from BBC News videos in channel-listing order, clips in sequence order. The rule was fixed before scoring and never consulted a score.",
+ "criteria": {
+  "upload_window": [
+   "20250401",
+   "20251130"
+  ],
+  "audio_rms_min": 0.001,
+  "min_source_height": 1080,
+  "note": "criteria added after set v1 was scored, in response to a request to match the July-September 2025 sources on date and quality; no clip was added or removed on the basis of a score"
+ },
+ "selection_rule": "(1) every clip of the earlier released 37-clip set is kept with its label; (2) every verified fake-provenance clip is kept, up to 50, taking source videos in the order listed in clip_provenance.json and clips in sequence order; (3) real clips fill to 100 from BBC News bulletins in upload-date order, clips in sequence order. The rule was fixed before scoring and never consulted a score.",
  "source_videos": [
   {
    "youtube_id": "0Y5thnRlKNY",
    "channel": "Aaj Tak AI",
-   "video_level_label": "fake",
+   "upload_date": "20250430",
    "clips_kept": 5,
    "clip_labels": [
     "Fake"
    ],
+   "video_level_label": "fake",
    "note": "Aaj Tak AI anchor Sana (WAVES 2025 bulletin, French)"
-  },
-  {
-   "youtube_id": "2UbAd0zT2fE",
-   "channel": "OTV",
-   "video_level_label": "fake",
-   "clips_kept": 4,
-   "clip_labels": [
-    "Fake"
-   ],
-   "note": "OTV AI anchor Lisa"
-  },
-  {
-   "youtube_id": "6ay-GOpeP8c",
-   "channel": "BBC News",
-   "video_level_label": "real",
-   "clips_kept": 5,
-   "clip_labels": [
-    "Real"
-   ],
-   "note": "BBC News presenter, correspondent or interviewee"
-  },
-  {
-   "youtube_id": "8Xeh7TVPp-M",
-   "channel": "BBC News",
-   "video_level_label": "real",
-   "clips_kept": 5,
-   "clip_labels": [
-    "Real"
-   ],
-   "note": "labels in analysis_results_youtube.csv are per clip, by the provenance of the face shown"
-  },
-  {
-   "youtube_id": "9aY5PYLUbaQ",
-   "channel": "BBC News",
-   "video_level_label": "real",
-   "clips_kept": 5,
-   "clip_labels": [
-    "Real"
-   ],
-   "note": "BBC News presenter, correspondent or interviewee"
-  },
-  {
-   "youtube_id": "AEu6wVp_Edw",
-   "channel": "BBC News",
-   "video_level_label": "real",
-   "clips_kept": 5,
-   "clip_labels": [
-    "Real"
-   ],
-   "note": "labels in analysis_results_youtube.csv are per clip, by the provenance of the face shown"
   },
   {
    "youtube_id": "Dufpc8vVH8I",
    "channel": "Aaj Tak AI",
-   "video_level_label": "fake",
+   "upload_date": "20250502",
    "clips_kept": 1,
    "clip_labels": [
     "Fake"
    ],
+   "video_level_label": "fake",
    "note": "Aaj Tak AI anchor Sana (WAVES 2025 bulletin, German)"
   },
   {
-   "youtube_id": "IKXcNs-MI3k",
-   "channel": "BBC News",
-   "video_level_label": "real",
-   "clips_kept": 5,
-   "clip_labels": [
-    "Real"
-   ],
-   "note": "BBC News presenter, correspondent or interviewee"
-  },
-  {
-   "youtube_id": "OBgRHikjYSA",
+   "youtube_id": "g4xrYkhn4_E",
    "channel": "Aaj Tak AI",
-   "video_level_label": "fake",
-   "clips_kept": 5,
-   "clip_labels": [
-    "Fake"
-   ],
-   "note": "Aaj Tak AI anchor Sana"
-  },
-  {
-   "youtube_id": "OGbsSuHLuMc",
-   "channel": "HeyGen",
-   "video_level_label": "fake",
-   "clips_kept": 5,
-   "clip_labels": [
-    "Fake"
-   ],
-   "note": "HeyGen Avatar V launch video; its opening line states the presenter is an AI avatar"
-  },
-  {
-   "youtube_id": "QuR5JMl-1v8",
-   "channel": "Aaj Tak AI",
-   "video_level_label": "fake",
-   "clips_kept": 5,
-   "clip_labels": [
-    "Fake"
-   ],
-   "note": "Aaj Tak AI anchor Sana"
-  },
-  {
-   "youtube_id": "XSsqRuceIIk",
-   "channel": "BBC News",
-   "video_level_label": "real",
-   "clips_kept": 5,
-   "clip_labels": [
-    "Real"
-   ],
-   "note": "BBC News presenter, correspondent or interviewee"
-  },
-  {
-   "youtube_id": "_dSRnKy10lA",
-   "channel": "BBC News",
-   "video_level_label": "real",
-   "clips_kept": 1,
-   "clip_labels": [
-    "Real"
-   ],
-   "note": "labels in analysis_results_youtube.csv are per clip, by the provenance of the face shown"
-  },
-  {
-   "youtube_id": "bOLs517114M",
-   "channel": "BBC News",
-   "video_level_label": "real",
-   "clips_kept": 5,
-   "clip_labels": [
-    "Real"
-   ],
-   "note": "BBC News presenter, correspondent or interviewee"
-  },
-  {
-   "youtube_id": "cT9Uw2jzMUc",
-   "channel": "AI music / virtual band tutorial (third-party creator)",
-   "video_level_label": "fake",
-   "clips_kept": 5,
-   "clip_labels": [
-    "Real"
-   ],
-   "note": "real presenter face in a video about generation tools"
-  },
-  {
-   "youtube_id": "ggcCAtcBxvI",
-   "channel": "OTV News English",
-   "video_level_label": "fake",
+   "upload_date": "20250502",
    "clips_kept": 2,
    "clip_labels": [
     "Fake"
    ],
-   "note": "OTV AI anchor Lisa"
-  },
-  {
-   "youtube_id": "lGO9j_x8gp0",
-   "channel": "BBC News",
-   "video_level_label": "real",
-   "clips_kept": 3,
-   "clip_labels": [
-    "Real"
-   ],
-   "note": "labels in analysis_results_youtube.csv are per clip, by the provenance of the face shown"
-  },
-  {
-   "youtube_id": "m0fdgkJGxHs",
-   "channel": "AI-avatar creator channel",
    "video_level_label": "fake",
+   "note": "Aaj Tak AI anchor Sana"
+  },
+  {
+   "youtube_id": "4FnJdXtPkA8",
+   "channel": "OTV News English",
+   "upload_date": "20250528",
    "clips_kept": 1,
    "clip_labels": [
     "Fake"
    ],
+   "video_level_label": "fake",
+   "note": "OTV AI anchor Lisa"
+  },
+  {
+   "youtube_id": "cT9Uw2jzMUc",
+   "channel": "AI music / virtual band tutorial (third-party creator)",
+   "upload_date": "20250719",
+   "clips_kept": 5,
+   "clip_labels": [
+    "Real"
+   ],
+   "video_level_label": "real",
+   "note": "real presenter face in a video about generation tools"
+  },
+  {
+   "youtube_id": "hcndfkU57W8",
+   "channel": "Aaj Tak AI",
+   "upload_date": "20250729",
+   "clips_kept": 5,
+   "clip_labels": [
+    "Fake"
+   ],
+   "video_level_label": "fake",
+   "note": "Aaj Tak AI anchor Sana"
+  },
+  {
+   "youtube_id": "nDZQKKpAbWo",
+   "channel": "AI-avatar creator channel",
+   "upload_date": "20250731",
+   "clips_kept": 5,
+   "clip_labels": [
+    "Fake"
+   ],
+   "video_level_label": "fake",
    "note": "labels in analysis_results_youtube.csv are per clip, by the provenance of the face shown"
   },
   {
    "youtube_id": "mZcridN9hq0",
    "channel": "HeyGen tutorial (third-party creator)",
-   "video_level_label": "fake",
+   "upload_date": "20250810",
    "clips_kept": 2,
    "clip_labels": [
     "Real"
    ],
+   "video_level_label": "real",
    "note": "real presenter face in a video about generation tools"
   },
   {
-   "youtube_id": "n-jo7tfhsvQ",
-   "channel": "BBC News",
-   "video_level_label": "real",
-   "clips_kept": 5,
-   "clip_labels": [
-    "Real"
-   ],
-   "note": "labels in analysis_results_youtube.csv are per clip, by the provenance of the face shown"
-  },
-  {
-   "youtube_id": "nDZQKKpAbWo",
-   "channel": "AI-avatar creator channel",
-   "video_level_label": "fake",
+   "youtube_id": "p0JaIfhrNoU",
+   "channel": "Aaj Tak AI",
+   "upload_date": "20250811",
    "clips_kept": 5,
    "clip_labels": [
     "Fake"
    ],
-   "note": "labels in analysis_results_youtube.csv are per clip, by the provenance of the face shown"
+   "video_level_label": "fake",
+   "note": "Aaj Tak AI anchor Sana"
   },
   {
    "youtube_id": "pxPzCFM0qE4",
    "channel": "AI-avatar creator channel",
-   "video_level_label": "fake",
+   "upload_date": "20250813",
    "clips_kept": 5,
    "clip_labels": [
     "Fake"
    ],
+   "video_level_label": "fake",
    "note": "labels in analysis_results_youtube.csv are per clip, by the provenance of the face shown"
   },
   {
-   "youtube_id": "tERkiqVxr_w",
+   "youtube_id": "wg1pBNepK-E",
    "channel": "BBC News",
-   "video_level_label": "real",
+   "upload_date": "20250815",
    "clips_kept": 5,
    "clip_labels": [
     "Real"
    ],
+   "video_level_label": "real",
    "note": "BBC News presenter, correspondent or interviewee"
   },
   {
-   "youtube_id": "vpAIk5e53jw",
-   "channel": "Synthesia",
-   "video_level_label": "fake",
-   "clips_kept": 2,
+   "youtube_id": "Sjla9lWgEvs",
+   "channel": "BBC News",
+   "upload_date": "20250816",
+   "clips_kept": 5,
+   "clip_labels": [
+    "Real"
+   ],
+   "video_level_label": "real",
+   "note": "BBC News presenter, correspondent or interviewee"
+  },
+  {
+   "youtube_id": "iwYxjeqGYDM",
+   "channel": "BBC News",
+   "upload_date": "20250819",
+   "clips_kept": 5,
+   "clip_labels": [
+    "Real"
+   ],
+   "video_level_label": "real",
+   "note": "BBC News presenter, correspondent or interviewee"
+  },
+  {
+   "youtube_id": "KqDI2h3x6vA",
+   "channel": "BBC News",
+   "upload_date": "20250820",
+   "clips_kept": 5,
+   "clip_labels": [
+    "Real"
+   ],
+   "video_level_label": "real",
+   "note": "BBC News presenter, correspondent or interviewee"
+  },
+  {
+   "youtube_id": "OBgRHikjYSA",
+   "channel": "Aaj Tak AI",
+   "upload_date": "20250821",
+   "clips_kept": 5,
    "clip_labels": [
     "Fake"
    ],
-   "note": "Synthesia stock avatar (Kade) shown inside the editor"
+   "video_level_label": "fake",
+   "note": "Aaj Tak AI anchor Sana"
+  },
+  {
+   "youtube_id": "L4XhZ4kC51k",
+   "channel": "Aaj Tak AI",
+   "upload_date": "20250825",
+   "clips_kept": 5,
+   "clip_labels": [
+    "Fake"
+   ],
+   "video_level_label": "fake",
+   "note": "Aaj Tak AI anchor Sana"
+  },
+  {
+   "youtube_id": "m0fdgkJGxHs",
+   "channel": "AI-avatar creator channel",
+   "upload_date": "20250826",
+   "clips_kept": 1,
+   "clip_labels": [
+    "Fake"
+   ],
+   "video_level_label": "fake",
+   "note": "labels in analysis_results_youtube.csv are per clip, by the provenance of the face shown"
   },
   {
    "youtube_id": "yaK_SdNfcO0",
    "channel": "Aaj Tak AI",
-   "video_level_label": "fake",
+   "upload_date": "20250826",
    "clips_kept": 4,
    "clip_labels": [
     "Fake"
    ],
+   "video_level_label": "fake",
+   "note": "Aaj Tak AI anchor Sana"
+  },
+  {
+   "youtube_id": "EnLA3Svbda8",
+   "channel": "BBC News",
+   "upload_date": "20250903",
+   "clips_kept": 1,
+   "clip_labels": [
+    "Real"
+   ],
+   "video_level_label": "real",
+   "note": "BBC News presenter, correspondent or interviewee"
+  },
+  {
+   "youtube_id": "4jbzOKhc_f4",
+   "channel": "BBC News",
+   "upload_date": "20250904",
+   "clips_kept": 4,
+   "clip_labels": [
+    "Real"
+   ],
+   "video_level_label": "real",
+   "note": "BBC News presenter, correspondent or interviewee"
+  },
+  {
+   "youtube_id": "_dSRnKy10lA",
+   "channel": "BBC News",
+   "upload_date": "20250908",
+   "clips_kept": 1,
+   "clip_labels": [
+    "Real"
+   ],
+   "video_level_label": "real",
+   "note": "labels in analysis_results_youtube.csv are per clip, by the provenance of the face shown"
+  },
+  {
+   "youtube_id": "n-jo7tfhsvQ",
+   "channel": "BBC News",
+   "upload_date": "20250908",
+   "clips_kept": 5,
+   "clip_labels": [
+    "Real"
+   ],
+   "video_level_label": "real",
+   "note": "labels in analysis_results_youtube.csv are per clip, by the provenance of the face shown"
+  },
+  {
+   "youtube_id": "AEu6wVp_Edw",
+   "channel": "BBC News",
+   "upload_date": "20250908",
+   "clips_kept": 5,
+   "clip_labels": [
+    "Real"
+   ],
+   "video_level_label": "real",
+   "note": "labels in analysis_results_youtube.csv are per clip, by the provenance of the face shown"
+  },
+  {
+   "youtube_id": "8Xeh7TVPp-M",
+   "channel": "BBC News",
+   "upload_date": "20250908",
+   "clips_kept": 5,
+   "clip_labels": [
+    "Real"
+   ],
+   "video_level_label": "real",
+   "note": "labels in analysis_results_youtube.csv are per clip, by the provenance of the face shown"
+  },
+  {
+   "youtube_id": "lGO9j_x8gp0",
+   "channel": "BBC News",
+   "upload_date": "20250908",
+   "clips_kept": 3,
+   "clip_labels": [
+    "Real"
+   ],
+   "video_level_label": "real",
+   "note": "labels in analysis_results_youtube.csv are per clip, by the provenance of the face shown"
+  },
+  {
+   "youtube_id": "QuR5JMl-1v8",
+   "channel": "Aaj Tak AI",
+   "upload_date": "20250910",
+   "clips_kept": 5,
+   "clip_labels": [
+    "Fake"
+   ],
+   "video_level_label": "fake",
    "note": "Aaj Tak AI anchor Sana"
   }
  ],
@@ -270,7 +315,13 @@
   "yaK_SdNfcO0 seq003": "still news photograph of a real person",
   "2UbAd0zT2fE seq001": "archival photograph (M. K. Gandhi)",
   "UdhrewW0EV8,i7hoS95K144,Sj7uILyBey4,h0_aQMsKxKg,4Qt9sMoiHI0,DzFZOJjNvFc": "no window passed the strict gates",
-  "g4xrYkhn4_E": "download failed (transient network error)"
+  "g4xrYkhn4_E": "download failed (transient network error)",
+  "ggcCAtcBxvI,2UbAd0zT2fE": "OTV Lisa bulletins uploaded in 2023, outside the April-November 2025 window of the original sources; 2UbAd0zT2fE additionally has a muted audio track",
+  "vpAIk5e53jw": "Synthesia Dialogue demo uploaded February 2024, outside the window",
+  "OGbsSuHLuMc": "HeyGen Avatar V launch uploaded April 2026, outside the window",
+  "tERkiqVxr_w,9aY5PYLUbaQ,6ay-GOpeP8c,XSsqRuceIIk,IKXcNs-MI3k,bOLs517114M,uQ0DLSaIuUc,SBCoPKaL9V4,eicBUu3reuo,uXvFF6dig7A": "BBC News uploads from September 2026 (outside the window, and available only at 720p)",
+  "4FnJdXtPkA8 seq000": "real interviewee in the OTV report",
+  "PenobO2oP3U": "real presenter in a HeyGen tutorial (verified real; not needed to fill the real quota)"
  },
  "extraction": {
   "script": "youtube_eval/extract_clips.py",
