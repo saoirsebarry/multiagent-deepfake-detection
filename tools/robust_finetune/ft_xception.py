@@ -62,7 +62,7 @@ def score_split(model, root, split):
 
 
 model = XceptionDeepfakeDetector(num_classes=1).to(device)
-ck = torch.load(os.path.join(C.REPO, "checkpoints/xception/polyglotfake_xception_best_unbal_all_faceaug.pth"), map_location=device)
+ck = torch.load(os.path.join(C.REPO, "checkpoints/xception/polyglotfake_xception_best_unbal_all_faceaug.pth"), map_location=device, weights_only=False)
 model.load_state_dict(ck.get("model_state_dict", ck))
 labels_of = lambda ss: {f: 1.0 if "_label_fake" in f else 0.0 for f in ss}
 vs = score_split(model, A.data_dir, "val"); C.fidelity(vs, C.COLUMNS["visual"])
@@ -85,7 +85,7 @@ for ep in range(1, A.epochs + 1):
         best = {"epoch": ep, **m}; torch.save({"epoch": ep, "model_state_dict": model.state_dict()}, best_path); print("  -> new best", flush=True)
 json.dump(hist, open(os.path.join(A.out_dir, "history.json"), "w"), indent=1)
 C.decide("visual", C.COLUMNS["visual"], best, A.out_dir)
-model.load_state_dict(torch.load(best_path, map_location=device)["model_state_dict"])
+model.load_state_dict(torch.load(best_path, map_location=device, weights_only=False)["model_state_dict"])
 for split in ("val", "test"):
     if os.path.isdir(os.path.join(A.data_dir, split)):
         ss = score_split(model, A.data_dir, split)

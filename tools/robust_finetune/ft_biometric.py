@@ -50,7 +50,7 @@ class TrainSet(Dataset):
 
 
 model = FaceQualityNet().to(device)
-model.load_state_dict(torch.load(os.path.join(C.REPO, "checkpoints/biometric/best_model.pth"), map_location=device)["model_state_dict"])
+model.load_state_dict(torch.load(os.path.join(C.REPO, "checkpoints/biometric/best_model.pth"), map_location=device, weights_only=False)["model_state_dict"])
 val_dir, val_files = C.split_files(A.data_dir, "val")
 val_labels = {f: 1.0 if "_label_fake" in f else 0.0 for f in val_files}
 vs = score_split(model, A.data_dir, "val", device)
@@ -79,7 +79,7 @@ for ep in range(1, A.epochs + 1):
         print("  -> new best", flush=True)
 json.dump(hist, open(os.path.join(A.out_dir, "history.json"), "w"), indent=1)
 adopted = C.decide("biometric", C.COLUMNS["biometric"], best, A.out_dir)
-model.load_state_dict(torch.load(best_path, map_location=device)["model_state_dict"])
+model.load_state_dict(torch.load(best_path, map_location=device, weights_only=False)["model_state_dict"])
 for split in ("val", "test"):
     if os.path.isdir(os.path.join(A.data_dir, split)):
         ss = score_split(model, A.data_dir, split, device)

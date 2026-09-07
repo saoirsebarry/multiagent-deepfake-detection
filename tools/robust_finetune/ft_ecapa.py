@@ -73,7 +73,7 @@ Xv, yv, fv = build("val", 0)
 labels_v = {f: float(l) for f, l in zip(fv, yv)}
 rel_stats = np.load(os.path.join(C.REPO, "checkpoints/ecapa_forensic_head/training_stats.npz"))
 rel = OptimizedLightweightForensics(embedding_dim=192, num_forensic_features=11).to(device)
-rel.load_state_dict(torch.load(os.path.join(C.REPO, "checkpoints/ecapa_forensic_head/audio_forensics_model_finetuned_best.pth"), map_location=device))
+rel.load_state_dict(torch.load(os.path.join(C.REPO, "checkpoints/ecapa_forensic_head/audio_forensics_model_finetuned_best.pth"), map_location=device, weights_only=False))
 vs = dict(zip(fv, score(rel, rel_stats["mean"], rel_stats["std"], Xv))); C.fidelity(vs, C.COLUMNS["ecapa"], tol=0.05)
 released_eval = C.evaluate(vs, labels_v); print("released head on recomputed val features", released_eval, flush=True)
 
@@ -103,7 +103,7 @@ for ep in range(1, A.epochs + 1):
         print(f"epoch {ep:02d} train {np.mean(tl):.4f} val logloss {m['logloss']:.4f} auc {m['auc']:.5f} acc {m['acc']:.4f}", flush=True)
 json.dump(hist, open(os.path.join(A.out_dir, "history.json"), "w"), indent=1)
 C.decide("ecapa", C.COLUMNS["ecapa"], best, A.out_dir)
-model.load_state_dict(torch.load(best_path, map_location=device))
+model.load_state_dict(torch.load(best_path, map_location=device, weights_only=False))
 for split in ("val", "test"):
     if os.path.isdir(os.path.join(A.data_dir, split)):
         X, y, files = build(split, 0); ss = dict(zip(files, score(model, mean, std, X)))

@@ -71,7 +71,7 @@ def score_split(model, root, split):
 
 
 model = FreqNet(num_classes=1).to(device)
-model.load_state_dict(torch.load(os.path.join(C.REPO, "checkpoints/freqnet/freqnet_model_all_unbalanced_improved.pth"), map_location=device))
+model.load_state_dict(torch.load(os.path.join(C.REPO, "checkpoints/freqnet/freqnet_model_all_unbalanced_improved.pth"), map_location=device, weights_only=False))
 labels_of = lambda ss: {f: 1.0 if "_label_fake" in f else 0.0 for f in ss}
 vs = score_split(model, A.data_dir, "val"); C.fidelity(vs, C.COLUMNS["freqnet"])
 hist = [{"epoch": 0, **C.evaluate(vs, labels_of(vs))}]; print("epoch 00", hist[-1], flush=True)
@@ -93,7 +93,7 @@ for ep in range(1, A.epochs + 1):
         best = {"epoch": ep, **m}; torch.save(model.state_dict(), best_path); print("  -> new best", flush=True)
 json.dump(hist, open(os.path.join(A.out_dir, "history.json"), "w"), indent=1)
 C.decide("freqnet", C.COLUMNS["freqnet"], best, A.out_dir)
-model.load_state_dict(torch.load(best_path, map_location=device))
+model.load_state_dict(torch.load(best_path, map_location=device, weights_only=False))
 for split in ("val", "test"):
     if os.path.isdir(os.path.join(A.data_dir, split)):
         ss = score_split(model, A.data_dir, split)
