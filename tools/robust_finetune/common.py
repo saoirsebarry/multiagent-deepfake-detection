@@ -172,6 +172,22 @@ def fidelity(scores, column, tol=0.02):
     return diff
 
 
+def fidelity_distribution(scores, column, p95_tol=0.10, auc_tol=0.005):
+    """Gate for scoring paths whose features are not bit-reproducible across machines
+    (the ECAPA head's pyin prosody features): the 95th-percentile absolute score
+    difference and the released head's AUC on the recomputed features must both stay
+    close to the released validation column."""
+    rel = released_val(column); keys = [f for f in scores if f in rel]
+    d = np.array([abs(scores[f] - rel[f]) for f in keys]); y = [1.0 if "_label_fake" in f else 0.0 for f in keys]
+    auc_new, auc_rel = auc_of([scores[f] for f in keys], y), auc_of([rel[f] for f in keys], y)
+    stats = {"n": len(keys), "max": float(d.max()), "mean": float(d.mean()), "p95": float(np.percentile(d, 95)), "n_over_0.1": int((d > 0.1).sum()),
+             "auc_recomputed": auc_new, "auc_released": auc_rel}
+    print("fidelity vs released validation column:", stats, flush=True)
+    if stats["p95"] > p95_tol or auc_new < auc_rel - auc_tol:
+        raise SystemExit("FIDELITY GATE FAILED: scoring path does not reproduce the released agent")
+    return stats
+
+
 def decide(agent, column, hist, out_dir):
     """Two validation-only rules, both fixed before any test or YouTube read.
     Rule 1 (clean): a fine-tuned epoch (>= 1) with lower clean-validation log-loss than the

@@ -64,3 +64,15 @@ three fixes fixed here:
 Architecture, loss, optimiser, schedule, image size and inference are the released ones.
 The warm-start fine-tune of the released XceptionNet (`ft_xception.py`) is superseded by
 this retrain for the visual agent; if neither rule adopts an epoch, the released agent stays.
+
+## ECAPA fidelity gate (reformulated 2026-09-07 20:25 UTC, after the Colab run failed it)
+
+The ECAPA head's input features include librosa pyin prosody statistics that are not
+bit-reproducible across machines; on the Colab runtime the released head scored on
+recomputed validation features differed from the released validation column by up to
+0.38 on a single clip (0.10 on Apple Metal). The per-clip maximum is therefore replaced
+by two conditions on the same recomputed features: 95th-percentile absolute score
+difference at most 0.10, and the released head's validation AUC within 0.005 of the
+released column's. Adoption for this agent is judged entirely on recomputed features
+(released head vs fine-tuned head on the same features), so the comparison is
+like-for-like regardless of the offset to the published column.

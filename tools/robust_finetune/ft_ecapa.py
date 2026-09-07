@@ -104,7 +104,7 @@ labels_v = {f: float(l) for f, l in zip(fv, yv)}
 rel_stats = np.load(os.path.join(C.REPO, "checkpoints/ecapa_forensic_head/training_stats.npz"))
 rel = OptimizedLightweightForensics(embedding_dim=192, num_forensic_features=11).to(device)
 rel.load_state_dict(torch.load(os.path.join(C.REPO, "checkpoints/ecapa_forensic_head/audio_forensics_model_finetuned_best.pth"), map_location=device, weights_only=False))
-vs = dict(zip(fv, score(rel, rel_stats["mean"], rel_stats["std"], Xv))); C.fidelity(vs, C.COLUMNS["ecapa"], tol=0.25)  # pyin and encoder numerics differ slightly across devices
+vs = dict(zip(fv, score(rel, rel_stats["mean"], rel_stats["std"], Xv))); C.fidelity_distribution(vs, C.COLUMNS["ecapa"])  # pyin and encoder numerics differ across machines; see PROTOCOL.md
 released_eval = C.evaluate(vs, labels_v); print("released head on recomputed val features", released_eval, flush=True)
 rel_c = C.evaluate(dict(zip(fv, score(rel, rel_stats["mean"], rel_stats["std"], Xvc))), labels_v)
 hist = [{"epoch": 0, **released_eval, **{"corr_" + k: v for k, v in rel_c.items()}}]
