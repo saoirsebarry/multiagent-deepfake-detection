@@ -105,7 +105,7 @@ base = [p for p in model.parameters() if id(p) not in ft_ids and p.requires_grad
 opt = torch.optim.AdamW([{"params": base}, {"params": ft, "lr": A.lr / 4}], lr=A.lr, weight_decay=0.05)
 sched = torch.optim.lr_scheduler.CosineAnnealingLR(opt, T_max=A.epochs)
 crit = nn.CrossEntropyLoss(label_smoothing=0.05)
-dl = DataLoader(CMSet(A.data_dir, "train", True), batch_size=A.batch, shuffle=True, num_workers=4, drop_last=True)
+dl = DataLoader(CMSet(A.data_dir, "train", True), batch_size=A.batch, shuffle=True, num_workers=C.NUM_WORKERS, drop_last=True)
 for ep in range(1, A.epochs + 1):
     model.train(); tl = []
     for vis, mel, y in dl:

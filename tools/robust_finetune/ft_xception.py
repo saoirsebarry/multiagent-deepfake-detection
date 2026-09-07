@@ -68,7 +68,7 @@ labels_of = lambda ss: {f: 1.0 if "_label_fake" in f else 0.0 for f in ss}
 vs = score_split(model, A.data_dir, "val"); C.fidelity(vs, C.COLUMNS["visual"])
 hist = [{"epoch": 0, **C.evaluate(vs, labels_of(vs))}]; print("epoch 00", hist[-1], flush=True)
 best = dict(hist[-1]); best_path = os.path.join(A.out_dir, "best_model.pth"); torch.save({"epoch": 0, "model_state_dict": model.state_dict()}, best_path)
-dl = DataLoader(FrameSet(A.data_dir), batch_size=A.batch, shuffle=True, num_workers=4, drop_last=True)
+dl = DataLoader(FrameSet(A.data_dir), batch_size=A.batch, shuffle=True, num_workers=C.NUM_WORKERS, drop_last=True)
 opt = torch.optim.AdamW(model.parameters(), lr=A.lr, weight_decay=1e-4)
 sched = torch.optim.lr_scheduler.CosineAnnealingLR(opt, T_max=A.epochs)
 crit = nn.BCEWithLogitsLoss(); eps = 0.05

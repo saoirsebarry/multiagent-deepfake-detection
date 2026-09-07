@@ -9,11 +9,15 @@ YouTube set are read once after all selections.
 import csv
 import os
 import random
+import sys
 
 import cv2
 import numpy as np
 import torch
 
+cv2.setNumThreads(0)
+# forked DataLoader workers crash on macOS with OpenCV + Metal; Linux/CUDA is fine
+NUM_WORKERS = int(os.environ.get("FT_WORKERS", 0 if sys.platform == "darwin" else 4))
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 VAL_CSV = os.path.join(REPO, "paper_artifacts/source_csvs/analysis_results_VAL.csv")
 SEED = 42
