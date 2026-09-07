@@ -12,22 +12,22 @@
     {
       "agent": "Audio (FreqNet)",
       "dev_accuracy": 0.98,
-      "test_accuracy": 0.9117,
-      "gap": 0.0683,
+      "test_accuracy": 0.9357,
+      "gap": 0.0443,
       "dev_source": "\u00a73.3.2, reported accuracy for the final audio agent"
     },
     {
       "agent": "Audio Forensics (ECAPA-TDNN)",
       "dev_accuracy": 0.962,
-      "test_accuracy": 0.9796,
-      "gap": -0.0176,
+      "test_accuracy": 0.9778,
+      "gap": -0.0158,
       "dev_source": "released model validation accuracy at its best epoch (indicative)"
     },
     {
       "agent": "Cross-Modal (Lip-Sync)",
       "dev_accuracy": 0.992,
-      "test_accuracy": 0.9949,
-      "gap": -0.0029,
+      "test_accuracy": 0.9801,
+      "gap": 0.0119,
       "dev_source": "validation accuracy of the released model"
     },
     {
@@ -52,32 +52,32 @@
     "Audio (FreqNet)": {
       "recall": {
         "MicroTts": 1.0,
-        "Xtts": 0.751,
-        "Bark": 0.9957,
+        "Xtts": 0.8399,
+        "Bark": 0.9979,
         "Tacotron": 1.0,
-        "Vall": 0.2658
+        "Vall": 0.3165
       },
-      "spread": 0.7342
+      "spread": 0.6835
     },
     "Audio Forensics (ECAPA-TDNN)": {
       "recall": {
-        "MicroTts": 0.9985,
-        "Xtts": 0.9625,
-        "Bark": 1.0,
+        "MicroTts": 1.0,
+        "Xtts": 0.9605,
+        "Bark": 0.9936,
         "Tacotron": 1.0,
-        "Vall": 0.7722
+        "Vall": 0.7089
       },
-      "spread": 0.2278
+      "spread": 0.2911
     },
     "Cross-Modal (Lip-Sync)": {
       "recall": {
-        "MicroTts": 0.9954,
-        "Xtts": 0.9921,
-        "Bark": 0.9957,
-        "Tacotron": 1.0,
-        "Vall": 1.0
+        "MicroTts": 0.9816,
+        "Xtts": 0.9783,
+        "Bark": 0.9809,
+        "Tacotron": 0.9852,
+        "Vall": 0.9747
       },
-      "spread": 0.0079
+      "spread": 0.0105
     },
     "Biometric-Quality": {
       "recall": {

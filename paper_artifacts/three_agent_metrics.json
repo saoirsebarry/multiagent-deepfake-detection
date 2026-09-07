@@ -2,20 +2,20 @@
   "tau": 0.5,
   "configuration": "Phase-1 trio, five-agent weights renormalised",
   "weights_renormalised": {
-    "score_Audio Forensics (ECAPA)": 0.4444,
-    "score_Cross-Modal (Lip-Sync)": 0.0556,
-    "score_Facial Biometric (Quality)": 0.5
+    "score_Audio Forensics (ECAPA)": 0.5,
+    "score_Cross-Modal (Lip-Sync)": 0.1111,
+    "score_Facial Biometric (Quality)": 0.3889
   },
   "n_samples": 2162,
   "confusion_matrix": {
-    "TP": 2043,
-    "TN": 116,
-    "FP": 2,
-    "FN": 1
+    "TP": 2042,
+    "TN": 117,
+    "FP": 1,
+    "FN": 2
   },
   "accuracy": 0.9986123959296948,
-  "precision": 0.9990220048899755,
-  "recall": 0.9995107632093934,
-  "f1": 0.9992663242846661,
+  "precision": 0.9995105237395986,
+  "recall": 0.9990215264187867,
+  "f1": 0.9992659652556887,
   "miscount": 3
 }

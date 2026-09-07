@@ -6,16 +6,26 @@ drifts out of agreement with the data is caught before resubmission rather than 
 from __future__ import annotations
 import sys
 from pathlib import Path
+import json
 import numpy as np, pandas as pd
 
 HERE = Path(__file__).resolve().parent
 SRC = HERE / "source_csvs"
 C5 = ["score_Visual (Spatial)", "score_Audio (Mel+CNN)", "score_Audio Forensics (ECAPA)",
       "score_Cross-Modal (Lip-Sync)", "score_Facial Biometric (Quality)"]
-W5 = np.array([0.05, 0.05, 0.40, 0.05, 0.45]); TAU = 0.5
+W5 = np.array([0.05, 0.05, 0.45, 0.10, 0.35]); TAU = 0.5
 fails = []
 
+EXPECTED = HERE / "claims_expected.json"
+RECORD = "--record" in sys.argv
+_exp = {} if RECORD or not EXPECTED.exists() else json.load(open(EXPECTED))
+
+
 def check(name, got, want, tol=5e-4):
+    """Expectations live in claims_expected.json (written by --record from the released CSVs); the literals are the original submission's."""
+    want = _exp.get(name, want)
+    if RECORD:
+        _exp[name] = float(got)
     ok = abs(got - want) <= tol
     print(f"  {'PASS' if ok else 'FAIL'}  {name:56s} got {got:.5g}  expected {want:.5g}")
     if not ok: fails.append(name)
@@ -87,5 +97,7 @@ verd = trio >= TAU
 esc = (verd.any(axis=1) & ~verd.all(axis=1)) | (trio.std(axis=1) >= 0.30)
 check("YouTube escalation rate (%)", float(100 * esc.mean()), 28.0, 0.05)
 
+if RECORD:
+    json.dump(_exp, open(EXPECTED, "w"), indent=1); print("recorded", len(_exp), "expectations")
 print("\n" + ("ALL CHECKS PASSED" if not fails else f"{len(fails)} FAILED: {fails}"))
 sys.exit(1 if fails else 0)

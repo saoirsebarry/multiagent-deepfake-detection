@@ -1,0 +1,5 @@
+{"agent": "crossmodal", "released_val": {"epoch": 0, "auc": 0.99922, "logloss": 0.05302, "acc": 0.9916, "corr_auc": 0.77198, "corr_logloss": 0.91959, "corr_acc": 0.67647},
+ "rule1": {"adopted": false, "best": {"epoch": 11, "train_loss": 0.26798, "auc": 0.99859, "logloss": 0.07824, "acc": 0.97479, "corr_auc": 0.95925, "corr_logloss": 0.26541, "corr_acc": 0.88655}},
+ "rule2": {"adopted": true, "best": {"epoch": 15, "train_loss": 0.26934, "auc": 0.9988, "logloss": 0.08032, "acc": 0.96639, "corr_auc": 0.96038, "corr_logloss": 0.2608, "corr_acc": 0.90336}, "released_robust_logloss": 0.48631, "best_robust_logloss": 0.17056},
+ "adopted": true, "adopted_rule": "rule2", "adopted_epoch": 15,
+ "_note": "transcribed from the Colab terminal read of Drive robust_ft/crossmodal/decision.json (2026-09-07 20:28 UTC); 5-dp rounding"}

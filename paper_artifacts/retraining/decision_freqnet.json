@@ -1,0 +1,4 @@
+{"agent": "freqnet", "released_val": {"epoch": 0, "auc": 0.97712, "logloss": 0.19608, "acc": 0.92437, "corr_auc": 0.8909, "corr_logloss": 0.56946, "corr_acc": 0.78571},
+ "rule1": {"adopted": true, "best": {"epoch": 14, "train_loss": 0.32973, "auc": 0.98489, "logloss": 0.16217, "acc": 0.92857, "corr_auc": 0.97543, "corr_logloss": 0.2081, "corr_acc": 0.89076}},
+ "rule2": {"released_robust_logloss": 0.38277, "best_robust_logloss": 0.18513}, "adopted": true, "adopted_rule": "rule1", "adopted_epoch": 14,
+ "_note": "transcribed from the Colab terminal read of Drive robust_ft/freqnet/decision.json (2026-09-07 20:04 UTC); 5-dp rounding"}

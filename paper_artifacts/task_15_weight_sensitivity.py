@@ -1,7 +1,7 @@
 """Task 15: agent-weight sensitivity.
 
 Answers the reviewer request for a sensitivity analysis over the five agent weights
-(0.05, 0.05, 0.40, 0.05, 0.45). The aggregate score is a weighted linear combination of
+(0.05, 0.05, 0.45, 0.10, 0.35). The aggregate score is a weighted linear combination of
 five stored per-agent sigmoid outputs, so any alternative weight vector can be evaluated
 exactly on the same saved test predictions without re-running inference.
 
@@ -30,7 +30,7 @@ COLS = ["score_Visual (Spatial)", "score_Audio (Mel+CNN)",
         "score_Audio Forensics (ECAPA)", "score_Cross-Modal (Lip-Sync)",
         "score_Facial Biometric (Quality)"]
 NAMES = ["Visual", "FreqNet", "ECAPA", "CrossModal", "Biometric"]
-W0 = np.array([0.05, 0.05, 0.40, 0.05, 0.45])
+W0 = np.array([0.05, 0.05, 0.45, 0.10, 0.35])
 TAU = 0.5
 RNG = np.random.default_rng(42)
 

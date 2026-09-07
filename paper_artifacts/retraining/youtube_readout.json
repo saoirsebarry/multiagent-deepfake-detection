@@ -1,0 +1,30 @@
+{
+ "weights": {
+  "visual": 0.05,
+  "freqnet": 0.05,
+  "ecapa": 0.45,
+  "crossmodal": 0.1,
+  "biometric": 0.35
+ },
+ "weights_rule": "clean+corrupted",
+ "adopted": {
+  "visual": false,
+  "freqnet": true,
+  "ecapa": true,
+  "crossmodal": true,
+  "biometric": false
+ },
+ "n": 100,
+ "acc": 52.0,
+ "fp": 0,
+ "fn": 48,
+ "auc": 0.6450580232092837,
+ "esc_pct": 14.000000000000002,
+ "per_agent_auc": {
+  "visual": 0.7931172468987595,
+  "freqnet": 0.8635454181672669,
+  "ecapa": 0.5162064825930373,
+  "crossmodal": 0.4729891956782713,
+  "biometric": 0.7440976390556222
+ }
+}

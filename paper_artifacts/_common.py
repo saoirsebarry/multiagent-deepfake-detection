@@ -48,9 +48,9 @@ ALL_AGENT_COLS = list(AGENT_COLS.values())
 AGENT_WEIGHTS = {
     "score_Visual (Spatial)":          0.05,
     "score_Audio (Mel+CNN)":           0.05,
-    "score_Audio Forensics (ECAPA)":   0.40,
-    "score_Cross-Modal (Lip-Sync)":    0.05,
-    "score_Facial Biometric (Quality)":0.45,
+    "score_Audio Forensics (ECAPA)":   0.45,
+    "score_Cross-Modal (Lip-Sync)":    0.10,
+    "score_Facial Biometric (Quality)":0.35,
 }
 
 

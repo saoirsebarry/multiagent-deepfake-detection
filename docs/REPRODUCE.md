@@ -189,7 +189,7 @@ python src/orchestrator.py --split test --output_file /tmp/rescored.csv
 
 This configuration is verified reproducible: re-scoring the released test partition
 reproduces `paper_artifacts/source_csvs/analysis_results_with_5_agents.csv`
-(AUC-ROC 0.99998, 99.95% accuracy at τ = 0.5). In an 8-clip cross-machine spot-check, 39 of
+(AUC-ROC 0.99999, 99.91% accuracy at τ = 0.5). In an 8-clip cross-machine spot-check, 39 of
 40 per-agent scores matched within 0.02. `SHA256SUMS` lists the checkpoint digests.
 
 The released per-sample score CSVs in `paper_artifacts/source_csvs/` are the authoritative

@@ -23,9 +23,7 @@
   "Biometric_5ch_EfficientNet_B0": {
     "total": 4355261,
     "trainable": 4355261,
-    "checkpoint_applied": true,
-    "missing_keys": 325,
-    "unexpected_keys": 4
+    "checkpoint_applied": false
   },
   "ECAPA_TDNN_plus_11features": {
     "total": 20810209,

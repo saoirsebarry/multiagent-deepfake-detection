@@ -1,0 +1,5 @@
+{"agent": "visual", "released_val": {"epoch": 0, "stage": "released", "auc": 0.99675, "logloss": 0.18495, "acc": 0.96218, "corr_auc": 0.97663, "corr_logloss": 0.29027, "corr_acc": 0.91597},
+ "rule1": {"adopted": false, "best": {"epoch": 21, "stage": "finetune", "train_loss": 0.44678, "auc": 0.99025, "logloss": 0.23848, "acc": 0.94118, "corr_auc": 0.97860, "corr_logloss": 0.28009, "corr_acc": 0.93277}},
+ "rule2": {"adopted": false, "best": {"epoch": 21, "stage": "finetune", "train_loss": 0.44678, "auc": 0.99025, "logloss": 0.23848, "acc": 0.94118, "corr_auc": 0.97860, "corr_logloss": 0.28009, "corr_acc": 0.93277}, "released_robust_logloss": 0.23761, "best_robust_logloss": 0.25929},
+ "adopted": false, "adopted_rule": null, "adopted_epoch": null,
+ "_note": "RGB XceptionNet retrained from ImageNet weights with the corruption block; transcribed from the Colab terminal (2026-09-07 19:36 UTC); 5-dp rounding"}

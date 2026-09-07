@@ -1,13 +1,13 @@
 {
-  "ece_10bins": 0.03995538667900099,
+  "ece_10bins": 0.06740752451433854,
   "per_bin": [
     {
       "bin": 0,
       "edge_low": 0.0,
       "edge_high": 0.1,
       "bin_centre": 0.05,
-      "count": 107,
-      "mean_score": 0.022051682242990648,
+      "count": 95,
+      "mean_score": 0.05021207368421053,
       "empirical_positive_rate": 0.0
     },
     {
@@ -15,8 +15,8 @@
       "edge_low": 0.1,
       "edge_high": 0.2,
       "bin_centre": 0.15000000000000002,
-      "count": 3,
-      "mean_score": 0.12187733333333334,
+      "count": 17,
+      "mean_score": 0.1397724705882353,
       "empirical_positive_rate": 0.0
     },
     {
@@ -25,7 +25,7 @@
       "edge_high": 0.30000000000000004,
       "bin_centre": 0.25,
       "count": 3,
-      "mean_score": 0.25962233333333334,
+      "mean_score": 0.24230566666666667,
       "empirical_positive_rate": 0.0
     },
     {
@@ -33,35 +33,35 @@
       "edge_low": 0.30000000000000004,
       "edge_high": 0.4,
       "bin_centre": 0.35000000000000003,
-      "count": 0,
-      "mean_score": null,
-      "empirical_positive_rate": null
+      "count": 3,
+      "mean_score": 0.34160366666666664,
+      "empirical_positive_rate": 0.3333333333333333
     },
     {
       "bin": 4,
       "edge_low": 0.4,
       "edge_high": 0.5,
       "bin_centre": 0.45,
-      "count": 4,
-      "mean_score": 0.437965,
-      "empirical_positive_rate": 0.0
+      "count": 0,
+      "mean_score": null,
+      "empirical_positive_rate": null
     },
     {
       "bin": 5,
       "edge_low": 0.5,
       "edge_high": 0.6000000000000001,
       "bin_centre": 0.55,
-      "count": 30,
-      "mean_score": 0.5663427999999999,
-      "empirical_positive_rate": 0.9666666666666667
+      "count": 20,
+      "mean_score": 0.5624131,
+      "empirical_positive_rate": 0.95
     },
     {
       "bin": 6,
       "edge_low": 0.6000000000000001,
       "edge_high": 0.7000000000000001,
       "bin_centre": 0.6500000000000001,
-      "count": 16,
-      "mean_score": 0.647262375,
+      "count": 24,
+      "mean_score": 0.6491372083333333,
       "empirical_positive_rate": 1.0
     },
     {
@@ -69,8 +69,8 @@
       "edge_low": 0.7000000000000001,
       "edge_high": 0.8,
       "bin_centre": 0.75,
-      "count": 16,
-      "mean_score": 0.755499125,
+      "count": 44,
+      "mean_score": 0.7534910909090907,
       "empirical_positive_rate": 1.0
     },
     {
@@ -78,8 +78,8 @@
       "edge_low": 0.8,
       "edge_high": 0.9,
       "bin_centre": 0.8500000000000001,
-      "count": 85,
-      "mean_score": 0.8570975176470589,
+      "count": 210,
+      "mean_score": 0.8643965,
       "empirical_positive_rate": 1.0
     },
     {
@@ -87,8 +87,8 @@
       "edge_low": 0.9,
       "edge_high": 1.0,
       "bin_centre": 0.95,
-      "count": 1898,
-      "mean_score": 0.9750182223393045,
+      "count": 1746,
+      "mean_score": 0.9528399261168385,
       "empirical_positive_rate": 1.0
     }
   ]
