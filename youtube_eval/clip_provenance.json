@@ -1,0 +1,728 @@
+{
+ "fake_video_order": [
+  "0Y5thnRlKNY",
+  "Dufpc8vVH8I",
+  "g4xrYkhn4_E",
+  "hcndfkU57W8",
+  "p0JaIfhrNoU",
+  "OBgRHikjYSA",
+  "L4XhZ4kC51k",
+  "yaK_SdNfcO0",
+  "QuR5JMl-1v8",
+  "4FnJdXtPkA8"
+ ],
+ "real_fill_order": [
+  "wg1pBNepK-E",
+  "Sjla9lWgEvs",
+  "iwYxjeqGYDM",
+  "KqDI2h3x6vA",
+  "EnLA3Svbda8",
+  "4jbzOKhc_f4",
+  "OucbmYkMNSA",
+  "2_KSB9PUGZw",
+  "SD-hD0Bhlps",
+  "gcGg-o3BfHA"
+ ],
+ "clips": [
+  {
+   "file": "At least 13 dead in Nepal after protests against social media ban \uff5c BBC News__dSRnKy10lA_seq000_label_real.npz",
+   "video_id": "_dSRnKy10lA",
+   "label": "Real",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "Create AI Videos & Images in HeyGen with Veo3, Runway Gen-4, Kling & More! (Step-by-Step)_mZcridN9hq0_seq000_label_fake.npz",
+   "video_id": "mZcridN9hq0",
+   "label": "Real",
+   "note": "real presenter face in a video about generation tools",
+   "origin": "released-37"
+  },
+  {
+   "file": "Create AI Videos & Images in HeyGen with Veo3, Runway Gen-4, Kling & More! (Step-by-Step)_mZcridN9hq0_seq001_label_fake.npz",
+   "video_id": "mZcridN9hq0",
+   "label": "Real",
+   "note": "real presenter face in a video about generation tools",
+   "origin": "released-37"
+  },
+  {
+   "file": "French government collapses as MPs vote to oust prime minister \uff5c BBC News_n-jo7tfhsvQ_seq000_label_real.npz",
+   "video_id": "n-jo7tfhsvQ",
+   "label": "Real",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "French government collapses as MPs vote to oust prime minister \uff5c BBC News_n-jo7tfhsvQ_seq001_label_real.npz",
+   "video_id": "n-jo7tfhsvQ",
+   "label": "Real",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "French government collapses as MPs vote to oust prime minister \uff5c BBC News_n-jo7tfhsvQ_seq002_label_real.npz",
+   "video_id": "n-jo7tfhsvQ",
+   "label": "Real",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "French government collapses as MPs vote to oust prime minister \uff5c BBC News_n-jo7tfhsvQ_seq003_label_real.npz",
+   "video_id": "n-jo7tfhsvQ",
+   "label": "Real",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "French government collapses as MPs vote to oust prime minister \uff5c BBC News_n-jo7tfhsvQ_seq004_label_real.npz",
+   "video_id": "n-jo7tfhsvQ",
+   "label": "Real",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "How to Go VIRAL on Social Media Using AI_nDZQKKpAbWo_seq000_label_fake.npz",
+   "video_id": "nDZQKKpAbWo",
+   "label": "Fake",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "How to Go VIRAL on Social Media Using AI_nDZQKKpAbWo_seq001_label_fake.npz",
+   "video_id": "nDZQKKpAbWo",
+   "label": "Fake",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "How to Go VIRAL on Social Media Using AI_nDZQKKpAbWo_seq002_label_fake.npz",
+   "video_id": "nDZQKKpAbWo",
+   "label": "Fake",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "How to Go VIRAL on Social Media Using AI_nDZQKKpAbWo_seq003_label_fake.npz",
+   "video_id": "nDZQKKpAbWo",
+   "label": "Fake",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "How to Go VIRAL on Social Media Using AI_nDZQKKpAbWo_seq004_label_fake.npz",
+   "video_id": "nDZQKKpAbWo",
+   "label": "Fake",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "How to Make AI Music and a Virtual Band in Under 10 Minutes_cT9Uw2jzMUc_seq000_label_fake.npz",
+   "video_id": "cT9Uw2jzMUc",
+   "label": "Real",
+   "note": "real presenter face in a video about generation tools",
+   "origin": "released-37"
+  },
+  {
+   "file": "How to Make AI Music and a Virtual Band in Under 10 Minutes_cT9Uw2jzMUc_seq001_label_fake.npz",
+   "video_id": "cT9Uw2jzMUc",
+   "label": "Real",
+   "note": "real presenter face in a video about generation tools",
+   "origin": "released-37"
+  },
+  {
+   "file": "How to Make AI Music and a Virtual Band in Under 10 Minutes_cT9Uw2jzMUc_seq002_label_fake.npz",
+   "video_id": "cT9Uw2jzMUc",
+   "label": "Real",
+   "note": "real presenter face in a video about generation tools",
+   "origin": "released-37"
+  },
+  {
+   "file": "How to Make AI Music and a Virtual Band in Under 10 Minutes_cT9Uw2jzMUc_seq003_label_fake.npz",
+   "video_id": "cT9Uw2jzMUc",
+   "label": "Real",
+   "note": "real presenter face in a video about generation tools",
+   "origin": "released-37"
+  },
+  {
+   "file": "How to Make AI Music and a Virtual Band in Under 10 Minutes_cT9Uw2jzMUc_seq004_label_fake.npz",
+   "video_id": "cT9Uw2jzMUc",
+   "label": "Real",
+   "note": "real presenter face in a video about generation tools",
+   "origin": "released-37"
+  },
+  {
+   "file": "I Tested MrBeast's Thumbnail Strategy on AI Videos Here's What Worked_pxPzCFM0qE4_seq000_label_fake.npz",
+   "video_id": "pxPzCFM0qE4",
+   "label": "Fake",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "I Tested MrBeast's Thumbnail Strategy on AI Videos Here's What Worked_pxPzCFM0qE4_seq001_label_fake.npz",
+   "video_id": "pxPzCFM0qE4",
+   "label": "Fake",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "I Tested MrBeast's Thumbnail Strategy on AI Videos Here's What Worked_pxPzCFM0qE4_seq002_label_fake.npz",
+   "video_id": "pxPzCFM0qE4",
+   "label": "Fake",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "I Tested MrBeast's Thumbnail Strategy on AI Videos Here's What Worked_pxPzCFM0qE4_seq003_label_fake.npz",
+   "video_id": "pxPzCFM0qE4",
+   "label": "Fake",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "I Tested MrBeast's Thumbnail Strategy on AI Videos Here's What Worked_pxPzCFM0qE4_seq004_label_fake.npz",
+   "video_id": "pxPzCFM0qE4",
+   "label": "Fake",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "Israel intensifies strikes on Gaza City \uff5c BBC News_AEu6wVp_Edw_seq000_label_real.npz",
+   "video_id": "AEu6wVp_Edw",
+   "label": "Real",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "Israel intensifies strikes on Gaza City \uff5c BBC News_AEu6wVp_Edw_seq001_label_real.npz",
+   "video_id": "AEu6wVp_Edw",
+   "label": "Real",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "Israel intensifies strikes on Gaza City \uff5c BBC News_AEu6wVp_Edw_seq002_label_real.npz",
+   "video_id": "AEu6wVp_Edw",
+   "label": "Real",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "Israel intensifies strikes on Gaza City \uff5c BBC News_AEu6wVp_Edw_seq003_label_real.npz",
+   "video_id": "AEu6wVp_Edw",
+   "label": "Real",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "Israel intensifies strikes on Gaza City \uff5c BBC News_AEu6wVp_Edw_seq004_label_real.npz",
+   "video_id": "AEu6wVp_Edw",
+   "label": "Real",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "Jerusalem shooting\uff1a Six killed by Palestinian gunmen \uff5c BBC News_8Xeh7TVPp-M_seq000_label_real.npz",
+   "video_id": "8Xeh7TVPp-M",
+   "label": "Real",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "Jerusalem shooting\uff1a Six killed by Palestinian gunmen \uff5c BBC News_8Xeh7TVPp-M_seq001_label_real.npz",
+   "video_id": "8Xeh7TVPp-M",
+   "label": "Real",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "Jerusalem shooting\uff1a Six killed by Palestinian gunmen \uff5c BBC News_8Xeh7TVPp-M_seq002_label_real.npz",
+   "video_id": "8Xeh7TVPp-M",
+   "label": "Real",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "Jerusalem shooting\uff1a Six killed by Palestinian gunmen \uff5c BBC News_8Xeh7TVPp-M_seq003_label_real.npz",
+   "video_id": "8Xeh7TVPp-M",
+   "label": "Real",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "Jerusalem shooting\uff1a Six killed by Palestinian gunmen \uff5c BBC News_8Xeh7TVPp-M_seq004_label_real.npz",
+   "video_id": "8Xeh7TVPp-M",
+   "label": "Real",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "Prince Harry lays wreath in memory of late Queen \uff5c BBC News_lGO9j_x8gp0_seq000_label_real.npz",
+   "video_id": "lGO9j_x8gp0",
+   "label": "Real",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "Prince Harry lays wreath in memory of late Queen \uff5c BBC News_lGO9j_x8gp0_seq001_label_real.npz",
+   "video_id": "lGO9j_x8gp0",
+   "label": "Real",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "Prince Harry lays wreath in memory of late Queen \uff5c BBC News_lGO9j_x8gp0_seq002_label_real.npz",
+   "video_id": "lGO9j_x8gp0",
+   "label": "Real",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "We Created the World's Most Realistic Digital Twin_m0fdgkJGxHs_seq000_label_fake.npz",
+   "video_id": "m0fdgkJGxHs",
+   "label": "Fake",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "What\u2019s Happening Today @WAVES 2025 with AI Anchor Sana \uff5c May 1 \uff5c French \uff5c AajTak AI_0Y5thnRlKNY_seq000_label_fake.npz",
+   "video_id": "0Y5thnRlKNY",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana (WAVES 2025 bulletin, French)",
+   "origin": "batch"
+  },
+  {
+   "file": "What\u2019s Happening Today @WAVES 2025 with AI Anchor Sana \uff5c May 1 \uff5c French \uff5c AajTak AI_0Y5thnRlKNY_seq001_label_fake.npz",
+   "video_id": "0Y5thnRlKNY",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana (WAVES 2025 bulletin, French)",
+   "origin": "batch"
+  },
+  {
+   "file": "What\u2019s Happening Today @WAVES 2025 with AI Anchor Sana \uff5c May 1 \uff5c French \uff5c AajTak AI_0Y5thnRlKNY_seq002_label_fake.npz",
+   "video_id": "0Y5thnRlKNY",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana (WAVES 2025 bulletin, French)",
+   "origin": "batch"
+  },
+  {
+   "file": "What\u2019s Happening Today @WAVES 2025 with AI Anchor Sana \uff5c May 1 \uff5c French \uff5c AajTak AI_0Y5thnRlKNY_seq003_label_fake.npz",
+   "video_id": "0Y5thnRlKNY",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana (WAVES 2025 bulletin, French)",
+   "origin": "batch"
+  },
+  {
+   "file": "What\u2019s Happening Today @WAVES 2025 with AI Anchor Sana \uff5c May 1 \uff5c French \uff5c AajTak AI_0Y5thnRlKNY_seq004_label_fake.npz",
+   "video_id": "0Y5thnRlKNY",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana (WAVES 2025 bulletin, French)",
+   "origin": "batch"
+  },
+  {
+   "file": "What\u2019s Happening Today @WAVES 2025 with AI Anchor Sana \uff5c May 2 \uff5c German \uff5c AajTak AI_Dufpc8vVH8I_seq000_label_fake.npz",
+   "video_id": "Dufpc8vVH8I",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana (WAVES 2025 bulletin, German)",
+   "origin": "batch"
+  },
+  {
+   "file": "What\u2019s Happening Today @WAVES 2025 with AI Anchor Sana \uff5c May 2 \uff5c French \uff5c AajTak AI_g4xrYkhn4_E_seq000_label_fake.npz",
+   "video_id": "g4xrYkhn4_E",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "What\u2019s Happening Today @WAVES 2025 with AI Anchor Sana \uff5c May 2 \uff5c French \uff5c AajTak AI_g4xrYkhn4_E_seq001_label_fake.npz",
+   "video_id": "g4xrYkhn4_E",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "AI Stories Of The Week \uff5c Chat GPT \uff5c GrokAI_hcndfkU57W8_seq000_label_fake.npz",
+   "video_id": "hcndfkU57W8",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "AI Stories Of The Week \uff5c Chat GPT \uff5c GrokAI_hcndfkU57W8_seq001_label_fake.npz",
+   "video_id": "hcndfkU57W8",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "AI Stories Of The Week \uff5c Chat GPT \uff5c GrokAI_hcndfkU57W8_seq002_label_fake.npz",
+   "video_id": "hcndfkU57W8",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "AI Stories Of The Week \uff5c Chat GPT \uff5c GrokAI_hcndfkU57W8_seq003_label_fake.npz",
+   "video_id": "hcndfkU57W8",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "AI Stories Of The Week \uff5c Chat GPT \uff5c GrokAI_hcndfkU57W8_seq004_label_fake.npz",
+   "video_id": "hcndfkU57W8",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "AI2Z\uff1a Top Tech Breakthroughs, Privacy Fears & Billion-Dollar Deals!_p0JaIfhrNoU_seq000_label_fake.npz",
+   "video_id": "p0JaIfhrNoU",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "AI2Z\uff1a Top Tech Breakthroughs, Privacy Fears & Billion-Dollar Deals!_p0JaIfhrNoU_seq001_label_fake.npz",
+   "video_id": "p0JaIfhrNoU",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "AI2Z\uff1a Top Tech Breakthroughs, Privacy Fears & Billion-Dollar Deals!_p0JaIfhrNoU_seq002_label_fake.npz",
+   "video_id": "p0JaIfhrNoU",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "AI2Z\uff1a Top Tech Breakthroughs, Privacy Fears & Billion-Dollar Deals!_p0JaIfhrNoU_seq003_label_fake.npz",
+   "video_id": "p0JaIfhrNoU",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "AI2Z\uff1a Top Tech Breakthroughs, Privacy Fears & Billion-Dollar Deals!_p0JaIfhrNoU_seq004_label_fake.npz",
+   "video_id": "p0JaIfhrNoU",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "ChatGPT Go Comes At Just \u20b9399 Per Month \uff5c AI Anchor Sana_OBgRHikjYSA_seq000_label_fake.npz",
+   "video_id": "OBgRHikjYSA",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "ChatGPT Go Comes At Just \u20b9399 Per Month \uff5c AI Anchor Sana_OBgRHikjYSA_seq001_label_fake.npz",
+   "video_id": "OBgRHikjYSA",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "ChatGPT Go Comes At Just \u20b9399 Per Month \uff5c AI Anchor Sana_OBgRHikjYSA_seq002_label_fake.npz",
+   "video_id": "OBgRHikjYSA",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "ChatGPT Go Comes At Just \u20b9399 Per Month \uff5c AI Anchor Sana_OBgRHikjYSA_seq003_label_fake.npz",
+   "video_id": "OBgRHikjYSA",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "ChatGPT Go Comes At Just \u20b9399 Per Month \uff5c AI Anchor Sana_OBgRHikjYSA_seq004_label_fake.npz",
+   "video_id": "OBgRHikjYSA",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "Top Stories In AI \uff5c AI2Z \uff5c Sam Altman \uff5c ChatGPT \uff5c xAI_L4XhZ4kC51k_seq000_label_fake.npz",
+   "video_id": "L4XhZ4kC51k",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "Top Stories In AI \uff5c AI2Z \uff5c Sam Altman \uff5c ChatGPT \uff5c xAI_L4XhZ4kC51k_seq001_label_fake.npz",
+   "video_id": "L4XhZ4kC51k",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "Top Stories In AI \uff5c AI2Z \uff5c Sam Altman \uff5c ChatGPT \uff5c xAI_L4XhZ4kC51k_seq002_label_fake.npz",
+   "video_id": "L4XhZ4kC51k",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "Top Stories In AI \uff5c AI2Z \uff5c Sam Altman \uff5c ChatGPT \uff5c xAI_L4XhZ4kC51k_seq003_label_fake.npz",
+   "video_id": "L4XhZ4kC51k",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "Top Stories In AI \uff5c AI2Z \uff5c Sam Altman \uff5c ChatGPT \uff5c xAI_L4XhZ4kC51k_seq004_label_fake.npz",
+   "video_id": "L4XhZ4kC51k",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "AI Girlfriend \u0915\u094b \u092e\u093f\u0932\u0928\u0947 \u0906\u0926\u092e\u0940, \u0939\u0941\u0908 \u092e\u094c\u0924 \uff5c AI Anchor Sana \uff5c AajTak AI_yaK_SdNfcO0_seq000_label_fake.npz",
+   "video_id": "yaK_SdNfcO0",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "AI Girlfriend \u0915\u094b \u092e\u093f\u0932\u0928\u0947 \u0906\u0926\u092e\u0940, \u0939\u0941\u0908 \u092e\u094c\u0924 \uff5c AI Anchor Sana \uff5c AajTak AI_yaK_SdNfcO0_seq001_label_fake.npz",
+   "video_id": "yaK_SdNfcO0",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "AI Girlfriend \u0915\u094b \u092e\u093f\u0932\u0928\u0947 \u0906\u0926\u092e\u0940, \u0939\u0941\u0908 \u092e\u094c\u0924 \uff5c AI Anchor Sana \uff5c AajTak AI_yaK_SdNfcO0_seq002_label_fake.npz",
+   "video_id": "yaK_SdNfcO0",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "AI Girlfriend \u0915\u094b \u092e\u093f\u0932\u0928\u0947 \u0906\u0926\u092e\u0940, \u0939\u0941\u0908 \u092e\u094c\u0924 \uff5c AI Anchor Sana \uff5c AajTak AI_yaK_SdNfcO0_seq004_label_fake.npz",
+   "video_id": "yaK_SdNfcO0",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "AI Anchor Sana Reveals TOP AI Stories Of The Week \uff5c AajTak AI_QuR5JMl-1v8_seq000_label_fake.npz",
+   "video_id": "QuR5JMl-1v8",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "AI Anchor Sana Reveals TOP AI Stories Of The Week \uff5c AajTak AI_QuR5JMl-1v8_seq001_label_fake.npz",
+   "video_id": "QuR5JMl-1v8",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "AI Anchor Sana Reveals TOP AI Stories Of The Week \uff5c AajTak AI_QuR5JMl-1v8_seq002_label_fake.npz",
+   "video_id": "QuR5JMl-1v8",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "AI Anchor Sana Reveals TOP AI Stories Of The Week \uff5c AajTak AI_QuR5JMl-1v8_seq003_label_fake.npz",
+   "video_id": "QuR5JMl-1v8",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "AI Anchor Sana Reveals TOP AI Stories Of The Week \uff5c AajTak AI_QuR5JMl-1v8_seq004_label_fake.npz",
+   "video_id": "QuR5JMl-1v8",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "Lisa AI Creates History, Becomes Global Case Study in Classrooms Worldwide \uff5c OTV News English \uff5c OTV_4FnJdXtPkA8_seq001_label_fake.npz",
+   "video_id": "4FnJdXtPkA8",
+   "label": "Fake",
+   "note": "OTV AI anchor Lisa",
+   "origin": "batch"
+  },
+  {
+   "file": "Donald Trump and Vladimir Putin to meet in Alaska for high-stakes summit \uff5c BBC News_wg1pBNepK-E_seq000_label_real.npz",
+   "video_id": "wg1pBNepK-E",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "Donald Trump and Vladimir Putin to meet in Alaska for high-stakes summit \uff5c BBC News_wg1pBNepK-E_seq001_label_real.npz",
+   "video_id": "wg1pBNepK-E",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "Donald Trump and Vladimir Putin to meet in Alaska for high-stakes summit \uff5c BBC News_wg1pBNepK-E_seq002_label_real.npz",
+   "video_id": "wg1pBNepK-E",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "Donald Trump and Vladimir Putin to meet in Alaska for high-stakes summit \uff5c BBC News_wg1pBNepK-E_seq003_label_real.npz",
+   "video_id": "wg1pBNepK-E",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "Donald Trump and Vladimir Putin to meet in Alaska for high-stakes summit \uff5c BBC News_wg1pBNepK-E_seq004_label_real.npz",
+   "video_id": "wg1pBNepK-E",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "Donald Trump and Vladimir Putin end Ukraine summit without ceasefire deal \uff5c BBC News_Sjla9lWgEvs_seq000_label_real.npz",
+   "video_id": "Sjla9lWgEvs",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "Donald Trump and Vladimir Putin end Ukraine summit without ceasefire deal \uff5c BBC News_Sjla9lWgEvs_seq001_label_real.npz",
+   "video_id": "Sjla9lWgEvs",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "Donald Trump and Vladimir Putin end Ukraine summit without ceasefire deal \uff5c BBC News_Sjla9lWgEvs_seq002_label_real.npz",
+   "video_id": "Sjla9lWgEvs",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "Donald Trump and Vladimir Putin end Ukraine summit without ceasefire deal \uff5c BBC News_Sjla9lWgEvs_seq003_label_real.npz",
+   "video_id": "Sjla9lWgEvs",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "Donald Trump and Vladimir Putin end Ukraine summit without ceasefire deal \uff5c BBC News_Sjla9lWgEvs_seq004_label_real.npz",
+   "video_id": "Sjla9lWgEvs",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "Court rules asylum seekers must be moved from UK hotel \uff5c BBC News_iwYxjeqGYDM_seq000_label_real.npz",
+   "video_id": "iwYxjeqGYDM",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "Court rules asylum seekers must be moved from UK hotel \uff5c BBC News_iwYxjeqGYDM_seq001_label_real.npz",
+   "video_id": "iwYxjeqGYDM",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "Court rules asylum seekers must be moved from UK hotel \uff5c BBC News_iwYxjeqGYDM_seq002_label_real.npz",
+   "video_id": "iwYxjeqGYDM",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "Court rules asylum seekers must be moved from UK hotel \uff5c BBC News_iwYxjeqGYDM_seq003_label_real.npz",
+   "video_id": "iwYxjeqGYDM",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "Court rules asylum seekers must be moved from UK hotel \uff5c BBC News_iwYxjeqGYDM_seq004_label_real.npz",
+   "video_id": "iwYxjeqGYDM",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "More asylum hotels in England face legal challenge after court ruling \uff5c BBC News_KqDI2h3x6vA_seq000_label_real.npz",
+   "video_id": "KqDI2h3x6vA",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "More asylum hotels in England face legal challenge after court ruling \uff5c BBC News_KqDI2h3x6vA_seq001_label_real.npz",
+   "video_id": "KqDI2h3x6vA",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "More asylum hotels in England face legal challenge after court ruling \uff5c BBC News_KqDI2h3x6vA_seq002_label_real.npz",
+   "video_id": "KqDI2h3x6vA",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "More asylum hotels in England face legal challenge after court ruling \uff5c BBC News_KqDI2h3x6vA_seq003_label_real.npz",
+   "video_id": "KqDI2h3x6vA",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "More asylum hotels in England face legal challenge after court ruling \uff5c BBC News_KqDI2h3x6vA_seq004_label_real.npz",
+   "video_id": "KqDI2h3x6vA",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "At least 15 dead after Lisbon's historic funicular derails \uff5c BBC News_EnLA3Svbda8_seq000_label_real.npz",
+   "video_id": "EnLA3Svbda8",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "At least 17 dead after Portugal funicular crash \uff5c BBC News_4jbzOKhc_f4_seq000_label_real.npz",
+   "video_id": "4jbzOKhc_f4",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "At least 17 dead after Portugal funicular crash \uff5c BBC News_4jbzOKhc_f4_seq001_label_real.npz",
+   "video_id": "4jbzOKhc_f4",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "At least 17 dead after Portugal funicular crash \uff5c BBC News_4jbzOKhc_f4_seq002_label_real.npz",
+   "video_id": "4jbzOKhc_f4",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "At least 17 dead after Portugal funicular crash \uff5c BBC News_4jbzOKhc_f4_seq003_label_real.npz",
+   "video_id": "4jbzOKhc_f4",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  }
+ ]
+}

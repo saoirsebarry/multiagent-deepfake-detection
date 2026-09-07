@@ -126,7 +126,7 @@ def load_three_agent() -> pd.DataFrame:
 
 
 def load_youtube() -> pd.DataFrame:
-    path = CSV_DIR / "analysis_results_with_5_agents_orchestration.csv"
+    path = CSV_DIR / "analysis_results_youtube.csv"
     df = pd.read_csv(path)
     return df
 

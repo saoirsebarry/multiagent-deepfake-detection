@@ -1,38 +1,101 @@
 filepath,video_id,ground_truth,label_note,system_verdict,final_score,score_Visual (Spatial),score_Audio (Mel+CNN),score_Audio Forensics (ECAPA),score_Cross-Modal (Lip-Sync),score_Facial Biometric (Quality)
-At least 13 dead in Nepal after protests against social media ban ｜ BBC News__dSRnKy10lA_seq000_label_real.npz,_dSRnKy10lA,Real,,Real,0.012745,0.071406,0.111273,0.000046,0.011246,0.006734
+At least 13 dead in Nepal after protests against social media ban ｜ BBC News__dSRnKy10lA_seq000_label_real.npz,_dSRnKy10lA,Real,,Real,0.012745,0.071406,0.111272,0.000046,0.011246,0.006734
 "Create AI Videos & Images in HeyGen with Veo3, Runway Gen-4, Kling & More! (Step-by-Step)_mZcridN9hq0_seq000_label_fake.npz",mZcridN9hq0,Real,real presenter face in a video about generation tools,Real,0.022174,0.071860,0.034459,0.001414,0.054192,0.030184
 "Create AI Videos & Images in HeyGen with Veo3, Runway Gen-4, Kling & More! (Step-by-Step)_mZcridN9hq0_seq001_label_fake.npz",mZcridN9hq0,Real,real presenter face in a video about generation tools,Real,0.017331,0.064946,0.074210,0.000003,0.036116,0.019035
 French government collapses as MPs vote to oust prime minister ｜ BBC News_n-jo7tfhsvQ_seq000_label_real.npz,n-jo7tfhsvQ,Real,,Real,0.021408,0.066095,0.246727,0.008001,0.012978,0.004262
 French government collapses as MPs vote to oust prime minister ｜ BBC News_n-jo7tfhsvQ_seq001_label_real.npz,n-jo7tfhsvQ,Real,,Real,0.025072,0.071266,0.114279,0.000002,0.024225,0.032405
 French government collapses as MPs vote to oust prime minister ｜ BBC News_n-jo7tfhsvQ_seq002_label_real.npz,n-jo7tfhsvQ,Real,,Real,0.015414,0.107378,0.131990,0.000000,0.010054,0.006540
 French government collapses as MPs vote to oust prime minister ｜ BBC News_n-jo7tfhsvQ_seq003_label_real.npz,n-jo7tfhsvQ,Real,,Real,0.012968,0.069210,0.111577,0.000000,0.023037,0.006170
-French government collapses as MPs vote to oust prime minister ｜ BBC News_n-jo7tfhsvQ_seq004_label_real.npz,n-jo7tfhsvQ,Real,,Real,0.022163,0.082835,0.242885,0.003118,0.012171,0.008937
+French government collapses as MPs vote to oust prime minister ｜ BBC News_n-jo7tfhsvQ_seq004_label_real.npz,n-jo7tfhsvQ,Real,,Real,0.022163,0.082835,0.242884,0.003118,0.012171,0.008937
 How to Go VIRAL on Social Media Using AI_nDZQKKpAbWo_seq000_label_fake.npz,nDZQKKpAbWo,Fake,,Real,0.455921,0.067174,0.983729,1.000000,0.038497,0.003225
 How to Go VIRAL on Social Media Using AI_nDZQKKpAbWo_seq001_label_fake.npz,nDZQKKpAbWo,Fake,,Real,0.456037,0.067512,0.995220,0.999999,0.030593,0.003048
-How to Go VIRAL on Social Media Using AI_nDZQKKpAbWo_seq002_label_fake.npz,nDZQKKpAbWo,Fake,,Real,0.451414,0.069300,0.900857,1.000000,0.032844,0.002808
+How to Go VIRAL on Social Media Using AI_nDZQKKpAbWo_seq002_label_fake.npz,nDZQKKpAbWo,Fake,,Real,0.451414,0.069300,0.900858,1.000000,0.032844,0.002808
 How to Go VIRAL on Social Media Using AI_nDZQKKpAbWo_seq003_label_fake.npz,nDZQKKpAbWo,Fake,,Real,0.453120,0.066976,0.942045,1.000000,0.020702,0.003630
 How to Go VIRAL on Social Media Using AI_nDZQKKpAbWo_seq004_label_fake.npz,nDZQKKpAbWo,Fake,,Real,0.453916,0.066931,0.965136,1.000000,0.020503,0.002862
 How to Make AI Music and a Virtual Band in Under 10 Minutes_cT9Uw2jzMUc_seq000_label_fake.npz,cT9Uw2jzMUc,Real,real presenter face in a video about generation tools,Real,0.407450,0.068902,0.003346,1.000000,0.049069,0.003075
 How to Make AI Music and a Virtual Band in Under 10 Minutes_cT9Uw2jzMUc_seq001_label_fake.npz,cT9Uw2jzMUc,Real,real presenter face in a video about generation tools,Real,0.407593,0.069037,0.004519,0.999952,0.039277,0.004379
 How to Make AI Music and a Virtual Band in Under 10 Minutes_cT9Uw2jzMUc_seq002_label_fake.npz,cT9Uw2jzMUc,Real,real presenter face in a video about generation tools,Real,0.221133,0.066788,0.024455,0.532849,0.031611,0.004113
-How to Make AI Music and a Virtual Band in Under 10 Minutes_cT9Uw2jzMUc_seq003_label_fake.npz,cT9Uw2jzMUc,Real,real presenter face in a video about generation tools,Real,0.405986,0.068074,0.014548,0.993026,0.062006,0.003432
-How to Make AI Music and a Virtual Band in Under 10 Minutes_cT9Uw2jzMUc_seq004_label_fake.npz,cT9Uw2jzMUc,Real,real presenter face in a video about generation tools,Real,0.418674,0.071544,0.003572,0.987535,0.326032,0.008005
-I Tested MrBeast's Thumbnail Strategy on AI Videos Here's What Worked_pxPzCFM0qE4_seq000_label_fake.npz,pxPzCFM0qE4,Fake,,Real,0.488564,0.068681,0.983870,1.000000,0.668341,0.005599
+How to Make AI Music and a Virtual Band in Under 10 Minutes_cT9Uw2jzMUc_seq003_label_fake.npz,cT9Uw2jzMUc,Real,real presenter face in a video about generation tools,Real,0.405986,0.068074,0.014548,0.993026,0.062007,0.003432
+How to Make AI Music and a Virtual Band in Under 10 Minutes_cT9Uw2jzMUc_seq004_label_fake.npz,cT9Uw2jzMUc,Real,real presenter face in a video about generation tools,Real,0.418674,0.071544,0.003572,0.987535,0.326036,0.008005
+I Tested MrBeast's Thumbnail Strategy on AI Videos Here's What Worked_pxPzCFM0qE4_seq000_label_fake.npz,pxPzCFM0qE4,Fake,,Real,0.488564,0.068681,0.983870,1.000000,0.668344,0.005599
 I Tested MrBeast's Thumbnail Strategy on AI Videos Here's What Worked_pxPzCFM0qE4_seq001_label_fake.npz,pxPzCFM0qE4,Fake,,Real,0.407408,0.064394,0.003900,0.999997,0.036202,0.004854
 I Tested MrBeast's Thumbnail Strategy on AI Videos Here's What Worked_pxPzCFM0qE4_seq002_label_fake.npz,pxPzCFM0qE4,Fake,,Real,0.410249,0.063957,0.090073,0.998710,0.029493,0.003530
-I Tested MrBeast's Thumbnail Strategy on AI Videos Here's What Worked_pxPzCFM0qE4_seq003_label_fake.npz,pxPzCFM0qE4,Fake,,Real,0.436236,0.064014,0.510912,0.999998,0.118134,0.003520
-I Tested MrBeast's Thumbnail Strategy on AI Videos Here's What Worked_pxPzCFM0qE4_seq004_label_fake.npz,pxPzCFM0qE4,Fake,,Real,0.455973,0.064490,0.890089,0.999413,0.129291,0.004477
-Israel intensifies strikes on Gaza City ｜ BBC News_AEu6wVp_Edw_seq000_label_real.npz,AEu6wVp_Edw,Real,,Real,0.017406,0.064110,0.239172,0.000007,0.023224,0.002395
+I Tested MrBeast's Thumbnail Strategy on AI Videos Here's What Worked_pxPzCFM0qE4_seq003_label_fake.npz,pxPzCFM0qE4,Fake,,Real,0.436236,0.064014,0.510913,0.999998,0.118135,0.003520
+I Tested MrBeast's Thumbnail Strategy on AI Videos Here's What Worked_pxPzCFM0qE4_seq004_label_fake.npz,pxPzCFM0qE4,Fake,,Real,0.455973,0.064490,0.890089,0.999413,0.129292,0.004477
+Israel intensifies strikes on Gaza City ｜ BBC News_AEu6wVp_Edw_seq000_label_real.npz,AEu6wVp_Edw,Real,,Real,0.017406,0.064110,0.239171,0.000007,0.023224,0.002395
 Israel intensifies strikes on Gaza City ｜ BBC News_AEu6wVp_Edw_seq001_label_real.npz,AEu6wVp_Edw,Real,,Real,0.052825,0.064078,0.235169,0.088751,0.025459,0.002420
-Israel intensifies strikes on Gaza City ｜ BBC News_AEu6wVp_Edw_seq002_label_real.npz,AEu6wVp_Edw,Real,,Real,0.018694,0.065797,0.251380,0.000123,0.037612,0.002011
-Israel intensifies strikes on Gaza City ｜ BBC News_AEu6wVp_Edw_seq003_label_real.npz,AEu6wVp_Edw,Real,,Real,0.026950,0.064166,0.404245,0.000338,0.038463,0.003270
-Israel intensifies strikes on Gaza City ｜ BBC News_AEu6wVp_Edw_seq004_label_real.npz,AEu6wVp_Edw,Real,,Real,0.039281,0.064415,0.667205,0.001100,0.023770,0.002382
+Israel intensifies strikes on Gaza City ｜ BBC News_AEu6wVp_Edw_seq002_label_real.npz,AEu6wVp_Edw,Real,,Real,0.018694,0.065797,0.251379,0.000123,0.037612,0.002011
+Israel intensifies strikes on Gaza City ｜ BBC News_AEu6wVp_Edw_seq003_label_real.npz,AEu6wVp_Edw,Real,,Real,0.026950,0.064166,0.404244,0.000338,0.038463,0.003270
+Israel intensifies strikes on Gaza City ｜ BBC News_AEu6wVp_Edw_seq004_label_real.npz,AEu6wVp_Edw,Real,,Real,0.039281,0.064415,0.667204,0.001100,0.023770,0.002382
 Jerusalem shooting： Six killed by Palestinian gunmen ｜ BBC News_8Xeh7TVPp-M_seq000_label_real.npz,8Xeh7TVPp-M,Real,,Real,0.006935,0.065351,0.026805,0.000000,0.026589,0.002217
 Jerusalem shooting： Six killed by Palestinian gunmen ｜ BBC News_8Xeh7TVPp-M_seq001_label_real.npz,8Xeh7TVPp-M,Real,,Real,0.017798,0.066269,0.237247,0.001741,0.020435,0.002009
-Jerusalem shooting： Six killed by Palestinian gunmen ｜ BBC News_8Xeh7TVPp-M_seq002_label_real.npz,8Xeh7TVPp-M,Real,,Real,0.015516,0.066305,0.192577,0.000002,0.031900,0.002168
+Jerusalem shooting： Six killed by Palestinian gunmen ｜ BBC News_8Xeh7TVPp-M_seq002_label_real.npz,8Xeh7TVPp-M,Real,,Real,0.015515,0.066305,0.192576,0.000002,0.031900,0.002168
 Jerusalem shooting： Six killed by Palestinian gunmen ｜ BBC News_8Xeh7TVPp-M_seq003_label_real.npz,8Xeh7TVPp-M,Real,,Real,0.015797,0.068880,0.059332,0.018427,0.027020,0.001476
 Jerusalem shooting： Six killed by Palestinian gunmen ｜ BBC News_8Xeh7TVPp-M_seq004_label_real.npz,8Xeh7TVPp-M,Real,,Real,0.029998,0.069463,0.328767,0.019721,0.027417,0.001838
 Prince Harry lays wreath in memory of late Queen ｜ BBC News_lGO9j_x8gp0_seq000_label_real.npz,lGO9j_x8gp0,Real,,Real,0.005830,0.064130,0.007177,0.000001,0.020393,0.002765
-Prince Harry lays wreath in memory of late Queen ｜ BBC News_lGO9j_x8gp0_seq001_label_real.npz,lGO9j_x8gp0,Real,,Real,0.028347,0.067480,0.179488,0.034870,0.016687,0.002702
-Prince Harry lays wreath in memory of late Queen ｜ BBC News_lGO9j_x8gp0_seq002_label_real.npz,lGO9j_x8gp0,Real,,Real,0.087751,0.068397,0.185131,0.182347,0.018838,0.002653
-We Created the World's Most Realistic Digital Twin_m0fdgkJGxHs_seq000_label_fake.npz,m0fdgkJGxHs,Fake,,Real,0.041496,0.253559,0.026255,0.000263,0.042644,0.056151
+Prince Harry lays wreath in memory of late Queen ｜ BBC News_lGO9j_x8gp0_seq001_label_real.npz,lGO9j_x8gp0,Real,,Real,0.028347,0.067480,0.179487,0.034870,0.016688,0.002702
+Prince Harry lays wreath in memory of late Queen ｜ BBC News_lGO9j_x8gp0_seq002_label_real.npz,lGO9j_x8gp0,Real,,Real,0.087751,0.068397,0.185132,0.182347,0.018838,0.002653
+We Created the World's Most Realistic Digital Twin_m0fdgkJGxHs_seq000_label_fake.npz,m0fdgkJGxHs,Fake,,Real,0.041496,0.253559,0.026255,0.000263,0.042645,0.056151
+What’s Happening Today @WAVES 2025 with AI Anchor Sana ｜ May 1 ｜ French ｜ AajTak AI_0Y5thnRlKNY_seq000_label_fake.npz,0Y5thnRlKNY,Fake,"Aaj Tak AI anchor Sana (WAVES 2025 bulletin, French)",Real,0.092316,0.429195,0.981564,0.001013,0.061255,0.040688
+What’s Happening Today @WAVES 2025 with AI Anchor Sana ｜ May 1 ｜ French ｜ AajTak AI_0Y5thnRlKNY_seq001_label_fake.npz,0Y5thnRlKNY,Fake,"Aaj Tak AI anchor Sana (WAVES 2025 bulletin, French)",Real,0.055134,0.524334,0.127245,0.000116,0.084896,0.040587
+What’s Happening Today @WAVES 2025 with AI Anchor Sana ｜ May 1 ｜ French ｜ AajTak AI_0Y5thnRlKNY_seq002_label_fake.npz,0Y5thnRlKNY,Fake,"Aaj Tak AI anchor Sana (WAVES 2025 bulletin, French)",Real,0.190653,0.456570,0.771835,0.201548,0.066895,0.100597
+What’s Happening Today @WAVES 2025 with AI Anchor Sana ｜ May 1 ｜ French ｜ AajTak AI_0Y5thnRlKNY_seq003_label_fake.npz,0Y5thnRlKNY,Fake,"Aaj Tak AI anchor Sana (WAVES 2025 bulletin, French)",Real,0.115156,0.618770,0.083548,0.000264,0.056466,0.171358
+What’s Happening Today @WAVES 2025 with AI Anchor Sana ｜ May 1 ｜ French ｜ AajTak AI_0Y5thnRlKNY_seq004_label_fake.npz,0Y5thnRlKNY,Fake,"Aaj Tak AI anchor Sana (WAVES 2025 bulletin, French)",Real,0.157697,0.432074,0.785441,0.051019,0.233355,0.143879
+What’s Happening Today @WAVES 2025 with AI Anchor Sana ｜ May 2 ｜ German ｜ AajTak AI_Dufpc8vVH8I_seq000_label_fake.npz,Dufpc8vVH8I,Fake,"Aaj Tak AI anchor Sana (WAVES 2025 bulletin, German)",Fake,0.547639,0.775965,0.631939,0.977947,0.445230,0.141786
+What’s Happening Today @WAVES 2025 with AI Anchor Sana ｜ May 2 ｜ French ｜ AajTak AI_g4xrYkhn4_E_seq000_label_fake.npz,g4xrYkhn4_E,Fake,Aaj Tak AI anchor Sana,Real,0.130889,0.303796,0.233831,0.187751,0.126652,0.050165
+What’s Happening Today @WAVES 2025 with AI Anchor Sana ｜ May 2 ｜ French ｜ AajTak AI_g4xrYkhn4_E_seq001_label_fake.npz,g4xrYkhn4_E,Fake,Aaj Tak AI anchor Sana,Real,0.169210,0.383620,0.529683,0.025019,0.146656,0.236010
+AI Stories Of The Week ｜ Chat GPT ｜ GrokAI_hcndfkU57W8_seq000_label_fake.npz,hcndfkU57W8,Fake,Aaj Tak AI anchor Sana,Real,0.046919,0.184259,0.584162,0.000000,0.089784,0.008908
+AI Stories Of The Week ｜ Chat GPT ｜ GrokAI_hcndfkU57W8_seq001_label_fake.npz,hcndfkU57W8,Fake,Aaj Tak AI anchor Sana,Real,0.049643,0.258577,0.573681,0.000000,0.045105,0.012832
+AI Stories Of The Week ｜ Chat GPT ｜ GrokAI_hcndfkU57W8_seq002_label_fake.npz,hcndfkU57W8,Fake,Aaj Tak AI anchor Sana,Real,0.058922,0.347592,0.643335,0.000004,0.037735,0.016639
+AI Stories Of The Week ｜ Chat GPT ｜ GrokAI_hcndfkU57W8_seq003_label_fake.npz,hcndfkU57W8,Fake,Aaj Tak AI anchor Sana,Real,0.069545,0.413102,0.372145,0.000000,0.505321,0.011147
+AI Stories Of The Week ｜ Chat GPT ｜ GrokAI_hcndfkU57W8_seq004_label_fake.npz,hcndfkU57W8,Fake,Aaj Tak AI anchor Sana,Real,0.064061,0.531357,0.610533,0.000000,0.041693,0.010849
+"AI2Z： Top Tech Breakthroughs, Privacy Fears & Billion-Dollar Deals!_p0JaIfhrNoU_seq000_label_fake.npz",p0JaIfhrNoU,Fake,Aaj Tak AI anchor Sana,Real,0.053692,0.433385,0.287242,0.000006,0.223627,0.014394
+"AI2Z： Top Tech Breakthroughs, Privacy Fears & Billion-Dollar Deals!_p0JaIfhrNoU_seq001_label_fake.npz",p0JaIfhrNoU,Fake,Aaj Tak AI anchor Sana,Real,0.061800,0.532667,0.418728,0.000222,0.105972,0.019650
+"AI2Z： Top Tech Breakthroughs, Privacy Fears & Billion-Dollar Deals!_p0JaIfhrNoU_seq002_label_fake.npz",p0JaIfhrNoU,Fake,Aaj Tak AI anchor Sana,Real,0.239746,0.316209,0.967744,0.383415,0.122895,0.035638
+"AI2Z： Top Tech Breakthroughs, Privacy Fears & Billion-Dollar Deals!_p0JaIfhrNoU_seq003_label_fake.npz",p0JaIfhrNoU,Fake,Aaj Tak AI anchor Sana,Real,0.068120,0.223016,0.860062,0.000093,0.106264,0.019146
+"AI2Z： Top Tech Breakthroughs, Privacy Fears & Billion-Dollar Deals!_p0JaIfhrNoU_seq004_label_fake.npz",p0JaIfhrNoU,Fake,Aaj Tak AI anchor Sana,Real,0.077170,0.326825,0.967648,0.001933,0.077890,0.017286
+ChatGPT Go Comes At Just ₹399 Per Month ｜ AI Anchor Sana_OBgRHikjYSA_seq000_label_fake.npz,OBgRHikjYSA,Fake,Aaj Tak AI anchor Sana,Real,0.052300,0.362822,0.458854,0.000000,0.122172,0.011351
+ChatGPT Go Comes At Just ₹399 Per Month ｜ AI Anchor Sana_OBgRHikjYSA_seq001_label_fake.npz,OBgRHikjYSA,Fake,Aaj Tak AI anchor Sana,Real,0.046072,0.266847,0.508289,0.000000,0.056374,0.009993
+ChatGPT Go Comes At Just ₹399 Per Month ｜ AI Anchor Sana_OBgRHikjYSA_seq002_label_fake.npz,OBgRHikjYSA,Fake,Aaj Tak AI anchor Sana,Real,0.051842,0.213461,0.667751,0.000000,0.052983,0.011406
+ChatGPT Go Comes At Just ₹399 Per Month ｜ AI Anchor Sana_OBgRHikjYSA_seq003_label_fake.npz,OBgRHikjYSA,Fake,Aaj Tak AI anchor Sana,Real,0.120237,0.603372,0.779231,0.000000,0.748118,0.030447
+ChatGPT Go Comes At Just ₹399 Per Month ｜ AI Anchor Sana_OBgRHikjYSA_seq004_label_fake.npz,OBgRHikjYSA,Fake,Aaj Tak AI anchor Sana,Real,0.074950,0.480467,0.763301,0.000000,0.153916,0.011258
+Top Stories In AI ｜ AI2Z ｜ Sam Altman ｜ ChatGPT ｜ xAI_L4XhZ4kC51k_seq000_label_fake.npz,L4XhZ4kC51k,Fake,Aaj Tak AI anchor Sana,Real,0.035842,0.318322,0.103925,0.000000,0.139235,0.017261
+Top Stories In AI ｜ AI2Z ｜ Sam Altman ｜ ChatGPT ｜ xAI_L4XhZ4kC51k_seq001_label_fake.npz,L4XhZ4kC51k,Fake,Aaj Tak AI anchor Sana,Real,0.075639,0.622581,0.614935,0.000000,0.134053,0.015691
+Top Stories In AI ｜ AI2Z ｜ Sam Altman ｜ ChatGPT ｜ xAI_L4XhZ4kC51k_seq002_label_fake.npz,L4XhZ4kC51k,Fake,Aaj Tak AI anchor Sana,Real,0.049405,0.398877,0.401285,0.000000,0.082267,0.011741
+Top Stories In AI ｜ AI2Z ｜ Sam Altman ｜ ChatGPT ｜ xAI_L4XhZ4kC51k_seq003_label_fake.npz,L4XhZ4kC51k,Fake,Aaj Tak AI anchor Sana,Real,0.041210,0.219667,0.445245,0.000000,0.054012,0.011697
+Top Stories In AI ｜ AI2Z ｜ Sam Altman ｜ ChatGPT ｜ xAI_L4XhZ4kC51k_seq004_label_fake.npz,L4XhZ4kC51k,Fake,Aaj Tak AI anchor Sana,Real,0.080261,0.459943,0.972258,0.000000,0.054539,0.013165
+"AI Girlfriend को मिलने आदमी, हुई मौत ｜ AI Anchor Sana ｜ AajTak AI_yaK_SdNfcO0_seq000_label_fake.npz",yaK_SdNfcO0,Fake,Aaj Tak AI anchor Sana,Real,0.074419,0.402063,0.751730,0.015290,0.093255,0.013224
+"AI Girlfriend को मिलने आदमी, हुई मौत ｜ AI Anchor Sana ｜ AajTak AI_yaK_SdNfcO0_seq001_label_fake.npz",yaK_SdNfcO0,Fake,Aaj Tak AI anchor Sana,Real,0.081672,0.509750,0.824561,0.005761,0.082420,0.018957
+"AI Girlfriend को मिलने आदमी, हुई मौत ｜ AI Anchor Sana ｜ AajTak AI_yaK_SdNfcO0_seq002_label_fake.npz",yaK_SdNfcO0,Fake,Aaj Tak AI anchor Sana,Real,0.094544,0.519850,0.373309,0.000207,0.163058,0.092557
+"AI Girlfriend को मिलने आदमी, हुई मौत ｜ AI Anchor Sana ｜ AajTak AI_yaK_SdNfcO0_seq004_label_fake.npz",yaK_SdNfcO0,Fake,Aaj Tak AI anchor Sana,Real,0.050470,0.304801,0.377144,0.000092,0.138532,0.020910
+AI Anchor Sana Reveals TOP AI Stories Of The Week ｜ AajTak AI_QuR5JMl-1v8_seq000_label_fake.npz,QuR5JMl-1v8,Fake,Aaj Tak AI anchor Sana,Real,0.056646,0.416726,0.013753,0.000000,0.585033,0.013045
+AI Anchor Sana Reveals TOP AI Stories Of The Week ｜ AajTak AI_QuR5JMl-1v8_seq001_label_fake.npz,QuR5JMl-1v8,Fake,Aaj Tak AI anchor Sana,Real,0.064532,0.537112,0.488371,0.000000,0.111643,0.017058
+AI Anchor Sana Reveals TOP AI Stories Of The Week ｜ AajTak AI_QuR5JMl-1v8_seq002_label_fake.npz,QuR5JMl-1v8,Fake,Aaj Tak AI anchor Sana,Real,0.028565,0.248254,0.110796,0.000000,0.085286,0.014108
+AI Anchor Sana Reveals TOP AI Stories Of The Week ｜ AajTak AI_QuR5JMl-1v8_seq003_label_fake.npz,QuR5JMl-1v8,Fake,Aaj Tak AI anchor Sana,Real,0.076535,0.448831,0.854169,0.000000,0.134829,0.010319
+AI Anchor Sana Reveals TOP AI Stories Of The Week ｜ AajTak AI_QuR5JMl-1v8_seq004_label_fake.npz,QuR5JMl-1v8,Fake,Aaj Tak AI anchor Sana,Real,0.040638,0.255568,0.369108,0.000000,0.079631,0.012051
+"Lisa AI Creates History, Becomes Global Case Study in Classrooms Worldwide ｜ OTV News English ｜ OTV_4FnJdXtPkA8_seq001_label_fake.npz",4FnJdXtPkA8,Fake,OTV AI anchor Lisa,Fake,0.519740,0.818491,0.428478,0.002245,0.475972,0.961544
+Donald Trump and Vladimir Putin to meet in Alaska for high-stakes summit ｜ BBC News_wg1pBNepK-E_seq000_label_real.npz,wg1pBNepK-E,Real,"BBC News presenter, correspondent or interviewee",Real,0.059020,0.414334,0.103983,0.051835,0.140162,0.011916
+Donald Trump and Vladimir Putin to meet in Alaska for high-stakes summit ｜ BBC News_wg1pBNepK-E_seq001_label_real.npz,wg1pBNepK-E,Real,"BBC News presenter, correspondent or interviewee",Real,0.051987,0.185395,0.431396,0.037116,0.046101,0.008881
+Donald Trump and Vladimir Putin to meet in Alaska for high-stakes summit ｜ BBC News_wg1pBNepK-E_seq002_label_real.npz,wg1pBNepK-E,Real,"BBC News presenter, correspondent or interviewee",Real,0.057041,0.430428,0.464236,0.005683,0.060566,0.015569
+Donald Trump and Vladimir Putin to meet in Alaska for high-stakes summit ｜ BBC News_wg1pBNepK-E_seq003_label_real.npz,wg1pBNepK-E,Real,"BBC News presenter, correspondent or interviewee",Real,0.091463,0.374968,0.323005,0.124550,0.029213,0.011741
+Donald Trump and Vladimir Putin to meet in Alaska for high-stakes summit ｜ BBC News_wg1pBNepK-E_seq004_label_real.npz,wg1pBNepK-E,Real,"BBC News presenter, correspondent or interviewee",Real,0.424265,0.344988,0.159634,0.973167,0.061765,0.014841
+Donald Trump and Vladimir Putin end Ukraine summit without ceasefire deal ｜ BBC News_Sjla9lWgEvs_seq000_label_real.npz,Sjla9lWgEvs,Real,"BBC News presenter, correspondent or interviewee",Real,0.334375,0.150903,0.247707,0.779753,0.025417,0.002828
+Donald Trump and Vladimir Putin end Ukraine summit without ceasefire deal ｜ BBC News_Sjla9lWgEvs_seq001_label_real.npz,Sjla9lWgEvs,Real,"BBC News presenter, correspondent or interviewee",Real,0.024365,0.169798,0.224289,0.006638,0.017946,0.002462
+Donald Trump and Vladimir Putin end Ukraine summit without ceasefire deal ｜ BBC News_Sjla9lWgEvs_seq002_label_real.npz,Sjla9lWgEvs,Real,"BBC News presenter, correspondent or interviewee",Real,0.041679,0.217378,0.155916,0.000288,0.130075,0.036434
+Donald Trump and Vladimir Putin end Ukraine summit without ceasefire deal ｜ BBC News_Sjla9lWgEvs_seq003_label_real.npz,Sjla9lWgEvs,Real,"BBC News presenter, correspondent or interviewee",Real,0.114037,0.162639,0.074012,0.227947,0.074923,0.016176
+Donald Trump and Vladimir Putin end Ukraine summit without ceasefire deal ｜ BBC News_Sjla9lWgEvs_seq004_label_real.npz,Sjla9lWgEvs,Real,"BBC News presenter, correspondent or interviewee",Real,0.071984,0.179879,0.056506,0.020008,0.928287,0.012772
+Court rules asylum seekers must be moved from UK hotel ｜ BBC News_iwYxjeqGYDM_seq000_label_real.npz,iwYxjeqGYDM,Real,"BBC News presenter, correspondent or interviewee",Real,0.020106,0.123043,0.132011,0.000034,0.095102,0.005744
+Court rules asylum seekers must be moved from UK hotel ｜ BBC News_iwYxjeqGYDM_seq001_label_real.npz,iwYxjeqGYDM,Real,"BBC News presenter, correspondent or interviewee",Real,0.040646,0.092769,0.600313,0.000000,0.071237,0.005400
+Court rules asylum seekers must be moved from UK hotel ｜ BBC News_iwYxjeqGYDM_seq002_label_real.npz,iwYxjeqGYDM,Real,"BBC News presenter, correspondent or interviewee",Real,0.049524,0.078966,0.514739,0.000000,0.272702,0.013785
+Court rules asylum seekers must be moved from UK hotel ｜ BBC News_iwYxjeqGYDM_seq003_label_real.npz,iwYxjeqGYDM,Real,"BBC News presenter, correspondent or interviewee",Real,0.074096,0.129779,0.483584,0.000000,0.769127,0.011048
+Court rules asylum seekers must be moved from UK hotel ｜ BBC News_iwYxjeqGYDM_seq004_label_real.npz,iwYxjeqGYDM,Real,"BBC News presenter, correspondent or interviewee",Real,0.078249,0.096528,0.638487,0.000000,0.718228,0.012416
+More asylum hotels in England face legal challenge after court ruling ｜ BBC News_KqDI2h3x6vA_seq000_label_real.npz,KqDI2h3x6vA,Real,"BBC News presenter, correspondent or interviewee",Real,0.010235,0.078466,0.023167,0.000004,0.036307,0.007415
+More asylum hotels in England face legal challenge after court ruling ｜ BBC News_KqDI2h3x6vA_seq001_label_real.npz,KqDI2h3x6vA,Real,"BBC News presenter, correspondent or interviewee",Real,0.030762,0.075519,0.479722,0.000000,0.023380,0.004069
+More asylum hotels in England face legal challenge after court ruling ｜ BBC News_KqDI2h3x6vA_seq002_label_real.npz,KqDI2h3x6vA,Real,"BBC News presenter, correspondent or interviewee",Real,0.015129,0.070927,0.175279,0.000000,0.019186,0.004133
+More asylum hotels in England face legal challenge after court ruling ｜ BBC News_KqDI2h3x6vA_seq003_label_real.npz,KqDI2h3x6vA,Real,"BBC News presenter, correspondent or interviewee",Real,0.012967,0.079890,0.116134,0.000000,0.026766,0.004060
+More asylum hotels in England face legal challenge after court ruling ｜ BBC News_KqDI2h3x6vA_seq004_label_real.npz,KqDI2h3x6vA,Real,"BBC News presenter, correspondent or interviewee",Real,0.017703,0.100285,0.187494,0.000000,0.023535,0.004750
+At least 15 dead after Lisbon's historic funicular derails ｜ BBC News_EnLA3Svbda8_seq000_label_real.npz,EnLA3Svbda8,Real,"BBC News presenter, correspondent or interviewee",Real,0.106614,0.164668,0.935336,0.000000,0.865387,0.018544
+At least 17 dead after Portugal funicular crash ｜ BBC News_4jbzOKhc_f4_seq000_label_real.npz,4jbzOKhc_f4,Real,"BBC News presenter, correspondent or interviewee",Real,0.077681,0.364611,0.023752,0.006919,0.943407,0.018499
+At least 17 dead after Portugal funicular crash ｜ BBC News_4jbzOKhc_f4_seq001_label_real.npz,4jbzOKhc_f4,Real,"BBC News presenter, correspondent or interviewee",Real,0.421034,0.194633,0.002978,0.999841,0.040212,0.020458
+At least 17 dead after Portugal funicular crash ｜ BBC News_4jbzOKhc_f4_seq002_label_real.npz,4jbzOKhc_f4,Real,"BBC News presenter, correspondent or interviewee",Real,0.020437,0.252994,0.005315,0.000000,0.048173,0.011362
+At least 17 dead after Portugal funicular crash ｜ BBC News_4jbzOKhc_f4_seq003_label_real.npz,4jbzOKhc_f4,Real,"BBC News presenter, correspondent or interviewee",Real,0.021703,0.217758,0.012659,0.000009,0.076750,0.014092

@@ -100,11 +100,14 @@ This regenerates the three source CSVs and in turn every downstream artifact.
 python src/orchestrator.py
 cp analysis_results_with_5_agents.csv paper_artifacts/source_csvs/
 
-# YouTube run (produces analysis_results_with_5_agents_orchestration.csv)
-# orchestrator_adaptive.py likewise takes no arguments; point CONFIG["data_dir"] at
-# the YouTube tree (or symlink it) before running.
-python src/orchestrator_adaptive.py
-cp analysis_results_with_5_agents_orchestration.csv paper_artifacts/source_csvs/
+# YouTube evaluation set (produces analysis_results_youtube.csv)
+# 1. download the 25 source videos listed in youtube_eval/manifest.json (yt-dlp,
+#    bestvideo+bestaudio merged to mp4, named "<title>_<youtube_id>.mp4");
+# 2. extract the gated clips; 3. score them with the released system; 4. attach the
+#    frozen per-clip labels from youtube_eval/clip_provenance.json.
+python youtube_eval/extract_clips.py --videos_dir videos/ --labels_json labels.json --out_dir yt_npz/
+ls yt_npz/*.npz > clip_list.txt
+python youtube_eval/score_clips.py clip_list.txt yt_scores.csv
 
 # Full 5-agent pipeline with XAI artifacts
 python src/detect.py \

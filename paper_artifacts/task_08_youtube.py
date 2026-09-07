@@ -1,7 +1,7 @@
-"""Task 8: YouTube evaluation reconciliation.
+"""Task 8: YouTube evaluation at tau = 0.5.
 
-Reports the honest contents of the saved orchestration CSV, computed at
-tau = 0.5. Does not invent missing samples.
+Reads the frozen 100-clip set (analysis_results_youtube.csv) and reports its
+confusion matrix, metrics and escalation rate under Algorithm 1.
 """
 from __future__ import annotations
 
@@ -18,7 +18,9 @@ def main() -> None:
     raw = pd.read_csv(path)
 
     total = len(raw)
-    parseable_mask = raw["final_score"].notna() & raw["ground_truth"].notna()
+    # A NaN aggregate (an agent returned no score, e.g. FreqNet on a muted audio
+    # track) compares False at tau in the released orchestrator: verdict Real.
+    parseable_mask = raw["ground_truth"].notna()
     df = raw[parseable_mask].copy().reset_index(drop=True)
     df["y_true"] = (df["ground_truth"] == "Fake").astype(int)
 
@@ -26,13 +28,13 @@ def main() -> None:
     c = confusion_counts(df["y_true"].values, pred)
     m = metrics_from_counts(c)
 
-    phase_counts = {}
-    escalation_rate = None
-    if "phase" in df.columns:
-        phase_counts = df["phase"].value_counts().to_dict()
-        # "quick" = no escalation; anything else = escalated
-        escalated = (df["phase"] != "quick").sum()
-        escalation_rate = float(escalated) / len(df) if len(df) else 0.0
+    trio = df[["score_Audio Forensics (ECAPA)", "score_Cross-Modal (Lip-Sync)",
+               "score_Facial Biometric (Quality)"]].to_numpy()
+    verdicts = trio >= TAU
+    split = verdicts.any(axis=1) & ~verdicts.all(axis=1)
+    escalated = split | (trio.std(axis=1) >= 0.30)
+    phase_counts = {"phase1_only": int((~escalated).sum()), "escalated": int(escalated.sum())}
+    escalation_rate = float(escalated.mean()) if len(df) else 0.0
 
     out = {
         "csv_file": path.name,
@@ -50,9 +52,9 @@ def main() -> None:
         "phase_counts": phase_counts,
         "escalation_rate": escalation_rate,
         "note": (
-            "The orchestration CSV records a 'phase' field directly. "
-            "'quick' = Phase 1 only (no escalation); 'iterative' and 'strong' "
-            "= Phase 2 deployed. Escalation rate = (iterative + strong) / total."
+            "Escalation follows Algorithm 1 on the stored Phase-1 scores: a verdict "
+            "split among ECAPA-TDNN, Cross-Modal and Biometric-Quality at tau, or a "
+            "score standard deviation of at least 0.30, deploys Phase 2."
         ),
     }
     save_json(out, OUT / "youtube_metrics.json")

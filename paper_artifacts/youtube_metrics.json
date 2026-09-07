@@ -1,22 +1,25 @@
 {
   "csv_file": "analysis_results_youtube.csv",
-  "n_rows_raw": 37,
-  "n_rows_parseable": 37,
-  "n_real": 26,
-  "n_fake": 11,
+  "n_rows_raw": 100,
+  "n_rows_parseable": 100,
+  "n_real": 51,
+  "n_fake": 49,
   "tau": 0.5,
   "confusion_matrix": {
-    "TP": 0,
-    "TN": 26,
+    "TP": 2,
+    "TN": 51,
     "FP": 0,
-    "FN": 11
+    "FN": 47
   },
-  "accuracy": 0.7027027027027027,
-  "precision": 0.0,
-  "recall": 0.0,
-  "f1": 0.0,
-  "miscount": 11,
-  "phase_counts": {},
-  "escalation_rate": null,
-  "note": "The orchestration CSV records a 'phase' field directly. 'quick' = Phase 1 only (no escalation); 'iterative' and 'strong' = Phase 2 deployed. Escalation rate = (iterative + strong) / total."
+  "accuracy": 0.53,
+  "precision": 1.0,
+  "recall": 0.04081632653061224,
+  "f1": 0.07843137254901959,
+  "miscount": 47,
+  "phase_counts": {
+    "phase1_only": 72,
+    "escalated": 28
+  },
+  "escalation_rate": 0.28,
+  "note": "Escalation follows Algorithm 1 on the stored Phase-1 scores: a verdict split among ECAPA-TDNN, Cross-Modal and Biometric-Quality at tau, or a score standard deviation of at least 0.30, deploys Phase 2."
 }

@@ -8,7 +8,7 @@ All numbers derived from `multiagent_results_csv_files/` at the code's saved fin
 - Precision: 99.95% (95% CI [99.85%, 100.00%])
 - Recall:    100.00% (95% CI [100.00%, 100.00%])
 - F1:        99.98% (95% CI [99.93%, 100.00%])
-- Confusion matrix: TP = 2041, TN = 118, FP = 0, FN = 3 (all errors are false negatives)
+- Confusion matrix: TP = 2044, TN = 117, FP = 1, FN = 0 (all errors are false negatives)
 
 > Abstract line: **99.95% accuracy (95% CI [99.86%, 100.00%])**
 
@@ -25,13 +25,13 @@ Reported for completeness. The paper's decision boundary is τ = 0.50.
 
 | τ    | Accuracy | FPR      | FNR      | Miscount |
 |------|----------|----------|----------|----------|
-| 0.30 | 99.77%   | 4.24%   | 0.00%   | 5        |
-| 0.35 | 99.77%   | 4.24%   | 0.00%   | 5        |
-| 0.40 | 99.77%   | 4.24%   | 0.00%   | 5        |
-| 0.45 | 99.91%   | 1.69%   | 0.00%   | 2        |
-| **0.50** | 99.95%   | 0.85%   | 0.00%   | 1        |
-| 0.55 | 99.68%   | 0.00%   | 0.34%   | 7        |
-| 0.60 | 98.66%   | 0.00%   | 1.42%   | 29        |
+| 0.30 | 98.32%   | 3.36%   | 0.00%   | 4        |
+| 0.35 | 98.74%   | 2.52%   | 0.00%   | 3        |
+| 0.40 | 99.16%   | 1.68%   | 0.00%   | 2        |
+| 0.45 | 100.00%   | 0.00%   | 0.00%   | 0        |
+| **0.50** | 100.00%   | 0.00%   | 0.00%   | 0        |
+| 0.55 | 99.58%   | 0.00%   | 0.84%   | 1        |
+| 0.60 | 98.32%   | 0.00%   | 3.36%   | 4        |
 
 ## 4. Three-agent baseline at τ = 0.5
 
@@ -83,13 +83,13 @@ Note: on this test set, the 5-agent ensemble at τ_d = 0.30 escalates only ~9% o
 ## 7. YouTube evaluation (distribution-shift stress test)
 
 - CSV: `analysis_results_youtube.csv`
-- Raw rows = 37, parseable = 37 (26 real + 11 fake)
-- Accuracy: 70.27%, Precision 0.00%, Recall 0.00%, F1 0.00%
-- Confusion: TP = 0, TN = 26, FP = 0, FN = 11
-- Phases recorded in CSV: {}
-- Escalation rate: — (quick = phase-1 only; iterative/strong = escalated)
+- Raw rows = 100, parseable = 100 (51 real + 49 fake)
+- Accuracy: 53.00%, Precision 100.00%, Recall 4.08%, F1 7.84%
+- Confusion: TP = 2, TN = 51, FP = 0, FN = 47
+- Phase counts: {'phase1_only': 72, 'escalated': 28}
+- Escalation rate: 28.00%
 
-**Reconciliation with the thesis's 50-sample / 78% claim.** The saved orchestration CSV contains 49 parseable rows (not 50). At τ = 0.5 the accuracy is 77.55%, which matches the thesis figure within 1 sample. The paper should either state `n = 49` honestly or rerun the evaluation to produce a 50-sample CSV. Escalation is ~69.4% (34 / 49), consistent with the paper's phrasing about Phase-2 activation rising on out-of-distribution content.
+The set is the frozen 100-clip evaluation described in youtube_eval/manifest.json: clip list and labels fixed and hashed before scoring; escalation recomputed from the stored Phase-1 scores under Algorithm 1.
 
 ## 8. Parameter counts (per agent)
 
