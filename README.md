@@ -178,7 +178,7 @@ Our identity-based test split has 118 real + 2,044 fake = **2,162 samples**. The
 |---|---|---|
 | Decision threshold τ | 0.5 | [`src/detect.py:81`](src/detect.py#L81) |
 | Disagreement threshold τ_d | 0.30 | [`src/detect.py:85`](src/detect.py#L85) |
-| Agent weights | (0.05, 0.20, 0.30, 0.05, 0.40) | [`src/orchestrator.py:82-88`](src/orchestrator.py#L82) |
+| Agent weights | (0.05, 0.05, 0.40, 0.05, 0.45) | [`src/orchestrator.py:82-88`](src/orchestrator.py#L82) |
 | Aggregation | Weighted mean, renormalised | [`src/orchestrator.py:635-641`](src/orchestrator.py#L635) |
 
 ### 6.2 Per-agent training
