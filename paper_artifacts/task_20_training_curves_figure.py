@@ -62,6 +62,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--recovered", required=True, help="recovered_curves.json")
     ap.add_argument("--biometric", required=True, help="biometric_training_history.json")
+    ap.add_argument("--crossmodal", default=None, help="crossmodal_training_history.json (overrides the recovered curve)")
     ap.add_argument("--ecapa_csv", required=True, help="ECAPA training_log.csv")
     ap.add_argument("--out", default="paper_artifacts/training_curves_all_agents")
     args = ap.parse_args()
@@ -76,6 +77,12 @@ def main():
 
     with open(args.biometric) as fh:
         curves["Biometric-Quality"] = json.load(fh)
+    if args.crossmodal:
+        with open(args.crossmodal) as fh:
+            h = json.load(fh)
+        curves["Cross-Modal"] = {"train_loss": h["train_loss"], "val_loss": h["val_loss"],
+                                 "epochs": len(h["train_loss"]),
+                                 "source": "trained by the released script"}
     curves["ECAPA-TDNN"] = load_ecapa_csv(args.ecapa_csv)
 
     def match(name):

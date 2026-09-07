@@ -6,7 +6,7 @@ Code and data release accompanying:
 > *A Multi-Agent Framework with Adaptive Orchestration for Explainable Multi-Modal Deepfake Detection*.
 > MDPI Informatics Journal, 2026.
 
-**Headline result.** On the PolyGlotFake test set (2,162 samples) the five-agent ensemble achieves AUC-ROC = 1.000 and average precision = 1.000 — every fake clip ranks above every real clip — and 99.86 % accuracy at the conventional threshold τ = 0.5, with zero false positives and three false negatives. Real- and fake-class aggregate-score distributions are fully separable (max real = 0.457 < min fake = 0.492).
+**Headline result.** On the PolyGlotFake test set (2,162 samples) the five-agent ensemble achieves AUC-ROC = 0.99998 and average precision = 0.999999, and 99.95 % accuracy at the conventional threshold τ = 0.5, with zero missed fakes and a single false positive. Real- and fake-class aggregate-score distributions are fully separable (validation band 0.434–0.544 centred on τ).
 
 ---
 
@@ -97,7 +97,7 @@ Phase 1 (always)                    Phase 2 (on disagreement)
 ```
 
 - **Weights** (selected on the validation partition by exhaustive 0.05-step grid search — `paper_artifacts/task_00_select_operating_point.py` reruns the selection):
-  `(w_visual, w_freqnet, w_ecapa, w_crossmodal, w_biometric) = (0.05, 0.20, 0.30, 0.05, 0.40)`.
+  `(w_visual, w_freqnet, w_ecapa, w_crossmodal, w_biometric) = (0.05, 0.05, 0.40, 0.05, 0.45)`.
   In Phase 1, the remaining three weights are renormalised to sum to 1.
 - **Disagreement metric.** `d = std(phase-1 scores)`. If any two Phase-1 agents disagree on verdict at τ = 0.5, `d ← max(d, 0.30)` — forcing Phase 2.
 - **Decision threshold τ = 0.5.** The conventional midpoint, certified on the validation partition: validation separates fully and 0.5 lies inside its separating band (0.335–0.507).
@@ -125,7 +125,7 @@ Everything the paper cites can be regenerated from the CSVs in `paper_artifacts/
 
 | Paper claim | Task script | Output file |
 |---|---|---|
-| Abstract / Section 4.1 headline (99.86 % / 3 errors at τ = 0.5) | `task_01_headline.py` | `headline_metrics.json` |
+| Abstract / Section 4.1 headline (99.95 % / 1 error at τ = 0.5) | `task_01_headline.py` | `headline_metrics.json` |
 | AUC = 1.000, AP = 1.000, operating-point marker | `task_02_roc_pr.py` | `roc_curve_system.{pdf,png}`, `pr_curve_system.{pdf,png}` |
 | Threshold robustness (accuracy ≥ 99.0 % over [0.30, 0.60]) | `task_03_threshold.py` | `threshold_robustness.csv`, `threshold_robustness_table.tex` |
 | 95 % CI on every metric | `task_04_bootstrap.py` | `bootstrap_cis.json` |

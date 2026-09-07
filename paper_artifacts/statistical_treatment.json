@@ -1,52 +1,52 @@
 {
  "tau": 0.37,
  "n_test": 2162,
- "errors_at_tau": 4,
+ "errors_at_tau": 5,
  "seed": 42,
  "n_boot": 10000,
  "accuracy_clopper_pearson_95": [
-  0.9952697440769506,
-  0.9994956765999032
+  0.9946113105055243,
+  0.9992486681170683
  ],
  "bootstrap_95": {
   "auc_roc": [
-   0.9999999999999999,
+   0.9999004852368173,
    1.0
   ],
   "average_precision": [
-   0.9999999999999999,
+   0.9999942674240492,
    1.0
   ],
   "accuracy": [
-   0.996299722479186,
+   0.9953746530989824,
    0.9995374653098983
   ]
  },
  "mcnemar_vs_leave_one_out": {
   "Visual (Spatial)": {
-   "b_sys_only_right": 1,
+   "b_sys_only_right": 0,
    "c_abl_only_right": 0,
    "exact_p": 1.0
   },
   "Audio (Mel+CNN)": {
-   "b_sys_only_right": 1,
-   "c_abl_only_right": 1,
+   "b_sys_only_right": 0,
+   "c_abl_only_right": 0,
    "exact_p": 1.0
   },
   "Audio Forensics (ECAPA)": {
-   "b_sys_only_right": 2,
-   "c_abl_only_right": 4,
-   "exact_p": 0.6875
+   "b_sys_only_right": 6,
+   "c_abl_only_right": 5,
+   "exact_p": 1.0
   },
   "Cross-Modal (Lip-Sync)": {
-   "b_sys_only_right": 1,
+   "b_sys_only_right": 0,
    "c_abl_only_right": 0,
    "exact_p": 1.0
   },
   "Facial Biometric (Quality)": {
-   "b_sys_only_right": 20,
+   "b_sys_only_right": 30,
    "c_abl_only_right": 0,
-   "exact_p": 1.9073486328125e-06
+   "exact_p": 1.862645149230957e-09
   }
  },
  "youtube_accuracy_interval": null,

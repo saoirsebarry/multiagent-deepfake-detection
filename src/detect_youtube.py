@@ -782,12 +782,13 @@ def run_visual_analysis(media_data: Dict[str, Any], models: Dict[str, Any]) -> D
     
     try:
         # convert BGR to RGB
-        first_face_rgb = cv2.cvtColor(faces[0], cv2.COLOR_BGR2RGB)
-        first_face_tensor = transform(first_face_rgb).unsqueeze(0).to(CONFIG['device'])
-        
+        tta = []
+        for f_ in faces:
+            t_ = transform(f_)
+            tta.append(t_)
+            tta.append(torch.flip(t_, dims=[2]))
         with torch.no_grad():
-            prediction_logit = model(first_face_tensor)
-            score = torch.sigmoid(prediction_logit).item()
+            score = torch.sigmoid(model(torch.stack(tta).to(CONFIG['device']))).mean().item()
     except Exception as e:
         return create_error_result(agent_name, f"Inference failed: {e}")
 

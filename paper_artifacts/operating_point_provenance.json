@@ -1,28 +1,29 @@
 {
-  "procedure": "0.05-step simplex grid, all five agents active; minimise validation errors at tau=0.5, tie-break on separating margin",
+  "procedure": "0.05-step simplex grid, all five agents active; minimise validation errors of the deployed tiered verdict at tau=0.5, tie-break on two-sided clearance around the threshold",
   "grid_vectors_active": 3876,
-  "vectors_with_zero_validation_errors": 139,
+  "vectors_with_zero_validation_errors": 102,
   "selected_weights": {
     "score_Visual (Spatial)": 0.05,
-    "score_Audio (Mel+CNN)": 0.2,
-    "score_Audio Forensics (ECAPA)": 0.3,
+    "score_Audio (Mel+CNN)": 0.05,
+    "score_Audio Forensics (ECAPA)": 0.4,
     "score_Cross-Modal (Lip-Sync)": 0.05,
-    "score_Facial Biometric (Quality)": 0.4
+    "score_Facial Biometric (Quality)": 0.45
   },
   "validation": {
     "n": 238,
     "errors_at_tau_0.5": 0,
-    "separating_margin": 0.1727,
+    "separating_margin": 0.1106,
+    "two_sided_clearance": 0.0441,
     "band": [
-      0.3345,
-      0.5072
+      0.4335,
+      0.5441
     ],
     "tau_0.5_inside_band": true
   },
   "frozen_test_readout": {
     "n": 2162,
-    "accuracy": 0.998612,
-    "false_positives": 0,
-    "false_negatives": 3
+    "accuracy": 0.999537,
+    "false_positives": 1,
+    "false_negatives": 0
   }
 }

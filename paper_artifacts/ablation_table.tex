@@ -2,16 +2,16 @@
 \toprule
 Configuration & \# agents & Accuracy (\%) & Miscount & $\Delta$ (pp) \\
 \midrule
-Full 5-agent ensemble (baseline) & 5 & 99.861 & 3 & --- \\
+Full 5-agent ensemble (baseline) & 5 & 99.954 & 1 & --- \\
 \midrule
-Remove Visual (XceptionNet) & 4 & 99.676 & 7 & $-$0.185 \\
-Remove Audio (FreqNet) & 4 & 99.815 & 4 & $-$0.046 \\
-Remove Audio Forensics (ECAPA) & 4 & 99.630 & 8 & $-$0.231 \\
-Remove Cross-Modal (Lip-Sync) & 4 & 99.676 & 7 & $-$0.185 \\
-Remove Facial Biometric (Quality) & 4 & 98.289 & 37 & $-$1.573 \\
-Top-3 (Biometric + ECAPA + Cross-Modal) & 3 & 99.907 & 2 & +0.046 \\
-Audio only (FreqNet + ECAPA) & 2 & 98.104 & 41 & $-$1.758 \\
-Visual only (XceptionNet + Biometric) & 2 & 99.352 & 14 & $-$0.509 \\
-Single best agent (Cross-Modal) & 1 & 98.890 & 24 & $-$0.971 \\
+Remove Visual (XceptionNet) & 4 & 99.954 & 1 & 0.000 \\
+Remove Audio (FreqNet) & 4 & 99.907 & 2 & $-$0.046 \\
+Remove Audio Forensics (ECAPA) & 4 & 99.491 & 11 & $-$0.463 \\
+Remove Cross-Modal (Lip-Sync) & 4 & 99.907 & 2 & $-$0.046 \\
+Remove Facial Biometric (Quality) & 4 & 98.242 & 38 & $-$1.711 \\
+Top-3 (Biometric + ECAPA + Cross-Modal) & 3 & 99.861 & 3 & $-$0.093 \\
+Audio only (FreqNet + ECAPA) & 2 & 97.965 & 44 & $-$1.989 \\
+Visual only (XceptionNet + Biometric) & 2 & 99.306 & 15 & $-$0.648 \\
+Single best agent (Cross-Modal) & 1 & 99.491 & 11 & $-$0.463 \\
 \bottomrule
 \end{tabular}

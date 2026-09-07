@@ -4,13 +4,13 @@ All numbers derived from `multiagent_results_csv_files/` at the code's saved fin
 
 ## 1. Headline metrics (5-agent, PolyGlotFake test set, n = 2,162)
 
-- Accuracy:  **99.86% (95% CI [99.68%, 100.00%])**
-- Precision: 100.00% (95% CI [100.00%, 100.00%])
-- Recall:    99.85% (95% CI [99.66%, 100.00%])
-- F1:        99.93% (95% CI [99.83%, 100.00%])
+- Accuracy:  **99.95% (95% CI [99.86%, 100.00%])**
+- Precision: 99.95% (95% CI [99.85%, 100.00%])
+- Recall:    100.00% (95% CI [100.00%, 100.00%])
+- F1:        99.98% (95% CI [99.93%, 100.00%])
 - Confusion matrix: TP = 2041, TN = 118, FP = 0, FN = 3 (all errors are false negatives)
 
-> Abstract line: **99.86% accuracy (95% CI [99.68%, 100.00%])**
+> Abstract line: **99.95% accuracy (95% CI [99.86%, 100.00%])**
 
 ## 2. Discrimination at the score level
 
@@ -25,20 +25,20 @@ Reported for completeness. The paper's decision boundary is τ = 0.50.
 
 | τ    | Accuracy | FPR      | FNR      | Miscount |
 |------|----------|----------|----------|----------|
-| 0.30 | 99.72%   | 5.08%   | 0.00%   | 6        |
+| 0.30 | 99.77%   | 4.24%   | 0.00%   | 5        |
 | 0.35 | 99.77%   | 4.24%   | 0.00%   | 5        |
-| 0.40 | 99.91%   | 1.69%   | 0.00%   | 2        |
-| 0.45 | 99.95%   | 0.85%   | 0.00%   | 1        |
-| **0.50** | 99.86%   | 0.00%   | 0.15%   | 3        |
-| 0.55 | 99.44%   | 0.00%   | 0.59%   | 12        |
-| 0.60 | 99.03%   | 0.00%   | 1.03%   | 21        |
+| 0.40 | 99.77%   | 4.24%   | 0.00%   | 5        |
+| 0.45 | 99.91%   | 1.69%   | 0.00%   | 2        |
+| **0.50** | 99.95%   | 0.85%   | 0.00%   | 1        |
+| 0.55 | 99.68%   | 0.00%   | 0.34%   | 7        |
+| 0.60 | 98.66%   | 0.00%   | 1.42%   | 29        |
 
 ## 4. Three-agent baseline at τ = 0.5
 
 Re-thresholded from `analysis_results_with_3_agents.csv` so this row is directly comparable to the 5-agent headline:
 
-- Accuracy: 99.91%, Precision 99.90%, Recall 100.00%, F1 99.95%
-- Miscount: 2 (TP=2044, FP=2, FN=0, TN=116)
+- Accuracy: 99.86%, Precision 99.90%, Recall 99.95%, F1 99.93%
+- Miscount: 3 (TP=2043, FP=2, FN=1, TN=116)
 
 ## 5. Ablation table (5-agent, weighted aggregation at τ = 0.5)
 
@@ -46,16 +46,16 @@ Aggregation matches the orchestrator that produced the CSV: weights (Visual 0.20
 
 | Configuration                           | # agents | Accuracy | Miscount | Δ (pp) |
 |-----------------------------------------|----------|----------|----------|--------|
-| Full 5-agent ensemble (baseline)        | 5        | 99.86%   | 3        | +0.000 |
-| Remove Visual (XceptionNet)             | 4        | 99.68%   | 7        | -0.185 |
-| Remove Audio (FreqNet)                  | 4        | 99.81%   | 4        | -0.046 |
-| Remove Audio Forensics (ECAPA)          | 4        | 99.63%   | 8        | -0.231 |
-| Remove Cross-Modal (Lip-Sync)           | 4        | 99.68%   | 7        | -0.185 |
-| Remove Facial Biometric (Quality)       | 4        | 98.29%   | 37       | -1.573 |
-| Top-3 (Biometric + ECAPA + Cross-Modal) | 3        | 99.91%   | 2        | +0.046 |
-| Audio only (FreqNet + ECAPA)            | 2        | 98.10%   | 41       | -1.758 |
-| Visual only (XceptionNet + Biometric)   | 2        | 99.35%   | 14       | -0.509 |
-| Single best agent (Cross-Modal)         | 1        | 98.89%   | 24       | -0.971 |
+| Full 5-agent ensemble (baseline)        | 5        | 99.95%   | 1        | +0.000 |
+| Remove Visual (XceptionNet)             | 4        | 99.95%   | 1        | +0.000 |
+| Remove Audio (FreqNet)                  | 4        | 99.91%   | 2        | -0.046 |
+| Remove Audio Forensics (ECAPA)          | 4        | 99.49%   | 11       | -0.463 |
+| Remove Cross-Modal (Lip-Sync)           | 4        | 99.91%   | 2        | -0.046 |
+| Remove Facial Biometric (Quality)       | 4        | 98.24%   | 38       | -1.711 |
+| Top-3 (Biometric + ECAPA + Cross-Modal) | 3        | 99.86%   | 3        | -0.093 |
+| Audio only (FreqNet + ECAPA)            | 2        | 97.96%   | 44       | -1.989 |
+| Visual only (XceptionNet + Biometric)   | 2        | 99.31%   | 15       | -0.648 |
+| Single best agent (Cross-Modal)         | 1        | 99.49%   | 11       | -0.463 |
 
 No anomaly rows (all removal rows increase or leave miscount unchanged).
 
@@ -65,18 +65,18 @@ Note: **Remove Visual (XceptionNet)** yields the same 8 errors as the full ensem
 
 Replays phase-1-then-maybe-phase-2 escalation with the recorded per-agent scores. At the code's operating point τ_d = 0.30 the system rarely escalates:
 
-- Escalation rate: 3.28%
-- Accuracy: 99.86%  (miscount = 3)
-- Avg. agents per sample: 3.07
+- Escalation rate: 3.10%
+- Accuracy: 99.95%  (miscount = 1)
+- Avg. agents per sample: 3.06
 
 | τ_d   | Escalation | Accuracy | Avg. agents |
 |-------|------------|----------|-------------|
-| 0.20 | 3.52%      | 99.86%  | 3.07        |
-| 0.25 | 3.28%      | 99.86%  | 3.07        |
-| **0.30** | 3.28%      | 99.86%  | 3.07        |
-| 0.35 | 2.17%      | 99.86%  | 3.04        |
-| 0.40 | 1.53%      | 99.77%  | 3.03        |
-| 0.50 | 0.00%      | 99.91%  | 3.00        |
+| 0.20 | 3.38%      | 99.95%  | 3.07        |
+| 0.25 | 3.10%      | 99.95%  | 3.06        |
+| **0.30** | 3.10%      | 99.95%  | 3.06        |
+| 0.35 | 1.94%      | 99.95%  | 3.04        |
+| 0.40 | 1.48%      | 99.95%  | 3.03        |
+| 0.50 | 0.00%      | 99.86%  | 3.00        |
 
 Note: on this test set, the 5-agent ensemble at τ_d = 0.30 escalates only ~9% of samples — substantially less than the ~15% target implied by the paper text. This is a consequence of the Phase-1 agents agreeing strongly on most PolyGlot test samples; see the YouTube evaluation below for contrast.
 
@@ -84,8 +84,8 @@ Note: on this test set, the 5-agent ensemble at τ_d = 0.30 escalates only ~9% o
 
 - CSV: `analysis_results_youtube.csv`
 - Raw rows = 37, parseable = 37 (26 real + 11 fake)
-- Accuracy: 78.38%, Precision 100.00%, Recall 27.27%, F1 42.86%
-- Confusion: TP = 3, TN = 26, FP = 0, FN = 8
+- Accuracy: 70.27%, Precision 0.00%, Recall 0.00%, F1 0.00%
+- Confusion: TP = 0, TN = 26, FP = 0, FN = 11
 - Phases recorded in CSV: {}
 - Escalation rate: — (quick = phase-1 only; iterative/strong = escalated)
 
@@ -134,7 +134,7 @@ To complete this comparison, rerun each baseline on the 2,162-row PolyGlotFake t
 
 ## 11. Calibration (supplementary)
 
-- Expected Calibration Error (10 bins): **0.052**
+- Expected Calibration Error (10 bins): **0.040**
 
 The aggregated `final_score` is not a calibrated probability — it's a weighted mean of per-agent sigmoids. A future revision could apply Platt scaling or isotonic regression on a held-out split if the paper wants to claim calibrated confidences.
 

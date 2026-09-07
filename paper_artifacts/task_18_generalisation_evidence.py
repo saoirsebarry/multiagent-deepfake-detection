@@ -40,10 +40,10 @@ AGENTS = {
 # Development-set accuracy as stated in the methodology, with its source, so each
 # number in the gap column is traceable. None where the manuscript reports none.
 DEV = {
-    "Visual (XceptionNet)": (0.940, "§3.3.1, Stage 2 validation accuracy"),
+    "Visual (XceptionNet)": (0.962, "validation accuracy under the released frame-averaged inference"),
     "Audio (FreqNet)": (0.980, "§3.3.2, reported accuracy for the final audio agent"),
     "Audio Forensics (ECAPA-TDNN)": (0.962, "released model validation accuracy at its best epoch (indicative)"),
-    "Cross-Modal (Lip-Sync)": (0.990, "§3.3.3, cross-attention validation accuracy"),
+    "Cross-Modal (Lip-Sync)": (0.992, "validation accuracy of the released model"),
     "Biometric-Quality": (0.9916, "validation accuracy of the released model, Section 3.3.4"),
 }
 

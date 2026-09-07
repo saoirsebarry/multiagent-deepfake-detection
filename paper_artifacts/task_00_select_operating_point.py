@@ -2,11 +2,11 @@
 
 Reruns the exact validation-only search that produced the released weight
 vector: over every vector on the 0.05-step five-agent simplex with all agents
-active (3,876 vectors), minimise validation ensemble errors at tau = 0.5 and
-break ties by the separating margin (lowest-scoring fake minus highest-scoring
-real). Asserts that the argmax equals the released vector, records the band the
-conventional threshold must sit inside, then reports the single frozen test
-read-out.
+active (3,876 vectors), minimise validation errors of the DEPLOYED tiered
+verdict at tau = 0.5 (Phase-1 renormalisation unless escalation fires) and
+break ties by the two-sided clearance between the score band and the
+threshold. Asserts that the argmax equals the released vector, records the
+band, then reports the single frozen test read-out.
 
 Outputs: paper_artifacts/operating_point_provenance.json
 """
@@ -22,7 +22,7 @@ HERE = Path(__file__).resolve().parent
 SRC = HERE / "source_csvs"
 C5 = ["score_Visual (Spatial)", "score_Audio (Mel+CNN)", "score_Audio Forensics (ECAPA)",
       "score_Cross-Modal (Lip-Sync)", "score_Facial Biometric (Quality)"]
-RELEASED = np.array([0.05, 0.20, 0.30, 0.05, 0.40])
+RELEASED = np.array([0.05, 0.05, 0.40, 0.05, 0.45])
 TAU = 0.5
 
 
@@ -40,12 +40,20 @@ def main() -> None:
     grid = np.array(grid) / 20.0
     active = grid[(grid > 0).all(axis=1)]
 
-    agg = active @ Sv.T
-    errs = ((agg >= TAU) != yv).sum(axis=1)
-    max_real = np.where(~yv, agg, -1).max(axis=1)
-    min_fake = np.where(yv, agg, 2).min(axis=1)
+    trio = Sv[:, [2, 3, 4]]
+    verd = trio >= TAU
+    esc = (verd.any(axis=1) & ~verd.all(axis=1)) | (trio.std(axis=1) >= 0.3)
+    errs = np.empty(len(active), dtype=int)
+    max_real = np.empty(len(active)); min_fake = np.empty(len(active))
+    clearance = np.empty(len(active))
+    for i, w in enumerate(active):
+        w3 = w[[2, 3, 4]] / w[[2, 3, 4]].sum()
+        t = np.where(esc, Sv @ w, trio @ w3)
+        errs[i] = int(((t >= TAU) != yv).sum())
+        max_real[i] = t[~yv].max(); min_fake[i] = t[yv].min()
+        clearance[i] = min(min_fake[i] - TAU, TAU - max_real[i])
     margin = min_fake - max_real
-    i_best = int(np.argmax(-errs * 1000 + margin))
+    i_best = int(np.argmax(-errs * 1000 + clearance))
     w_star = active[i_best]
 
     if not np.allclose(w_star, RELEASED):
@@ -60,7 +68,8 @@ def main() -> None:
 
     out = {
         "procedure": "0.05-step simplex grid, all five agents active; minimise validation "
-                     "errors at tau=0.5, tie-break on separating margin",
+                     "errors of the deployed tiered verdict at tau=0.5, tie-break on "
+                     "two-sided clearance around the threshold",
         "grid_vectors_active": int(len(active)),
         "vectors_with_zero_validation_errors": int((errs == 0).sum()),
         "selected_weights": {c: float(w) for c, w in zip(C5, w_star)},
@@ -68,6 +77,7 @@ def main() -> None:
             "n": int(len(dv)),
             "errors_at_tau_0.5": int(errs[i_best]),
             "separating_margin": round(float(margin[i_best]), 4),
+            "two_sided_clearance": round(float(clearance[i_best]), 4),
             "band": [round(float(max_real[i_best]), 4), round(float(min_fake[i_best]), 4)],
             "tau_0.5_inside_band": bool(max_real[i_best] < TAU < min_fake[i_best]),
         },

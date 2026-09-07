@@ -30,7 +30,7 @@ COLS = ["score_Visual (Spatial)", "score_Audio (Mel+CNN)",
         "score_Audio Forensics (ECAPA)", "score_Cross-Modal (Lip-Sync)",
         "score_Facial Biometric (Quality)"]
 NAMES = ["Visual", "FreqNet", "ECAPA", "CrossModal", "Biometric"]
-W0 = np.array([0.05, 0.20, 0.30, 0.05, 0.40])
+W0 = np.array([0.05, 0.05, 0.40, 0.05, 0.45])
 TAU = 0.37
 RNG = np.random.default_rng(42)
 

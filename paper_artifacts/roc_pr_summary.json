@@ -1,8 +1,8 @@
 {
-  "auc_roc": 1.0,
-  "average_precision": 1.0,
-  "operating_tpr_at_tau_0.5": 0.9985322896281801,
-  "operating_fpr_at_tau_0.5": 0.0,
-  "operating_precision_at_tau_0.5": 1.0,
-  "operating_recall_at_tau_0.5": 0.9985322896281801
+  "auc_roc": 0.99997512355302,
+  "average_precision": 0.9999985628284965,
+  "operating_tpr_at_tau_0.5": 1.0,
+  "operating_fpr_at_tau_0.5": 0.00847457627118644,
+  "operating_precision_at_tau_0.5": 0.9995110024449878,
+  "operating_recall_at_tau_0.5": 1.0
 }

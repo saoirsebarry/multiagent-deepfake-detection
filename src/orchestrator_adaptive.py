@@ -85,10 +85,10 @@ CONFIG = {
     "decision_engine": {
         "weights": {
             "Visual (Spatial)": 0.05,
-            "Audio (Mel+CNN)": 0.20,
-            "Audio Forensics (ECAPA)": 0.30,
+            "Audio (Mel+CNN)": 0.05,
+            "Audio Forensics (ECAPA)": 0.40,
             "Cross-Modal (Lip-Sync)": 0.05,
-            "Facial Biometric (Quality)": 0.40,
+            "Facial Biometric (Quality)": 0.45,
         },
         "threshold": 0.5,
     },
@@ -557,19 +557,19 @@ def run_visual_analysis(media_data: Dict[str, Any], models: Dict[str, Any]) -> D
             transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])
         ])
         
-        face = faces[0]
-        if torch.is_tensor(face):
-            face = face.cpu().numpy()
-        
-        if face.dtype != np.uint8:
-            face = (face * 255).astype(np.uint8)
-        
-        input_tensor = transform(face).unsqueeze(0).to(device)
-        
+        # Average the prediction over every frame with horizontal-flip TTA.
+        tensors = []
+        for face in faces:
+            if torch.is_tensor(face):
+                face = face.cpu().numpy()
+            if face.dtype != np.uint8:
+                face = (face * 255).astype(np.uint8)
+            t = transform(face)
+            tensors.append(t)
+            tensors.append(torch.flip(t, dims=[2]))
         with torch.no_grad():
-            logits = model(input_tensor)
-            probabilities = torch.sigmoid(logits)
-            score = probabilities.squeeze().item()
+            logits = model(torch.stack(tensors).to(device))
+            score = torch.sigmoid(logits).mean().item()
         
         return {
             'agent': agent_name, 
