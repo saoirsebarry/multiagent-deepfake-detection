@@ -27,6 +27,7 @@ import common as C  # noqa: E402
 from train_biometric import FaceQualityNet, stack5, IMAGE_SIZE as BIO_SIZE  # noqa: E402
 from agents.cross_modal_lipsync import CrossModal_CNN_LSTM  # noqa: E402
 from agents.visual_xception import XceptionDeepfakeDetector  # noqa: E402
+from agents.visual_xception_ch import XceptionChannelsDetector, to_input  # noqa: E402
 from audio_freqnet import FreqNet  # noqa: E402
 from audio_forensics_ecapa import CONFIG as ECFG, FastAudioFeatureExtractor, OptimizedLightweightForensics  # noqa: E402
 from speechbrain.inference import EncoderClassifier  # noqa: E402
@@ -42,7 +43,9 @@ def ck(name, default): return ovr.get(name, os.path.join(R, default))
 
 bio = FaceQualityNet().to(dev); bio.load_state_dict(torch.load(ck("biometric", "checkpoints/biometric/best_model.pth"), map_location=dev, weights_only=False)["model_state_dict"]); bio.eval()
 cm = CrossModal_CNN_LSTM().to(dev); cm.load_state_dict(torch.load(ck("crossmodal", "checkpoints/cross_modal/lip_sync_model_crossattention.pth"), map_location=dev, weights_only=False)); cm.eval()
-vis = XceptionDeepfakeDetector(num_classes=1).to(dev); _c = torch.load(ck("visual", "checkpoints/xception/polyglotfake_xception_best_unbal_all_faceaug.pth"), map_location=dev, weights_only=False); vis.load_state_dict(_c.get("model_state_dict", _c)); vis.eval()
+VIS_CH = ovr.get("visual_variant") == "ch"
+vis = (XceptionChannelsDetector(num_classes=1, pretrained=False) if VIS_CH else XceptionDeepfakeDetector(num_classes=1)).to(dev)
+_c = torch.load(ck("visual", "checkpoints/xception/polyglotfake_xception_best_unbal_all_faceaug.pth"), map_location=dev, weights_only=False); vis.load_state_dict(_c.get("model_state_dict", _c)); vis.eval()
 fq_dev = dev if dev.type == "cuda" else cpu
 fq = FreqNet(num_classes=1).to(fq_dev); fq.load_state_dict(torch.load(ck("freqnet", "checkpoints/freqnet/freqnet_model_all_unbalanced_improved.pth"), map_location=fq_dev, weights_only=False)); fq.eval()
 ec = OptimizedLightweightForensics(embedding_dim=192, num_forensic_features=11).to(dev); ec.load_state_dict(torch.load(ck("ecapa", "checkpoints/ecapa_forensic_head/audio_forensics_model_finetuned_best.pth"), map_location=dev, weights_only=False)); ec.eval()
@@ -58,7 +61,10 @@ SR = 16000
 def s_visual(faces):
     ts = []
     for f in faces:
-        t = TF_VIS(C.to_uint8(f)); ts.append(t); ts.append(torch.flip(t, dims=[2]))
+        u = C.to_uint8(f)
+        if VIS_CH:
+            ts.append(to_input(u)); ts.append(to_input(np.ascontiguousarray(u[:, ::-1]))); continue
+        t = TF_VIS(u); ts.append(t); ts.append(torch.flip(t, dims=[2]))
     with torch.no_grad():
         return float(torch.sigmoid(vis(torch.stack(ts).to(dev))).mean().item())
 

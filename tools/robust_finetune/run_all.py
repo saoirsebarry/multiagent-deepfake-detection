@@ -17,7 +17,7 @@ for agent in A.agents.split(","):
     if os.path.exists(marker):
         print(f"== {agent}: already done", flush=True); continue
     script = {"biometric": "ft_biometric.py", "crossmodal": "ft_crossmodal.py", "freqnet": "ft_freqnet.py",
-              "ecapa": "ft_ecapa.py", "xception": "ft_xception.py", "xception_retrain": "retrain_xception.py"}[agent]
+              "ecapa": "ft_ecapa.py", "xception": "ft_xception.py", "xception_retrain": "retrain_xception.py", "xception_ch": "retrain_xception_ch.py"}[agent]
     print(f"== {agent}: running {script}", flush=True)
     log = open(os.path.join(out, "train.log"), "a")
     rc = subprocess.call([sys.executable, "-u", os.path.join(HERE, script), "--data_dir", A.data_dir, "--out_dir", out],

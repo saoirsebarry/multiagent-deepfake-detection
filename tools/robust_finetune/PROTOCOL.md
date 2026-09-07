@@ -76,3 +76,20 @@ difference at most 0.10, and the released head's validation AUC within 0.005 of 
 released column's. Adoption for this agent is judged entirely on recomputed features
 (released head vs fine-tuned head on the same features), so the comparison is
 like-for-like regardless of the offset to the published column.
+
+## Eight-channel XceptionNet variant (added 2026-09-07 20:15 UTC, before the run; no test or
+## YouTube read has been made for any candidate)
+
+The RGB retrain above was not adopted on validation (best epoch 21: log-loss 0.2385 against
+0.1850 released, AUC-ROC 0.9903 against 0.9968). A second visual candidate is therefore trained
+with the same recipe, corruption block and selection rules: XceptionNet whose first convolution
+takes the RGB crop plus five forensic channels computed from the same crop: an error-level-analysis
+map at JPEG quality 90, the log-magnitude Fourier spectrum, an 8-neighbour local-binary-pattern
+texture code and the Cb and Cr chroma planes (`src/agents/visual_xception_ch.py`). The
+biometric-quality agent already consumes a Laplacian sharpness map and a high-frequency residual
+map, so those two cues are left to it and the visual variant adds compression, spectral, texture
+and chroma evidence instead. The extra input weights start at zero so the
+network begins as the ImageNet RGB model; the first convolution stays trainable in both stages.
+Adoption is judged against the released visual agent by rules 1 and 2 exactly as before. The
+test split is read once, after this candidate is judged; the frozen YouTube set is read once
+with the final system.

@@ -24,6 +24,9 @@ ap = argparse.ArgumentParser()
 ap.add_argument("--ft_dir", required=True); ap.add_argument("--out_dir", required=True)
 ap.add_argument("--stage", choices=["overrides", "final"], required=True); ap.add_argument("--val_corrupted", default=None)
 A = ap.parse_args(); os.makedirs(A.out_dir, exist_ok=True)
+# two visual candidates were trained in sequence; the later 7-channel variant is judged if it ran, else the RGB retrain
+if os.path.exists(os.path.join(A.ft_dir, "xception_ch", "decision.json")):
+    DIR["visual"] = "xception_ch"
 
 decisions, adopted = {}, {}
 for a in ORDER:
@@ -41,6 +44,8 @@ def ckpt_of(a):
 
 
 ovr = {a: ckpt_of(a) for a in ORDER if adopted[a]}
+if adopted.get("visual") and decisions["visual"].get("variant") == "ch":
+    ovr["visual_variant"] = "ch"
 if adopted.get("ecapa"):
     ovr["ecapa_stats"] = os.path.join(A.ft_dir, DIR["ecapa"], "training_stats.npz")
 json.dump(ovr, open(os.path.join(A.out_dir, "overrides.json"), "w"), indent=1); print("overrides", json.dumps(ovr), flush=True)
