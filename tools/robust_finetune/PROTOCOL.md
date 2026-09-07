@@ -93,3 +93,15 @@ network begins as the ImageNet RGB model; the first convolution stays trainable 
 Adoption is judged against the released visual agent by rules 1 and 2 exactly as before. The
 test split is read once, after this candidate is judged; the frozen YouTube set is read once
 with the final system.
+
+## Eight-channel variant: channels computed on the device (2026-09-07 21:15 UTC)
+
+The first run of the eight-channel candidate computed the five extra channels on the CPU
+and spent most of each epoch in that step (7 min per epoch against 1.6 for the RGB
+retrain); it was stopped after epoch 1 with no selection or read made and restarted with
+the channels computed inside the network on the device from the same normalised RGB input
+(`ForensicChannels` in `src/agents/visual_xception_ch.py`). Definitions are unchanged for
+the spectrum, the local-binary-pattern code and the Cb/Cr planes; the error-level-analysis
+map is now the luma re-quantised through the 8x8 JPEG DCT at the quality-90 luminance table
+(the codec step of JPEG without chroma subsampling or entropy coding). The input contract
+is therefore the released visual agent's 3-channel tensor.

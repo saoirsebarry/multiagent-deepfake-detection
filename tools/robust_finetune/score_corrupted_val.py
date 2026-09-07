@@ -61,10 +61,7 @@ SR = 16000
 def s_visual(faces):
     ts = []
     for f in faces:
-        u = C.to_uint8(f)
-        if VIS_CH:
-            ts.append(to_input(u)); ts.append(to_input(np.ascontiguousarray(u[:, ::-1]))); continue
-        t = TF_VIS(u); ts.append(t); ts.append(torch.flip(t, dims=[2]))
+        t = TF_VIS(C.to_uint8(f)); ts.append(t); ts.append(torch.flip(t, dims=[2]))
     with torch.no_grad():
         return float(torch.sigmoid(vis(torch.stack(ts).to(dev))).mean().item())
 

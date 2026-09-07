@@ -1,54 +1,87 @@
-"""Visual agent variant: XceptionNet over the RGB face crop plus five forensic channels
-computed from the same crop: error-level-analysis map, log-magnitude Fourier spectrum,
-local-binary-pattern texture code, and the Cb and Cr chroma planes. The biometric-quality
-agent already consumes a Laplacian sharpness map and a high-frequency residual map, so those
-cues are deliberately left to it. Head, attention block and inference recipe (frame mean with
-horizontal-flip test-time augmentation) are those of the released visual agent."""
-import cv2
+"""Visual agent variant: XceptionNet over the RGB face crop plus five forensic channels the
+network computes on the device from the same crop: an error-level-analysis map (luma
+re-quantised through the 8x8 JPEG DCT at the quality-90 luminance table), the log-magnitude
+Fourier spectrum, an 8-neighbour local-binary-pattern code, and the Cb and Cr chroma planes.
+The biometric-quality agent already consumes a Laplacian sharpness map and a high-frequency
+residual, so those cues are left to it. The input contract is the released visual agent's
+(normalised 3-channel crop, frame mean with horizontal-flip test-time augmentation)."""
+import math
+
 import numpy as np
 import timm
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 
 IMAGE_SIZE = 299
 EXTRA = 5
+# stored crops are in OpenCV channel order (B, G, R)
+_LUMA = (0.114, 0.587, 0.299)
+_JPEG_LUMA = torch.tensor([[16, 11, 10, 16, 24, 40, 51, 61], [12, 12, 14, 19, 26, 58, 60, 55], [14, 13, 16, 24, 40, 57, 69, 56],
+                           [14, 17, 22, 29, 51, 87, 80, 62], [18, 22, 37, 56, 68, 109, 103, 77], [24, 35, 55, 64, 81, 104, 113, 92],
+                           [49, 64, 78, 87, 103, 121, 120, 101], [72, 92, 95, 98, 112, 100, 103, 99]], dtype=torch.float32)
 
 
-def lbp_map(gray_u8):
-    """8-neighbour local binary pattern code (radius 1) as a float map in [-1, 1]."""
-    g = gray_u8.astype(np.int16); p = np.pad(g, 1, mode="edge"); h, w = g.shape
-    code = np.zeros((h, w), np.int32)
-    for bit, (dy, dx) in enumerate(((-1, -1), (-1, 0), (-1, 1), (0, 1), (1, 1), (1, 0), (1, -1), (0, -1))):
-        code |= (p[1 + dy:1 + dy + h, 1 + dx:1 + dx + w] >= g).astype(np.int32) << bit
-    return (code.astype(np.float32) / 127.5) - 1.0
+def _dct_matrix():
+    n = torch.arange(8, dtype=torch.float32)
+    D = torch.cos(math.pi * (2 * n[None, :] + 1) * n[:, None] / 16) * math.sqrt(2 / 8)
+    D[0] /= math.sqrt(2)
+    return D
 
 
-def extra_channels(img):
-    """uint8 HxWx3 face crop (stored channel order) -> float32 [5, H, W] in [-1, 1]."""
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    ok, buf = cv2.imencode(".jpg", img, [int(cv2.IMWRITE_JPEG_QUALITY), 90])
-    rec = cv2.imdecode(buf, cv2.IMREAD_COLOR) if ok else img
-    ela = np.clip(np.abs(img.astype(np.float32) - rec.astype(np.float32)).mean(axis=2) / 255.0 * 16.0, 0.0, 1.0) * 2.0 - 1.0
-    g = gray.astype(np.float32) / 255.0
-    mag = np.log1p(np.abs(np.fft.fftshift(np.fft.fft2(g - g.mean()))))
-    mag = (mag - mag.min()) / (mag.max() - mag.min() + 1e-6) * 2.0 - 1.0
-    ycrcb = cv2.cvtColor(img, cv2.COLOR_BGR2YCrCb).astype(np.float32) / 255.0
-    cr = ycrcb[..., 1] * 2.0 - 1.0; cb = ycrcb[..., 2] * 2.0 - 1.0
-    return np.stack([ela, mag.astype(np.float32), lbp_map(gray), cb, cr]).astype(np.float32)
+class ForensicChannels(nn.Module):
+    def __init__(self, quality=90):
+        super().__init__()
+        scale = (200 - 2 * quality) / 100.0 if quality >= 50 else 5000.0 / quality / 100.0
+        self.register_buffer("Q", torch.clamp(torch.round(_JPEG_LUMA * scale), 1, 255))
+        self.register_buffer("D", _dct_matrix())
+        self.register_buffer("luma_w", torch.tensor(_LUMA).view(1, 3, 1, 1))
+
+    def ela(self, y):
+        """|luma - JPEG-requantised luma| on the 8x8 DCT grid, scaled like the CPU definition."""
+        B, _, H, W = y.shape; ph, pw = (-H) % 8, (-W) % 8
+        x = F.pad(y * 255.0 - 128.0, (0, pw, 0, ph), mode="replicate")
+        blocks = F.unfold(x, kernel_size=8, stride=8).transpose(1, 2).reshape(-1, 8, 8)
+        coef = self.D @ blocks @ self.D.T
+        coef = torch.round(coef / self.Q) * self.Q
+        rec = (self.D.T @ coef @ self.D).reshape(B, -1, 64).transpose(1, 2)
+        rec = F.fold(rec, output_size=(H + ph, W + pw), kernel_size=8, stride=8)[:, :, :H, :W] + 128.0
+        return torch.clamp((y * 255.0 - rec).abs() / 255.0 * 16.0, 0.0, 1.0) * 2.0 - 1.0
+
+    @staticmethod
+    def spectrum(y):
+        mag = torch.log1p(torch.fft.fftshift(torch.fft.fft2(y - y.mean(dim=(2, 3), keepdim=True)), dim=(-2, -1)).abs())
+        lo = mag.amin(dim=(2, 3), keepdim=True); hi = mag.amax(dim=(2, 3), keepdim=True)
+        return (mag - lo) / (hi - lo + 1e-6) * 2.0 - 1.0
+
+    @staticmethod
+    def lbp(y):
+        p = F.pad(y, (1, 1, 1, 1), mode="replicate"); H, W = y.shape[-2:]; code = torch.zeros_like(y)
+        for bit, (dy, dx) in enumerate(((-1, -1), (-1, 0), (-1, 1), (0, 1), (1, 1), (1, 0), (1, -1), (0, -1))):
+            code = code + (p[:, :, 1 + dy:1 + dy + H, 1 + dx:1 + dx + W] >= y).to(y.dtype) * (2 ** bit)
+        return code / 127.5 - 1.0
+
+    def forward(self, rgb01):
+        """rgb01: B x 3 x H x W in [0, 1], stored (B, G, R) order -> B x 5 x H x W in [-1, 1]."""
+        y = (rgb01 * self.luma_w).sum(dim=1, keepdim=True)
+        b, r = rgb01[:, 0:1], rgb01[:, 2:3]
+        cr = torch.clamp(0.713 * (r - y) + 0.5, 0, 1) * 2.0 - 1.0; cb = torch.clamp(0.564 * (b - y) + 0.5, 0, 1) * 2.0 - 1.0
+        return torch.cat([self.ela(y), self.spectrum(y), self.lbp(y), cb, cr], dim=1)
 
 
 def to_input(img):
-    """uint8 face crop -> torch [3 + EXTRA, 299, 299]; RGB channels normalised as the released agent."""
+    """uint8 face crop -> the released agent's normalised 3-channel tensor (the extra channels are computed in the model)."""
     if img.shape[0] != IMAGE_SIZE or img.shape[1] != IMAGE_SIZE:
+        import cv2
         img = cv2.resize(img, (IMAGE_SIZE, IMAGE_SIZE), interpolation=cv2.INTER_LINEAR)
-    img = np.ascontiguousarray(img)
-    rgb = ((img.astype(np.float32) / 255.0) - 0.5) / 0.5
-    return torch.from_numpy(np.concatenate([rgb.transpose(2, 0, 1), extra_channels(img)], axis=0))
+    rgb = ((np.ascontiguousarray(img).astype(np.float32) / 255.0) - 0.5) / 0.5
+    return torch.from_numpy(rgb.transpose(2, 0, 1).copy())
 
 
 class XceptionChannelsDetector(nn.Module):
     def __init__(self, num_classes=1, dropout_rate=0.5, pretrained=True):
         super().__init__()
+        self.channels = ForensicChannels()
         self.base_model = timm.create_model("xception", pretrained=pretrained)
         old = self.base_model.conv1
         conv1 = nn.Conv2d(3 + EXTRA, old.out_channels, old.kernel_size, old.stride, old.padding, bias=old.bias is not None)
@@ -69,6 +102,9 @@ class XceptionChannelsDetector(nn.Module):
             p.requires_grad = True
 
     def forward(self, x):
+        with torch.autocast(device_type=x.device.type, enabled=False):
+            extra = self.channels(x.float() * 0.5 + 0.5)
+        x = torch.cat([x, extra.to(x.dtype)], dim=1)
         f = self.base_model.global_pool(self.base_model.forward_features(x))
         return self.base_model.fc(f * self.attention(f))
 

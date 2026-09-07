@@ -1,5 +1,5 @@
-"""Retrain an 8-channel visual XceptionNet (RGB plus error-level-analysis map, log-magnitude
-spectrum, local-binary-pattern code and Cb/Cr chroma, src/agents/visual_xception_ch.py) from
+"""Retrain an 8-channel visual XceptionNet (RGB plus device-computed ELA, log-magnitude spectrum,
+local-binary-pattern code and Cb/Cr chroma, src/agents/visual_xception_ch.py) from
 ImageNet weights with the released two-stage recipe (head-only epochs at 1e-3, then unfreeze from block 11 for OneCycle epochs at 1e-5
 with Mixup, label smoothing 0.1 and balanced class weights) plus three fixes fixed before
 the run: a deployment-corruption augmentation block applied to every training crop, which
@@ -33,7 +33,7 @@ ap.add_argument("--stage1_epochs", type=int, default=5); ap.add_argument("--stag
 ap.add_argument("--batch", type=int, default=32); ap.add_argument("--patience", type=int, default=7)
 ap.add_argument("--smoke", action="store_true", help="few batches per epoch, for a pipeline check")
 A = ap.parse_args(); os.makedirs(A.out_dir, exist_ok=True); C.seed_all()
-device = C.pick_device(); AMP = device.type == "cuda"
+device = torch.device(os.environ["FT_DEVICE"]) if "FT_DEVICE" in os.environ else C.pick_device(); AMP = device.type == "cuda"
 RELEASED = os.path.join(C.REPO, "checkpoints/xception/polyglotfake_xception_best_unbal_all_faceaug.pth")
 INITIAL_LR, FINE_TUNE_LR, WEIGHT_DECAY, LABEL_SMOOTHING, MIXUP_ALPHA, FINE_TUNE_AT_BLOCK = 1e-3, 1e-5, 1e-4, 0.1, 0.2, 11
 TF = transforms.Compose([transforms.ToPILImage(), transforms.Resize((299, 299)), transforms.ToTensor(),
@@ -153,11 +153,11 @@ class FaceSet(Dataset):
     def __getitem__(self, i):
         ci, fi = self.index[i]
         img = released_family_aug(corruption_block(self.faces[ci][fi]))
-        return to_input(img), torch.tensor(self.labels[ci])
+        return to_tensor(img), torch.tensor(self.labels[ci])
 
 
 def score_faces(model, faces_list, keys, corrupt=False):
-    seven = isinstance(model, XceptionChannelsDetector); model.eval(); out = {}
+    model.eval(); out = {}
     with torch.no_grad():
         for f, faces in zip(keys, faces_list):
             if len(faces) == 0:
@@ -165,11 +165,7 @@ def score_faces(model, faces_list, keys, corrupt=False):
             fs = C.corrupt_faces(faces, f) if corrupt else faces
             ts = []
             for face in fs:
-                u = C.to_uint8(face)
-                if seven:
-                    ts.append(to_input(u)); ts.append(to_input(np.ascontiguousarray(u[:, ::-1])))
-                else:
-                    t = TF(u); ts.append(t); ts.append(torch.flip(t, dims=[2]))
+                t = TF(C.to_uint8(face)); ts.append(t); ts.append(torch.flip(t, dims=[2]))
             out[f] = float(torch.sigmoid(model(torch.stack(ts).to(device))).mean().item())
     return out
 
