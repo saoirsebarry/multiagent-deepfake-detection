@@ -1,7 +1,7 @@
 """Task 15: agent-weight sensitivity.
 
 Answers the reviewer request for a sensitivity analysis over the five agent weights
-(0.20, 0.15, 0.20, 0.25, 0.20). The aggregate score is a weighted linear combination of
+(0.05, 0.05, 0.40, 0.05, 0.45). The aggregate score is a weighted linear combination of
 five stored per-agent sigmoid outputs, so any alternative weight vector can be evaluated
 exactly on the same saved test predictions without re-running inference.
 
@@ -31,7 +31,7 @@ COLS = ["score_Visual (Spatial)", "score_Audio (Mel+CNN)",
         "score_Facial Biometric (Quality)"]
 NAMES = ["Visual", "FreqNet", "ECAPA", "CrossModal", "Biometric"]
 W0 = np.array([0.05, 0.05, 0.40, 0.05, 0.45])
-TAU = 0.37
+TAU = 0.5
 RNG = np.random.default_rng(42)
 
 df = pd.read_csv(CSV)
@@ -47,7 +47,7 @@ assert np.abs(S @ W0 - df.final_score.to_numpy()).max() < 1e-6, \
 def metrics(w):
     a = S @ w
     real, fake = a[y == 0], a[y == 1]
-    pred = (a > TAU).astype(int)
+    pred = (a >= TAU).astype(int)
     return dict(auc=roc_auc_score(y, a), ap=average_precision_score(y, a),
                 acc_tau=100.0 * (pred == y).mean(), err_tau=int((pred != y).sum()),
                 margin=float(fake.min() - real.max()))
@@ -61,7 +61,7 @@ def batch(W, chunk=4000):
         r = np.apply_along_axis(rankdata, 0, A)
         auc[i:i + chunk] = (r[y == 1].sum(axis=0) - n1 * (n1 + 1) / 2) / (n0 * n1)
         mar[i:i + chunk] = A[y == 1].min(axis=0) - A[y == 0].max(axis=0)
-        err[i:i + chunk] = ((A > TAU).astype(int) != y[:, None]).sum(axis=0)
+        err[i:i + chunk] = ((A >= TAU).astype(int) != y[:, None]).sum(axis=0)
     return auc, mar, err
 
 
