@@ -30,7 +30,7 @@ warnings.filterwarnings('ignore')
 CONFIG = {
     "device": torch.device("cuda" if torch.cuda.is_available() else "cpu"),
     "data_dir": "data/polyglot_processed_all_unbalanced",
-    "output_dir": "audio_forensic_trained_models_v2",
+    "output_dir": "audio_forensic_trained_models",
     "batch_size": 16,
     "num_epochs": 50,
     "learning_rate": 1e-4,

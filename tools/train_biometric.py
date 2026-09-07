@@ -14,7 +14,7 @@ checkpoint is scored on val and test with the shipping inference recipe
 
 Usage:
   python tools/train_biometric.py --data_dir <root with train/ val/ test/> \
-      --val_csv paper_artifacts/source_csvs/analysis_results_v2_VAL.csv \
+      --val_csv paper_artifacts/source_csvs/analysis_results_VAL.csv \
       --output_dir biometric_final
 """
 import argparse
@@ -171,7 +171,7 @@ def build_grid():
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--data_dir", default="data/polyglot_processed_all_unbalanced")
-    ap.add_argument("--val_csv", default="paper_artifacts/source_csvs/analysis_results_v2_VAL.csv")
+    ap.add_argument("--val_csv", default="paper_artifacts/source_csvs/analysis_results_VAL.csv")
     ap.add_argument("--output_dir", default="biometric_final")
     ap.add_argument("--stage1_epochs", type=int, default=30)
     ap.add_argument("--stage2_epochs", type=int, default=10)
@@ -279,7 +279,7 @@ def main():
         if not os.path.isdir(os.path.join(args.data_dir, split)):
             continue
         ss = score_split(model, args.data_dir, split, device)
-        out_csv = os.path.join(args.output_dir, f"biometric_final_{split}_scores.csv")
+        out_csv = os.path.join(args.output_dir, f"biometric_{split}_scores.csv")
         with open(out_csv, "w", newline="") as fh:
             w = csv.writer(fh); w.writerow(["split", "filepath", "ground_truth", "score"])
             for f in sorted(ss):
