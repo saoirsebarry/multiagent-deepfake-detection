@@ -40,9 +40,7 @@ except ImportError:  # moved to langchain_core in langchain >= 1.0
     from langchain_core.tools import StructuredTool
 
 
-# CHECKPOINT_DIR=checkpoints_v2 selects the retrained set that reproduces
-# analysis_results_seed2_test.csv (see docs/REPRODUCE.md); Biometric-Quality is
-# shared with the v1 set and always loads from checkpoints/.
+# CHECKPOINT_DIR overrides the checkpoint root; the default is the released set.
 _CKPT = os.environ.get("CHECKPOINT_DIR", "checkpoints")
 
 CONFIG = {
@@ -54,7 +52,7 @@ CONFIG = {
         "audio": f"{_CKPT}/freqnet/freqnet_model_all_unbalanced_improved.pth",
         "audio_forensics": f"{_CKPT}/ecapa_forensic_head/audio_forensics_model_finetuned_best.pth",
         "cross_modal": f"{_CKPT}/cross_modal/lip_sync_model_crossattention.pth",
-        "face_quality": "checkpoints_v2/biometric/best_model.pth",
+        "face_quality": f"{_CKPT}/biometric/best_model.pth",
     },
     "audio_forensics_stats_path": f"{_CKPT}/ecapa_forensic_head/training_stats.npz",
     "output_file": "analysis_results_with_5_agents.csv",

@@ -27,7 +27,7 @@ TAU = 0.5
 
 
 def main() -> None:
-    dv = pd.read_csv(SRC / "analysis_results_v2_VAL.csv")
+    dv = pd.read_csv(SRC / "analysis_results_VAL.csv")
     Sv = dv[C5].to_numpy()
     yv = (dv.ground_truth == "Fake").to_numpy()
 

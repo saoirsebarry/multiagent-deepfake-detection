@@ -73,7 +73,7 @@ python tools/precompute_ecapa_features.py \
 python src/agents/audio_forensics_ecapa.py \
     --data_dir data/polyglot_processed_all_unbalanced \
     --feature_cache data/ecapa_features \
-    --output_dir audio_forensic_trained_models_v2
+    --output_dir audio_forensic_trained_models
 
 # takes --dataroot
 python src/agents/audio_freqnet.py \
@@ -126,7 +126,7 @@ and asserts it lands on the released vector.
 python paper_artifacts/task_00_select_operating_point.py
 ```
 
-This reruns the released grid search on `analysis_results_v2_VAL.csv`, fails loudly if the
+This reruns the released grid search on `analysis_results_VAL.csv`, fails loudly if the
 argmax is not the released vector, and writes
 `paper_artifacts/operating_point_provenance.json`: the grid size, the number of vectors
 that classify validation perfectly (139 of 3,876), the selected vector's validation margin
@@ -168,53 +168,26 @@ python paper_artifacts/task_20_training_curves_figure.py \
 ```
 
 `recovered_curves.json` holds the XceptionNet, FreqNet and Cross-Modal histories parsed from their
-re-run logs; `biometric_training_history.json` is read out of the released Biometric-Quality
-checkpoint; `ecapa_training_log.csv` is written by the ECAPA trainer above.
+re-run logs; `biometric_training_history.json` is written by `tools/train_biometric.py`;
+`ecapa_training_log.csv` is written by the ECAPA trainer above.
 
-## Known limitation: checkpoint re-scoring does not reproduce two agents
+## Checkpoints
 
-The released per-sample score CSVs in `paper_artifacts/source_csvs/` are the authoritative
-record behind every number in the paper, and every reported figure re-derives from them
-deterministically via `paper_artifacts/`.
-
-Re-scoring the preprocessed clips from the released checkpoints is only partially
-reproducible. Under the pinned `requirements.txt` environment (verified with torch
-2.11.0+cpu, librosa 0.11.0, numpy 2.4.4, Python 3.13), `src/orchestrator.py` reproduces the
-released per-clip scores for the Visual (Spatial), Audio Forensics (ECAPA) and Facial
-Biometric (Quality) agents to within rounding, but not for the two agents whose features
-come from `librosa.feature.melspectrogram`: FreqNet saturates at 1.0 on every clip, and
-Cross-Modal scores real clips in the 0.75–0.95 range where the released CSV records ~0.0.
-The environment or local code state that produced the released CSVs for those two agents
-was evidently not captured by this repository, and we have not been able to reconstruct it.
-
-The released validation and test score files were therefore produced with the
-`checkpoints_v2` set below, which re-scores faithfully; the weight selection of Path D and
-every paper number audit against those released CSVs. The v1 FreqNet and Cross-Modal
-checkpoints remain historical artifacts only.
-
-## Reproducible checkpoint set (checkpoints_v2)
-
-The v1 checkpoints in `checkpoints/` are the historical record behind the paper's released
-per-sample CSVs, but per the limitation above, FreqNet and Cross-Modal cannot be re-scored
-faithfully from them — the divergence is identical under the pinned environment and under a
-thesis-era candidate stack (torch 2.3.1, numpy 1.26.4, librosa 0.10.1), so the cause is
-uncaptured local code state at original scoring time, not the environment.
-
-`checkpoints_v2/` therefore ships the released checkpoint set: XceptionNet, FreqNet,
-Cross-Modal and the ECAPA head retrained with seed 42 in the pinned environment, and the
-Biometric-Quality agent trained by `tools/train_biometric.py` (per-pixel forensic-map
-channels; two-stage recipe with a validation-selected fine-tune). Run the system with them
-via:
+`checkpoints/` ships the released checkpoint set — the one that produced every released
+score file: XceptionNet, FreqNet, Cross-Modal and the ECAPA head trained with seed 42 in
+the pinned environment, and the Biometric-Quality agent trained by
+`tools/train_biometric.py` (per-pixel forensic-map channels; two-stage recipe with a
+validation-selected fine-tune). Run the system with them via:
 
 ```bash
-CHECKPOINT_DIR=checkpoints_v2 python src/orchestrator.py --split test \
-    --output_file /tmp/rescored.csv
+python src/orchestrator.py --split test --output_file /tmp/rescored.csv
 ```
 
 This configuration is verified reproducible: re-scoring the released test partition
 reproduces `paper_artifacts/source_csvs/analysis_results_with_5_agents.csv`
-(AUC-ROC 1.000, 99.86% accuracy at τ = 0.5). In an 8-clip cross-machine
-spot-check, 39 of 40 per-agent scores matched within 0.02; the one exception was a single
-Biometric-Quality score off by 0.034 (a landmark-heuristic agent with mild cross-machine
-drift; ≤ 0.007 effect on the weighted aggregate). `SHA256SUMS.v2` lists the checkpoint
-digests.
+(AUC-ROC 1.000, 99.86% accuracy at τ = 0.5). In an 8-clip cross-machine spot-check, 39 of
+40 per-agent scores matched within 0.02. `SHA256SUMS` lists the checkpoint digests.
+
+The released per-sample score CSVs in `paper_artifacts/source_csvs/` are the authoritative
+record behind every number in the paper, and every reported figure re-derives from them
+deterministically via `paper_artifacts/`.

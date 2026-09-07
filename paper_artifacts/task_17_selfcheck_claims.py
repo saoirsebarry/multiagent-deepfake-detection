@@ -62,7 +62,7 @@ check("uniform weighting errors at tau=0.5", float(((uni >= TAU).astype(int) != 
 check("uniform weighting AUC (not exactly 1)", float(roc_auc_score(y, uni)), 0.999983, 5e-6)
 
 print("\nvalidation provenance of the released weights (section 3.5)")
-dv = pd.read_csv(SRC / "analysis_results_v2_VAL.csv")
+dv = pd.read_csv(SRC / "analysis_results_VAL.csv")
 Sv = dv[C5].to_numpy(); yv = (dv.ground_truth == "Fake").astype(int).to_numpy()
 aggv = Sv @ W5
 check("validation errors at tau=0.5", float(((aggv >= TAU).astype(int) != yv).sum()), 0.0, 0)

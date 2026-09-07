@@ -56,7 +56,7 @@ CONFIG = {
         "audio": "checkpoints/freqnet/freqnet_model_all_unbalanced_improved.pth",
         "audio_forensics": "checkpoints/ecapa_forensic_head/audio_forensics_model_finetuned_best.pth",
         "cross_modal": "checkpoints/cross_modal/lip_sync_model_crossattention.pth",
-        "face_quality": "checkpoints_v2/biometric/best_model.pth",
+        "face_quality": "checkpoints/biometric/best_model.pth",
     },
     "audio_forensics_stats_path": "checkpoints/ecapa_forensic_head/training_stats.npz",
     "gradcam_output_dir": "multiagent_xai_results_5agents_yt",
