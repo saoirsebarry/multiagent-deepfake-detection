@@ -1,0 +1,69 @@
+{
+ "source_videos": [
+  {
+   "youtube_id": "8Xeh7TVPp-M",
+   "video_level_label": "real",
+   "note": "labels in analysis_results_youtube.csv are per clip, by the provenance of the face shown"
+  },
+  {
+   "youtube_id": "AEu6wVp_Edw",
+   "video_level_label": "real",
+   "note": "labels in analysis_results_youtube.csv are per clip, by the provenance of the face shown"
+  },
+  {
+   "youtube_id": "_dSRnKy10lA",
+   "video_level_label": "real",
+   "note": "labels in analysis_results_youtube.csv are per clip, by the provenance of the face shown"
+  },
+  {
+   "youtube_id": "cT9Uw2jzMUc",
+   "video_level_label": "fake",
+   "note": "labels in analysis_results_youtube.csv are per clip, by the provenance of the face shown"
+  },
+  {
+   "youtube_id": "lGO9j_x8gp0",
+   "video_level_label": "real",
+   "note": "labels in analysis_results_youtube.csv are per clip, by the provenance of the face shown"
+  },
+  {
+   "youtube_id": "m0fdgkJGxHs",
+   "video_level_label": "fake",
+   "note": "labels in analysis_results_youtube.csv are per clip, by the provenance of the face shown"
+  },
+  {
+   "youtube_id": "mZcridN9hq0",
+   "video_level_label": "fake",
+   "note": "labels in analysis_results_youtube.csv are per clip, by the provenance of the face shown"
+  },
+  {
+   "youtube_id": "n-jo7tfhsvQ",
+   "video_level_label": "real",
+   "note": "labels in analysis_results_youtube.csv are per clip, by the provenance of the face shown"
+  },
+  {
+   "youtube_id": "nDZQKKpAbWo",
+   "video_level_label": "fake",
+   "note": "labels in analysis_results_youtube.csv are per clip, by the provenance of the face shown"
+  },
+  {
+   "youtube_id": "pxPzCFM0qE4",
+   "video_level_label": "fake",
+   "note": "labels in analysis_results_youtube.csv are per clip, by the provenance of the face shown"
+  }
+ ],
+ "extraction": {
+  "script": "youtube_eval/extract_clips.py",
+  "frames_per_clip": 10,
+  "frame_stride": 10,
+  "image_size": 299,
+  "audio_seconds": 5,
+  "max_sequences_per_video": 5,
+  "gates": {
+   "min_detection_prob": 0.95,
+   "min_face_side_px": 100,
+   "min_laplacian_variance": 60.0,
+   "min_identity_cosine_prev": 0.55,
+   "min_identity_cosine_first": 0.5
+  }
+ }
+}

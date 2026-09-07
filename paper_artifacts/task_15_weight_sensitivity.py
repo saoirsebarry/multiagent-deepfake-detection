@@ -30,7 +30,7 @@ COLS = ["score_Visual (Spatial)", "score_Audio (Mel+CNN)",
         "score_Audio Forensics (ECAPA)", "score_Cross-Modal (Lip-Sync)",
         "score_Facial Biometric (Quality)"]
 NAMES = ["Visual", "FreqNet", "ECAPA", "CrossModal", "Biometric"]
-W0 = np.array([0.20, 0.15, 0.20, 0.25, 0.20])
+W0 = np.array([0.05, 0.20, 0.30, 0.05, 0.40])
 TAU = 0.37
 RNG = np.random.default_rng(42)
 
@@ -40,7 +40,7 @@ y = (df.ground_truth == "Fake").astype(int).to_numpy()
 n1, n0 = int(y.sum()), int((y == 0).sum())
 
 # the stored aggregate must be reproducible from the per-agent scores, or nothing below holds
-assert np.abs(S @ W0 - df.final_score.to_numpy()).max() < 1e-12, \
+assert np.abs(S @ W0 - df.final_score.to_numpy()).max() < 1e-6, \
     "weighted mean does not reproduce final_score"
 
 

@@ -80,7 +80,7 @@ python src/agents/audio_freqnet.py \
     --dataroot data/polyglot_processed_all_unbalanced
 
 # takes --data_dir
-python src/agents/biometric_quality.py \
+python tools/train_biometric.py \
     --data_dir data/polyglot_processed_all_unbalanced
 ```
 
@@ -114,36 +114,23 @@ python src/detect.py \
 
 After re-running C, run Path A to regenerate all downstream artifacts from the fresh CSVs.
 
-## Path D — Reproduce the operating-point provenance (weights + τ "selected on validation")
+## Path D — Reproduce the operating-point provenance (validation-selected weights)
 
-The paper selects the decision threshold τ = 0.37 (and validates the agent weights) on the
-**validation** split, then freezes them and reports test accuracy. This path makes that
-claim reproducible end-to-end: it derives τ from the validation scores only, and never
-uses the test labels to choose anything.
+The paper selects the agent weight vector on the **validation** partition by exhaustive
+grid search (0.05-step simplex, all five agents active; minimise validation errors at the
+conventional τ = 0.5, tie-break on the separating margin), then freezes it and reports the
+single test read-out. This path reruns that selection from the released validation scores
+and asserts it lands on the released vector.
 
 ```bash
-# 1. Score the validation split with the SAME weighted orchestrator that wrote the test CSV.
-#    (Requires the preprocessed val/ split from Path B and the checkpoints.)
-python src/orchestrator.py --split val \
-    --output_file paper_artifacts/source_csvs/analysis_results_with_5_agents_VAL.csv
-
-# 2. Derive τ on validation, freeze (weights, τ), and evaluate once on test.
-#    Stdlib only — no GPU, no heavy deps.
-python paper_artifacts/task_00_select_operating_point.py \
-    --val  paper_artifacts/source_csvs/analysis_results_with_5_agents_VAL.csv \
-    --test paper_artifacts/source_csvs/analysis_results_with_5_agents.csv
+python paper_artifacts/task_00_select_operating_point.py
 ```
 
-This writes `paper_artifacts/operating_point_provenance.json` containing: per-agent
-validation AUCs, the validation-derived threshold `tau_star` and the rule used to pick it
-(argmax validation balanced accuracy; midpoint of the tied plateau), the frozen test
-metrics at `tau_star`, and a `reproduces_paper_tau` flag. Ship both the
-`analysis_results_with_5_agents_VAL.csv` and `operating_point_provenance.json` so a third
-party can verify the operating point was selected on validation rather than tuned on test.
-
-`--weights {paper,auc,search}` reports how the paper's hand-picked weights compare on the
-validation split against an AUC-proportional vector and a simplex margin search. The script
-is honest by construction: if the validation-derived `tau_star` is not ≈ 0.37, it says so.
+This reruns the released grid search on `analysis_results_v2_VAL.csv`, fails loudly if the
+argmax is not the released vector, and writes
+`paper_artifacts/operating_point_provenance.json`: the grid size, the number of vectors
+that classify validation perfectly (139 of 3,876), the selected vector's validation margin
+and band (the conventional τ = 0.5 sits inside it), and the frozen test read-out.
 
 ## Known-good environment
 
@@ -200,13 +187,10 @@ Cross-Modal scores real clips in the 0.75–0.95 range where the released CSV re
 The environment or local code state that produced the released CSVs for those two agents
 was evidently not captured by this repository, and we have not been able to reconstruct it.
 
-Consequently `python src/orchestrator.py --split val` does not currently produce a
-validation score file faithful to the released system, and
-`task_00_select_operating_point.py` cannot be used to audit the operating point. The
-manuscript accordingly makes no validation-provenance claim for the operating threshold or
-the agent weights: both are described as fixed during system development, and the
-threshold-free metrics (AUC-ROC, AP), computed from the released CSVs, carry the primary
-claims.
+The released validation and test score files were therefore produced with the
+`checkpoints_v2` set below, which re-scores faithfully; the weight selection of Path D and
+every paper number audit against those released CSVs. The v1 FreqNet and Cross-Modal
+checkpoints remain historical artifacts only.
 
 ## Reproducible checkpoint set (checkpoints_v2)
 
@@ -216,10 +200,11 @@ faithfully from them — the divergence is identical under the pinned environmen
 thesis-era candidate stack (torch 2.3.1, numpy 1.26.4, librosa 0.10.1), so the cause is
 uncaptured local code state at original scoring time, not the environment.
 
-`checkpoints_v2/` therefore ships the retrained checkpoints from the paper's seed-replicate
-experiment (manuscript §5.1): XceptionNet, FreqNet, Cross-Modal and the ECAPA head, retrained
-with seed 42 in the pinned environment (Biometric-Quality is shared with v1). Run the system
-with them via:
+`checkpoints_v2/` therefore ships the released checkpoint set: XceptionNet, FreqNet,
+Cross-Modal and the ECAPA head retrained with seed 42 in the pinned environment, and the
+Biometric-Quality agent trained by `tools/train_biometric.py` (per-pixel forensic-map
+channels; two-stage recipe with a validation-selected fine-tune). Run the system with them
+via:
 
 ```bash
 CHECKPOINT_DIR=checkpoints_v2 python src/orchestrator.py --split test \
@@ -227,8 +212,8 @@ CHECKPOINT_DIR=checkpoints_v2 python src/orchestrator.py --split test \
 ```
 
 This configuration is verified reproducible: re-scoring the released test partition
-reproduces `paper_artifacts/source_csvs/analysis_results_seed2_test.csv`
-(AUC-ROC 0.99996, 99.72% accuracy at the fixed τ = 0.37). In an 8-clip cross-machine
+reproduces `paper_artifacts/source_csvs/analysis_results_with_5_agents.csv`
+(AUC-ROC 1.000, 99.86% accuracy at τ = 0.5). In an 8-clip cross-machine
 spot-check, 39 of 40 per-agent scores matched within 0.02; the one exception was a single
 Biometric-Quality score off by 0.034 (a landmark-heuristic agent with mild cross-machine
 drift; ≤ 0.007 effect on the weighted aggregate). `SHA256SUMS.v2` lists the checkpoint

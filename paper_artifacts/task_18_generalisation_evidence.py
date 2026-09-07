@@ -27,7 +27,7 @@ import pandas as pd
 
 HERE = Path(__file__).resolve().parent
 CSV = HERE / "source_csvs" / "analysis_results_with_5_agents.csv"
-TAU = 0.37
+TAU = 0.5
 
 AGENTS = {
     "Visual (XceptionNet)": "score_Visual (Spatial)",
@@ -42,9 +42,9 @@ AGENTS = {
 DEV = {
     "Visual (XceptionNet)": (0.940, "§3.3.1, Stage 2 validation accuracy"),
     "Audio (FreqNet)": (0.980, "§3.3.2, reported accuracy for the final audio agent"),
-    "Audio Forensics (ECAPA-TDNN)": (None, "no development accuracy reported"),
+    "Audio Forensics (ECAPA-TDNN)": (0.962, "released model validation accuracy at its best epoch (indicative)"),
     "Cross-Modal (Lip-Sync)": (0.990, "§3.3.3, cross-attention validation accuracy"),
-    "Biometric-Quality": (0.9958, "released checkpoint val_metrics.accuracy at the best epoch"),
+    "Biometric-Quality": (0.9916, "validation accuracy of the released model, Section 3.3.4"),
 }
 
 df = pd.read_csv(CSV)

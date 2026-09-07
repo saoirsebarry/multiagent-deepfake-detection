@@ -8,8 +8,8 @@
         "*genconvit_ae*"
       ],
       "scan_dirs": [
-        "/Users/saoirsebarry/deepfake_thesis/publication/transformer_comparison",
-        "/Users/saoirsebarry/deepfake_thesis/publication/proposed transformer models"
+        "/private/tmp/claude-501/-Users-saoirsebarry-Documents-GitHub-stratum-services-fra-service/213ee39e-8f82-4ee2-98be-b0a44854ac30/scratchpad/repo/transformer_comparison",
+        "/private/tmp/claude-501/-Users-saoirsebarry-Documents-GitHub-stratum-services-fra-service/213ee39e-8f82-4ee2-98be-b0a44854ac30/scratchpad/repo/proposed transformer models"
       ],
       "files_found": [],
       "status": "predictions not saved; rerun needed",
@@ -21,8 +21,8 @@
         "*genconvit_vae*"
       ],
       "scan_dirs": [
-        "/Users/saoirsebarry/deepfake_thesis/publication/transformer_comparison",
-        "/Users/saoirsebarry/deepfake_thesis/publication/proposed transformer models"
+        "/private/tmp/claude-501/-Users-saoirsebarry-Documents-GitHub-stratum-services-fra-service/213ee39e-8f82-4ee2-98be-b0a44854ac30/scratchpad/repo/transformer_comparison",
+        "/private/tmp/claude-501/-Users-saoirsebarry-Documents-GitHub-stratum-services-fra-service/213ee39e-8f82-4ee2-98be-b0a44854ac30/scratchpad/repo/proposed transformer models"
       ],
       "files_found": [],
       "status": "predictions not saved; rerun needed",
@@ -33,7 +33,7 @@
         "*lipinc*"
       ],
       "scan_dirs": [
-        "/Users/saoirsebarry/deepfake_thesis/publication/transformer_comparison"
+        "/private/tmp/claude-501/-Users-saoirsebarry-Documents-GitHub-stratum-services-fra-service/213ee39e-8f82-4ee2-98be-b0a44854ac30/scratchpad/repo/transformer_comparison"
       ],
       "files_found": [],
       "status": "predictions not saved; rerun needed",
@@ -45,7 +45,7 @@
         "*vit_polyglot*predict*"
       ],
       "scan_dirs": [
-        "/Users/saoirsebarry/deepfake_thesis/publication/proposed transformer models"
+        "/private/tmp/claude-501/-Users-saoirsebarry-Documents-GitHub-stratum-services-fra-service/213ee39e-8f82-4ee2-98be-b0a44854ac30/scratchpad/repo/proposed transformer models"
       ],
       "files_found": [],
       "status": "predictions not saved; rerun needed",
@@ -57,7 +57,7 @@
         "*hybrid*predict*"
       ],
       "scan_dirs": [
-        "/Users/saoirsebarry/deepfake_thesis/publication/proposed transformer models"
+        "/private/tmp/claude-501/-Users-saoirsebarry-Documents-GitHub-stratum-services-fra-service/213ee39e-8f82-4ee2-98be-b0a44854ac30/scratchpad/repo/proposed transformer models"
       ],
       "files_found": [],
       "status": "predictions not saved; rerun needed",

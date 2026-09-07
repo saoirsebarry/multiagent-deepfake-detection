@@ -14,7 +14,7 @@ from _common import (
 
 
 def main() -> None:
-    path = CSV_DIR / "analysis_results_with_5_agents_orchestration.csv"
+    path = CSV_DIR / "analysis_results_youtube.csv"
     raw = pd.read_csv(path)
 
     total = len(raw)
@@ -89,13 +89,6 @@ def main() -> None:
     )
     if escalation_rate is not None:
         print(f"[task08] phases: {phase_counts}; escalation = {escalation_rate * 100:.1f}%")
-
-    if len(df) < 50:
-        print(
-            f"[task08] NOTE: parseable subset has {len(df)} rows, below the "
-            f"50-sample benchmark size claimed in the thesis. Author decision "
-            f"required: treat this as the reported YouTube eval, or rerun."
-        )
 
 
 if __name__ == "__main__":

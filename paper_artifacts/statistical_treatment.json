@@ -1,12 +1,12 @@
 {
  "tau": 0.37,
  "n_test": 2162,
- "errors_at_tau": 0,
+ "errors_at_tau": 4,
  "seed": 42,
  "n_boot": 10000,
  "accuracy_clopper_pearson_95": [
-  0.9982952200757976,
-  1.0
+  0.9952697440769506,
+  0.9994956765999032
  ],
  "bootstrap_95": {
   "auc_roc": [
@@ -18,8 +18,8 @@
    1.0
   ],
   "accuracy": [
-   1.0,
-   1.0
+   0.996299722479186,
+   0.9995374653098983
   ]
  },
  "mcnemar_vs_leave_one_out": {
@@ -29,33 +29,26 @@
    "exact_p": 1.0
   },
   "Audio (Mel+CNN)": {
-   "b_sys_only_right": 4,
-   "c_abl_only_right": 0,
-   "exact_p": 0.125
+   "b_sys_only_right": 1,
+   "c_abl_only_right": 1,
+   "exact_p": 1.0
   },
   "Audio Forensics (ECAPA)": {
-   "b_sys_only_right": 8,
-   "c_abl_only_right": 0,
-   "exact_p": 0.0078125
+   "b_sys_only_right": 2,
+   "c_abl_only_right": 4,
+   "exact_p": 0.6875
   },
   "Cross-Modal (Lip-Sync)": {
-   "b_sys_only_right": 7,
+   "b_sys_only_right": 1,
    "c_abl_only_right": 0,
-   "exact_p": 0.015625
+   "exact_p": 1.0
   },
   "Facial Biometric (Quality)": {
-   "b_sys_only_right": 4,
+   "b_sys_only_right": 20,
    "c_abl_only_right": 0,
-   "exact_p": 0.125
+   "exact_p": 1.9073486328125e-06
   }
  },
- "youtube_accuracy_interval": {
-  "n": 49,
-  "correct": 39,
-  "accuracy_clopper_pearson_95": [
-   0.6565700069535181,
-   0.897550614504752
-  ]
- },
+ "youtube_accuracy_interval": null,
  "note": "Baseline-model McNemar tests are not computable: baseline per-sample predictions were not retained (see mcnemar_tests.json)."
 }

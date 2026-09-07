@@ -6,7 +6,7 @@ Code and data release accompanying:
 > *A Multi-Agent Framework with Adaptive Orchestration for Explainable Multi-Modal Deepfake Detection*.
 > MDPI Informatics Journal, 2026.
 
-**Headline result.** On the PolyGlotFake test set (2,162 samples) the five-agent ensemble achieves AUC-ROC = 1.000, average precision = 1.000, and 100.00 % accuracy at the operating threshold τ = 0.37, with zero false positives and zero false negatives. Real- and fake-class aggregate-score distributions are fully separable (max real = 0.357 < min fake = 0.388).
+**Headline result.** On the PolyGlotFake test set (2,162 samples) the five-agent ensemble achieves AUC-ROC = 1.000 and average precision = 1.000 — every fake clip ranks above every real clip — and 99.86 % accuracy at the conventional threshold τ = 0.5, with zero false positives and three false negatives. Real- and fake-class aggregate-score distributions are fully separable (max real = 0.457 < min fake = 0.492).
 
 ---
 
@@ -74,7 +74,7 @@ Output CSVs are written to `results/` and XAI artifacts to `xai_results/`.
 | Visual (Xception) | [`src/agents/visual_xception.py`](src/agents/visual_xception.py) | timm Xception, fine-tuned from block 11 | 24.0 M / 3.2 M | Spatial facial artifacts |
 | Audio (FreqNet) | [`src/agents/audio_freqnet.py`](src/agents/audio_freqnet.py) | ResNet-style with `torch.fft.fft2`/`ifft2` | 1.9 M / 1.9 M | Frequency-domain anomalies |
 | Cross-modal lip-sync | [`src/agents/cross_modal_lipsync.py`](src/agents/cross_modal_lipsync.py) | MobileNetV2 + BiLSTM + cross-attention | 6.1 M / 3.9 M | Audio-visual sync |
-| Biometric-quality | [`src/agents/biometric_quality.py`](src/agents/biometric_quality.py) | EfficientNet-B0 on 5-channel input (RGB + blur-variance + exposure) | 4.4 M / 4.4 M | Image quality + geometry |
+| Biometric-quality | [`src/agents/biometric_quality.py`](src/agents/biometric_quality.py) | EfficientNet-B0 on 5-channel input (RGB + Laplacian sharpness map + high-frequency residual map) | 4.4 M / 4.4 M | Image quality + geometry |
 | ECAPA forensic | [`src/agents/audio_forensics_ecapa.py`](src/agents/audio_forensics_ecapa.py) | SpeechBrain ECAPA-TDNN (frozen) + 11 hand-crafted features + dual-stream MLP | 20.8 M / 0.04 M | Speaker & prosody forensics |
 | **System total** | | | **57.1 M / 13.3 M** | |
 
@@ -92,15 +92,15 @@ Phase 1 (always)                    Phase 2 (on disagreement)
          │                                       │
          └────────────── weighted mean ──────────┘
                               │
-                     ŝ ≥ 0.37  ⇒  Deepfake
-                     ŝ < 0.37  ⇒  Real
+                     ŝ ≥ 0.5   ⇒  Deepfake
+                     ŝ < 0.5   ⇒  Real
 ```
 
-- **Weights** (selected on validation split):
-  `(w_visual, w_freqnet, w_ecapa, w_crossmodal, w_biometric) = (0.20, 0.15, 0.20, 0.25, 0.20)`.
+- **Weights** (selected on the validation partition by exhaustive 0.05-step grid search — `paper_artifacts/task_00_select_operating_point.py` reruns the selection):
+  `(w_visual, w_freqnet, w_ecapa, w_crossmodal, w_biometric) = (0.05, 0.20, 0.30, 0.05, 0.40)`.
   In Phase 1, the remaining three weights are renormalised to sum to 1.
-- **Disagreement metric.** `d = std(phase-1 scores)`. If any two Phase-1 agents disagree on verdict at τ = 0.37, `d ← max(d, 0.30)` — forcing Phase 2.
-- **Decision threshold τ = 0.37.** Selected on validation. Accuracy is a plateau over τ ∈ [0.30, 0.40] (all ≥ 99.86 %); τ = 0.5 is not privileged because the aggregate score was never a direct BCE target.
+- **Disagreement metric.** `d = std(phase-1 scores)`. If any two Phase-1 agents disagree on verdict at τ = 0.5, `d ← max(d, 0.30)` — forcing Phase 2.
+- **Decision threshold τ = 0.5.** The conventional midpoint, certified on the validation partition: validation separates fully and 0.5 lies inside its separating band (0.335–0.507).
 
 ### 3.3 Integrated explainability
 
@@ -121,19 +121,18 @@ All XAI images produced per inference are placed under `xai_results/{agent}_{bas
 
 ## 4. Reproducing every number and figure in the paper
 
-Everything the paper cites can be regenerated from the three CSVs in `paper_artifacts/source_csvs/`. Run `paper_artifacts/run.sh` and the following are produced:
+Everything the paper cites can be regenerated from the CSVs in `paper_artifacts/source_csvs/`. Run `paper_artifacts/run.sh` and the following are produced:
 
 | Paper claim | Task script | Output file |
 |---|---|---|
-| Abstract / §4.1 headline (100.00 % / 0 errors at τ = 0.37) | `task_01_headline.py`, `task_05b_ablation_tau037.py` | `headline_metrics.json`, `ablation_table_tau037.csv` |
+| Abstract / Section 4.1 headline (99.86 % / 3 errors at τ = 0.5) | `task_01_headline.py` | `headline_metrics.json` |
 | AUC = 1.000, AP = 1.000, operating-point marker | `task_02_roc_pr.py` | `roc_curve_system.{pdf,png}`, `pr_curve_system.{pdf,png}` |
-| Threshold robustness (Table: accuracy ≥ 99.86 % over [0.30, 0.40]) | `task_03_threshold.py` | `threshold_robustness.csv`, `threshold_robustness_table.tex` |
+| Threshold robustness (accuracy ≥ 99.0 % over [0.30, 0.60]) | `task_03_threshold.py` | `threshold_robustness.csv`, `threshold_robustness_table.tex` |
 | 95 % CI on every metric | `task_04_bootstrap.py` | `bootstrap_cis.json` |
-| Ablation at τ = 0.37 (Table 10 of paper) | `task_05b_ablation_tau037.py` | `ablation_table_tau037.{csv,tex}` |
-| Ablation at τ = 0.5 (threshold-sensitivity study) | `task_05_ablation.py` | `ablation_table.{csv,tex}` |
-| 3-agent baseline row of Table 8 at τ = 0.37 | `task_06_three_agent.py` | `three_agent_metrics.json` (also re-check at τ=0.37 in `self_check.py`) |
-| Disagreement-threshold sweep at operating τ | `task_07b_disagreement_tau037.py` | `disagreement_sweep_tau037.{csv,tex}` |
-| YouTube confusion matrix and metrics at τ = 0.37 | `task_08b_youtube_tau037.py` | `youtube_metrics_tau037.json`, `youtube_confusion_matrix_tau037.{csv,tex}` |
+| Ablation at τ = 0.5 (Table 11 of paper) | `task_05_ablation.py` | `ablation_table.{csv,tex}` |
+| 3-agent Phase-1 row of Table 9 at τ = 0.5 | `task_06_three_agent.py` | `three_agent_metrics.json` |
+| Disagreement-threshold sweep at operating τ | `task_07_disagreement.py` | `disagreement_sweep.{csv,tex}` |
+| YouTube confusion matrix and metrics at τ = 0.5 | `task_08_youtube.py` | `youtube_metrics.json`, `youtube_confusion_matrix.{csv,tex}` |
 | Per-agent parameter counts (Table 6) | `task_09_params.py` | `parameter_counts.json` |
 | Inference latency | `task_10_latency.py` | `latency_benchmark.json` |
 | McNemar vs. transformer baselines | `task_11_mcnemar.py` | `mcnemar_tests.json` **— prediction CSVs not saved; see §7 below** |
@@ -177,9 +176,9 @@ Our identity-based test split has 118 real + 2,044 fake = **2,162 samples**. The
 
 | Parameter | Value | Source |
 |---|---|---|
-| Decision threshold τ | 0.37 | [`src/detect.py:81`](src/detect.py#L81) |
+| Decision threshold τ | 0.5 | [`src/detect.py:81`](src/detect.py#L81) |
 | Disagreement threshold τ_d | 0.30 | [`src/detect.py:85`](src/detect.py#L85) |
-| Agent weights | (0.20, 0.15, 0.20, 0.25, 0.20) | [`src/orchestrator.py:82-88`](src/orchestrator.py#L82) |
+| Agent weights | (0.05, 0.20, 0.30, 0.05, 0.40) | [`src/orchestrator.py:82-88`](src/orchestrator.py#L82) |
 | Aggregation | Weighted mean, renormalised | [`src/orchestrator.py:635-641`](src/orchestrator.py#L635) |
 
 ### 6.2 Per-agent training

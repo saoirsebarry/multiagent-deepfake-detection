@@ -12,6 +12,9 @@ if [[ ! -x "$PY" ]]; then
     exit 1
 fi
 
+echo "=== Task 0: weight-selection provenance ==="
+$PY paper_artifacts/task_00_select_operating_point.py
+
 echo "=== Task 1: headline metrics ==="
 $PY paper_artifacts/task_01_headline.py
 
@@ -27,23 +30,14 @@ $PY paper_artifacts/task_04_bootstrap.py
 echo "=== Task 5: ablation (tau=0.5, threshold-sensitivity study) ==="
 $PY paper_artifacts/task_05_ablation.py
 
-echo "=== Task 5b: ablation (tau=0.37, paper operating point) ==="
-$PY paper_artifacts/task_05b_ablation_tau037.py
-
 echo "=== Task 6: three-agent baseline ==="
 $PY paper_artifacts/task_06_three_agent.py
 
 echo "=== Task 7: disagreement sweep (tau=0.5) ==="
 $PY paper_artifacts/task_07_disagreement.py
 
-echo "=== Task 7b: disagreement sweep (tau=0.37, paper operating point) ==="
-$PY paper_artifacts/task_07b_disagreement_tau037.py
-
 echo "=== Task 8: YouTube reconciliation (tau=0.5) ==="
 $PY paper_artifacts/task_08_youtube.py
-
-echo "=== Task 8b: YouTube reconciliation (tau=0.37, paper operating point) ==="
-$PY paper_artifacts/task_08b_youtube_tau037.py
 
 echo "=== Task 9: parameter counts ==="
 $PY paper_artifacts/task_09_params.py

@@ -1,8 +1,8 @@
 {
   "device": "Apple Metal (MPS, unified memory)",
   "device_type": "mps",
-  "torch": "2.13.0",
-  "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+  "torch": "2.2.2",
+  "platform": "macOS-26.5.1-arm64-arm-64bit",
   "protocol": {
     "batch_size": 1,
     "dtype": "float32",
@@ -29,33 +29,14 @@
       "params_trainable": 3153025,
       "param_mem_mb": 91.4,
       "latency_ms": {
-        "mean": 11.93198372144252,
-        "std": 2.3034624096457144,
-        "median": 11.51628743391484,
-        "p95": 13.555801953189073
+        "mean": 6.763635411237677,
+        "std": 0.024616145053228698,
+        "median": 6.760123046115041,
+        "p95": 6.805551345460117
       },
-      "peak_tensor_mem_mb": 129.6,
+      "peak_tensor_mem_mb": 119.05,
       "resident_tensor_mem_mb": 92.68,
-      "peak_activation_mem_mb": 36.93,
-      "device": "mps"
-    },
-    {
-      "name": "Audio (FreqNet)",
-      "provenance": "checkpointed",
-      "note": "224x224 Mel spectrogram",
-      "reported_params_in_literature": null,
-      "params_total": 1850433,
-      "params_trainable": 1850433,
-      "param_mem_mb": 7.06,
-      "latency_ms": {
-        "mean": 25.13495778820167,
-        "std": 4.244344739563375,
-        "median": 26.3775602215901,
-        "p95": 30.35388461546972
-      },
-      "peak_tensor_mem_mb": 117.93,
-      "resident_tensor_mem_mb": 7.68,
-      "peak_activation_mem_mb": 110.25,
+      "peak_activation_mem_mb": 26.38,
       "device": "mps"
     },
     {
@@ -67,10 +48,10 @@
       "params_trainable": 3906882,
       "param_mem_mb": 23.39,
       "latency_ms": {
-        "mean": 22.991703618317842,
-        "std": 4.938798831382487,
-        "median": 24.784843740053475,
-        "p95": 29.400774925015863
+        "mean": 15.122092799283564,
+        "std": 0.3187019808551738,
+        "median": 14.991137594915926,
+        "p95": 15.602320642210541
       },
       "peak_tensor_mem_mb": 249.56,
       "resident_tensor_mem_mb": 35.18,
@@ -86,10 +67,10 @@
       "params_trainable": 4355261,
       "param_mem_mb": 16.61,
       "latency_ms": {
-        "mean": 6.804126699765523,
-        "std": 0.12578735770190685,
-        "median": 6.764056114479899,
-        "p95": 7.0988592226058245
+        "mean": 7.260831266952057,
+        "std": 0.47047495713678733,
+        "median": 7.181903952732682,
+        "p95": 7.388972092885524
       },
       "peak_tensor_mem_mb": 41.87,
       "resident_tensor_mem_mb": 18.52,
@@ -105,10 +86,10 @@
       "params_trainable": 42657,
       "param_mem_mb": 79.38,
       "latency_ms": {
-        "mean": 35.731134715800486,
-        "std": 1.947339093126759,
-        "median": 35.16027901787311,
-        "p95": 38.658833072986454
+        "mean": 28.079810701310635,
+        "std": 0.6185346245238448,
+        "median": 28.067495836876333,
+        "p95": 29.031590414233506
       },
       "peak_tensor_mem_mb": 0.17,
       "resident_tensor_mem_mb": 0.17,
@@ -125,14 +106,14 @@
       "params_trainable": 7494781,
       "param_mem_mb": 28.59,
       "latency_ms": {
-        "mean": 8.632165159409245,
-        "std": 0.22378201888547838,
-        "median": 8.690089546144009,
-        "p95": 8.900407494511455
+        "mean": 8.802281787308553,
+        "std": 0.4827660700913361,
+        "median": 8.62885215319693,
+        "p95": 9.279958098195491
       },
-      "peak_tensor_mem_mb": 41.42,
+      "peak_tensor_mem_mb": 41.18,
       "resident_tensor_mem_mb": 29.36,
-      "peak_activation_mem_mb": 12.06,
+      "peak_activation_mem_mb": 11.82,
       "device": "mps"
     },
     {
@@ -144,14 +125,14 @@
       "params_trainable": 113571640,
       "param_mem_mb": 433.24,
       "latency_ms": {
-        "mean": 28.344865022227168,
-        "std": 1.708837101455643,
-        "median": 27.919141785241663,
-        "p95": 31.93261232692748
+        "mean": 30.19910862358908,
+        "std": 1.541991345042372,
+        "median": 29.606472933664918,
+        "p95": 33.73365892795845
       },
-      "peak_tensor_mem_mb": 463.7,
+      "peak_tensor_mem_mb": 464.14,
       "resident_tensor_mem_mb": 435.97,
-      "peak_activation_mem_mb": 27.73,
+      "peak_activation_mem_mb": 28.17,
       "device": "mps",
       "lower_bound": true,
       "fidelity_note": "rebuild has 113.6M parameters against 130M reported for the original; treat this row as a lower bound on the original's cost"
@@ -165,14 +146,14 @@
       "params_trainable": 128426497,
       "param_mem_mb": 489.91,
       "latency_ms": {
-        "mean": 32.202277937904,
-        "std": 3.6086491149919606,
-        "median": 33.08363980613649,
-        "p95": 35.671554238069795
+        "mean": 14.506946839392185,
+        "std": 0.037977300024154004,
+        "median": 14.500666735693812,
+        "p95": 14.57011297577992
       },
-      "peak_tensor_mem_mb": 497.47,
+      "peak_tensor_mem_mb": 498.15,
       "resident_tensor_mem_mb": 490.55,
-      "peak_activation_mem_mb": 6.93,
+      "peak_activation_mem_mb": 7.6,
       "device": "mps",
       "lower_bound": true,
       "fidelity_note": "rebuild has 128.4M parameters against 181M reported for the original; treat this row as a lower bound on the original's cost"
@@ -187,8 +168,8 @@
       ],
       "params_total": 31296224,
       "param_mem_mb": 119.39,
-      "latency_sequential_ms": 65.53,
-      "latency_parallel_ms": 35.73,
+      "latency_sequential_ms": 50.46,
+      "latency_parallel_ms": 28.08,
       "summed_peak_tensor_mem_mb": 291.6
     },
     "phase1_plus_2": {
@@ -196,21 +177,20 @@
         "Biometric-Quality",
         "Audio Forensics (ECAPA-TDNN)",
         "Cross-Modal (Lip-Sync)",
-        "Visual (XceptionNet)",
-        "Audio (FreqNet)"
+        "Visual (XceptionNet)"
       ],
-      "params_total": 57106634,
-      "param_mem_mb": 217.84,
-      "latency_sequential_ms": 102.59,
-      "latency_parallel_ms": 60.87,
-      "summed_peak_tensor_mem_mb": 539.13
+      "params_total": 55256201,
+      "param_mem_mb": 210.79,
+      "latency_sequential_ms": 57.23,
+      "latency_parallel_ms": 34.84,
+      "summed_peak_tensor_mem_mb": 410.65
     },
     "expected_adaptive": {
-      "escalation_rate": 0.074,
+      "escalation_rate": 0.0879,
       "description": "phase1 * (1 - escalation) + phase1+2 * escalation",
-      "latency_sequential_ms": 68.24,
-      "latency_parallel_ms": 37.57,
-      "param_mem_mb": 126.68
+      "latency_sequential_ms": 51.06,
+      "latency_parallel_ms": 28.67,
+      "param_mem_mb": 127.42
     }
   }
 }

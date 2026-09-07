@@ -59,7 +59,7 @@ def main() -> None:
 
     rows = []
     for td in TAU_DISAGREE_SWEEP:
-        escalated = effective_d > td
+        escalated = effective_d >= td  # Algorithm 1 escalates at d >= tau_disagree
         agg = aggregate_under_escalation(df, escalated)
         pred = (agg >= TAU).astype(int)
         c = confusion_counts(y_true, pred)

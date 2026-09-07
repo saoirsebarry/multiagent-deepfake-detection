@@ -41,16 +41,16 @@ ALL_AGENT_COLS = list(AGENT_COLS.values())
 
 # Weights used to generate the stored `final_score` column in
 # analysis_results_with_5_agents.csv, discovered by reproducing the column
-# from the per-agent score columns. Source:
-#   multiagent_langchain_additional_agents.py  (CONFIG.decision_engine.weights,
-#   line 82). This is the orchestrator that actually wrote the CSV.
+# from the per-agent score columns. Selected on the validation partition by the
+# released grid search (task_00_select_operating_point.py); matches
+# src/orchestrator.py CONFIG.decision_engine.weights.
 # These weights sum to 1.0; keys match AGENT_COLS labels.
 AGENT_WEIGHTS = {
-    "score_Visual (Spatial)":          0.20,
-    "score_Audio (Mel+CNN)":           0.15,
-    "score_Audio Forensics (ECAPA)":   0.20,
-    "score_Cross-Modal (Lip-Sync)":    0.25,
-    "score_Facial Biometric (Quality)":0.20,
+    "score_Visual (Spatial)":          0.05,
+    "score_Audio (Mel+CNN)":           0.20,
+    "score_Audio Forensics (ECAPA)":   0.30,
+    "score_Cross-Modal (Lip-Sync)":    0.05,
+    "score_Facial Biometric (Quality)":0.40,
 }
 
 

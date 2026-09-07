@@ -7,22 +7,22 @@
       "CrossModal",
       "Biometric"
     ],
-    "auc": 1.0,
-    "ap": 1.0,
-    "accuracy": 1.0,
-    "errors": 0,
+    "auc": 0.9999461010315434,
+    "ap": 0.9999968913387003,
+    "accuracy": 0.9972247918593895,
+    "errors": 6,
     "false_pos": 0,
-    "false_neg": 0,
-    "margin": 0.030748750932980295,
+    "false_neg": 6,
+    "margin": -0.06589987414633636,
     "recall_by_method": {
-      "MicroTts": 1.0,
-      "Xtts": 1.0,
-      "Bark": 1.0,
-      "Tacotron": 1.0,
-      "Vall": 1.0
+      "MicroTts": 0.9969,
+      "Xtts": 0.998,
+      "Bark": 0.9979,
+      "Tacotron": 0.997,
+      "Vall": 0.9873
     },
-    "worst_method_recall": 1.0,
-    "recall_spread": 0.0
+    "worst_method_recall": 0.9873417721518988,
+    "recall_spread": 0.010681943263120997
   },
   "without FreqNet": {
     "members": [
@@ -31,22 +31,22 @@
       "CrossModal",
       "Biometric"
     ],
-    "auc": 0.9999875617765099,
-    "ap": 0.9999992829944446,
-    "accuracy": 0.9981498612395929,
-    "errors": 4,
-    "false_pos": 3,
-    "false_neg": 1,
-    "margin": -0.06363261014442234,
+    "auc": 0.9998714716906033,
+    "ap": 0.9999925798144248,
+    "accuracy": 0.9949121184088807,
+    "errors": 11,
+    "false_pos": 2,
+    "false_neg": 9,
+    "margin": -0.21941341875996306,
     "recall_by_method": {
-      "MicroTts": 1.0,
+      "MicroTts": 0.9939,
       "Xtts": 0.998,
-      "Bark": 1.0,
-      "Tacotron": 1.0,
-      "Vall": 1.0
+      "Bark": 0.9979,
+      "Tacotron": 0.9941,
+      "Vall": 0.9873
     },
-    "worst_method_recall": 0.9980237154150198,
-    "recall_spread": 0.0019762845849802257
+    "worst_method_recall": 0.9873417721518988,
+    "recall_spread": 0.010681943263120997
   },
   "without Visual": {
     "members": [
@@ -55,16 +55,16 @@
       "CrossModal",
       "Biometric"
     ],
-    "auc": 0.9999958539255034,
-    "ap": 0.9999997607644056,
-    "accuracy": 0.9995374653098983,
-    "errors": 1,
-    "false_pos": 0,
-    "false_neg": 1,
-    "margin": -0.053074702947014885,
+    "auc": 0.9999419549570467,
+    "ap": 0.9999966417733017,
+    "accuracy": 0.9986123959296948,
+    "errors": 3,
+    "false_pos": 1,
+    "false_neg": 2,
+    "margin": -0.18745914380818607,
     "recall_by_method": {
       "MicroTts": 1.0,
-      "Xtts": 1.0,
+      "Xtts": 0.998,
       "Bark": 1.0,
       "Tacotron": 1.0,
       "Vall": 0.9873
@@ -79,22 +79,22 @@
       "CrossModal",
       "Biometric"
     ],
-    "auc": 0.99985074131812,
-    "ap": 0.9999913906952878,
-    "accuracy": 0.996299722479186,
-    "errors": 8,
+    "auc": 0.9998300109456366,
+    "ap": 0.999990190671829,
+    "accuracy": 0.9939870490286772,
+    "errors": 13,
     "false_pos": 2,
-    "false_neg": 6,
-    "margin": -0.19602589553687727,
+    "false_neg": 11,
+    "margin": -0.29203196982093904,
     "recall_by_method": {
-      "MicroTts": 1.0,
-      "Xtts": 0.9881,
-      "Bark": 1.0,
-      "Tacotron": 1.0,
-      "Vall": 1.0
+      "MicroTts": 0.9939,
+      "Xtts": 0.996,
+      "Bark": 0.9957,
+      "Tacotron": 0.9941,
+      "Vall": 0.9873
     },
-    "worst_method_recall": 0.9881422924901185,
-    "recall_spread": 0.011857707509881465
+    "worst_method_recall": 0.9873417721518988,
+    "recall_spread": 0.00870565867814077
   },
   "without CrossModal": {
     "members": [
@@ -103,22 +103,22 @@
       "ECAPA",
       "Biometric"
     ],
-    "auc": 0.9998300109456366,
-    "ap": 0.9999901920498971,
-    "accuracy": 0.9967622571692877,
-    "errors": 7,
-    "false_pos": 2,
-    "false_neg": 5,
-    "margin": -0.2672914144583046,
+    "auc": 0.9999585392550333,
+    "ap": 0.9999976023633423,
+    "accuracy": 0.9995374653098983,
+    "errors": 1,
+    "false_pos": 1,
+    "false_neg": 0,
+    "margin": -0.03279654517616082,
     "recall_by_method": {
       "MicroTts": 1.0,
-      "Xtts": 0.9941,
+      "Xtts": 1.0,
       "Bark": 1.0,
       "Tacotron": 1.0,
-      "Vall": 0.9747
+      "Vall": 1.0
     },
-    "worst_method_recall": 0.9746835443037974,
-    "recall_spread": 0.025316455696202556
+    "worst_method_recall": 1.0,
+    "recall_spread": 0.0
   },
   "without Biometric": {
     "members": [
@@ -127,21 +127,21 @@
       "ECAPA",
       "CrossModal"
     ],
-    "auc": 0.9999336628080533,
-    "ap": 0.9999961683530321,
-    "accuracy": 0.9981498612395929,
-    "errors": 4,
-    "false_pos": 1,
-    "false_neg": 3,
-    "margin": -0.18428936971758964,
+    "auc": 0.99991293243557,
+    "ap": 0.9999949733483731,
+    "accuracy": 0.996299722479186,
+    "errors": 8,
+    "false_pos": 2,
+    "false_neg": 6,
+    "margin": -0.1359718426829204,
     "recall_by_method": {
-      "MicroTts": 1.0,
+      "MicroTts": 0.9985,
       "Xtts": 0.996,
-      "Bark": 1.0,
-      "Tacotron": 1.0,
+      "Bark": 0.9979,
+      "Tacotron": 0.997,
       "Vall": 0.9873
     },
     "worst_method_recall": 0.9873417721518988,
-    "recall_spread": 0.012658227848101222
+    "recall_spread": 0.011122129537809333
   }
 }
