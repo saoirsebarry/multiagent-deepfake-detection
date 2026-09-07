@@ -83,11 +83,11 @@ Note: on this test set, the 5-agent ensemble at τ_d = 0.30 escalates only ~9% o
 ## 7. YouTube evaluation (distribution-shift stress test)
 
 - CSV: `analysis_results_youtube.csv`
-- Raw rows = 100, parseable = 100 (56 real + 44 fake)
-- Accuracy: 58.00%, Precision 100.00%, Recall 4.55%, F1 8.70%
-- Confusion: TP = 2, TN = 56, FP = 0, FN = 42
-- Phase counts: {'phase1_only': 68, 'escalated': 32}
-- Escalation rate: 32.00%
+- Raw rows = 100, parseable = 100 (51 real + 49 fake)
+- Accuracy: 53.00%, Precision 100.00%, Recall 4.08%, F1 7.84%
+- Confusion: TP = 2, TN = 51, FP = 0, FN = 47
+- Phase counts: {'phase1_only': 72, 'escalated': 28}
+- Escalation rate: 28.00%
 
 The set is the frozen 100-clip evaluation described in youtube_eval/manifest.json: clip list and labels fixed and hashed before scoring; escalation recomputed from the stored Phase-1 scores under Algorithm 1.
 
