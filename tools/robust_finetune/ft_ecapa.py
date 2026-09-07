@@ -23,6 +23,7 @@ from speechbrain.inference import EncoderClassifier  # noqa: E402
 ap = argparse.ArgumentParser()
 ap.add_argument("--data_dir", required=True); ap.add_argument("--out_dir", required=True)
 ap.add_argument("--aug_copies", type=int, default=2); ap.add_argument("--epochs", type=int, default=60)
+ap.add_argument("--jobs", type=int, default=int(os.environ.get("FT_JOBS", os.cpu_count() or 1)))
 A = ap.parse_args(); os.makedirs(A.out_dir, exist_ok=True); C.seed_all()
 device = C.pick_device(allow_mps=False)
 enc = EncoderClassifier.from_hparams(source="speechbrain/spkrec-ecapa-voxceleb",
@@ -32,10 +33,22 @@ fx = FastAudioFeatureExtractor(); SR = CONFIG["audio"]["sample_rate"]; DUR = SR 
 WIN = int(CONFIG["audio"]["window_size"] * SR); DIM = 192 + 11
 
 
-def features(w):
+def fit_len(w):
+    return w[:DUR] if len(w) > DUR else np.pad(w, (0, DUR - len(w)))
+
+
+def cpu_features(w):
+    """librosa prosody + artifact features (pyin-bound); runs in worker processes."""
     if w.size < 400:
-        return np.zeros(DIM, np.float32)
-    w = w[:DUR] if len(w) > DUR else np.pad(w, (0, DUR - len(w)))
+        return None
+    w = fit_len(w)
+    return np.concatenate([fx.extract_fast_prosody(w, SR), fx.extract_fast_artifacts(w, SR)]).astype(np.float32)
+
+
+def gpu_features(w):
+    if w.size < 400:
+        return None
+    w = fit_len(w)
     with torch.no_grad():
         emb = enc.encode_batch(torch.tensor(w).unsqueeze(0).to(device)).squeeze().cpu().numpy()
         pos = [0, len(w) // 2 - WIN // 2, len(w) - WIN]
@@ -44,22 +57,38 @@ def features(w):
         dist = np.linalg.norm(embs[:-1] - embs[1:], axis=1); temporal = np.array([dist.mean(), dist.std()]); var = embs.std(axis=0).mean()
     else:
         temporal = np.zeros(2); var = 0.0
-    return np.concatenate([emb, fx.extract_fast_prosody(w, SR), fx.extract_fast_artifacts(w, SR), temporal, [var]]).astype(np.float32)
+    return emb, temporal, var
+
+
+def features_all(waves):
+    """Released feature order [embedding, prosody, artifacts, temporal, variance]; the CPU
+    part is spread over --jobs processes, the encoder stays in this process."""
+    import multiprocessing as mp
+    if A.jobs > 1:
+        with mp.get_context("fork").Pool(A.jobs) as pool:
+            cpu = pool.map(cpu_features, waves, chunksize=4)
+    else:
+        cpu = [cpu_features(w) for w in waves]
+    out = []
+    for w, c in zip(waves, cpu):
+        g = gpu_features(w)
+        out.append(np.zeros(DIM, np.float32) if c is None or g is None else np.concatenate([g[0], c, g[1], [g[2]]]).astype(np.float32))
+    return out
 
 
 def build(split, copies, corrupt_val=False):
     cache = os.path.join(A.out_dir, f"features_{split}_k{copies}{'_corrupt' if corrupt_val else ''}.npz")
     if os.path.exists(cache):
         z = np.load(cache, allow_pickle=True); return z["X"], z["y"], list(z["files"])
-    d, files = C.split_files(A.data_dir, split); X, y, names = [], [], []
-    for i, f in enumerate(files, 1):
+    d, files = C.split_files(A.data_dir, split); waves, y, names = [], [], []
+    for f in files:
         npz = np.load(os.path.join(d, f), allow_pickle=True); w = npz["waveform"].astype(np.float32); lab = C.label_of(npz)
-        X.append(features(C.corrupt_wave(w, f) if corrupt_val else w)); y.append(lab); names.append(f)
+        waves.append(C.corrupt_wave(w, f) if corrupt_val else w); y.append(lab); names.append(f)
         for _ in range(copies):
-            X.append(features(C.robust_audio_aug(w))); y.append(lab); names.append(f)
-        if i % 100 == 0:
-            print(f"[{split}] {i}/{len(files)}", flush=True)
-    X = np.stack(X); y = np.array(y, np.float32); np.savez_compressed(cache, X=X, y=y, files=np.array(names))
+            waves.append(C.robust_audio_aug(w)); y.append(lab); names.append(f)
+    print(f"[{split}] extracting {len(waves)} feature vectors with {A.jobs} CPU jobs", flush=True)
+    X = np.stack(features_all(waves)); y = np.array(y, np.float32); np.savez_compressed(cache, X=X, y=y, files=np.array(names))
+    print(f"[{split}] done", flush=True)
     return X, y, names
 
 
