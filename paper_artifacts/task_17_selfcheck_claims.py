@@ -74,10 +74,18 @@ print("\nYouTube evaluation (section 4.11)")
 dy = pd.read_csv(SRC / "analysis_results_youtube.csv")
 Sy = dy[C5].to_numpy(); yy = (dy.ground_truth == "Fake").astype(int).to_numpy()
 aggy = Sy @ W5
-check("YouTube clips", float(len(dy)), 37.0, 0)
-check("YouTube errors at tau=0.5", float(((aggy >= TAU).astype(int) != yy).sum()), 11.0, 0)
-check("YouTube false positives", float(((aggy >= TAU) & (yy == 0)).sum()), 0.0, 0)
-check("YouTube AUC", float(roc_auc_score(yy, aggy)), 0.962, 1e-3)
+pred = (aggy >= TAU).astype(int)  # NaN aggregate -> False -> real, as the released orchestrator decides
+defined = ~np.isnan(aggy)
+check("YouTube clips", float(len(dy)), 100.0, 0)
+check("YouTube fake clips", float(yy.sum()), 44.0, 0)
+check("YouTube errors at tau=0.5", float((pred != yy).sum()), 42.0, 0)
+check("YouTube false positives", float(((pred == 1) & (yy == 0)).sum()), 0.0, 0)
+check("YouTube undefined aggregates (muted audio)", float((~defined).sum()), 4.0, 0)
+check("YouTube AUC over defined aggregates", float(roc_auc_score(yy[defined], aggy[defined])), 0.884, 1e-3)
+trio = dy[["score_Audio Forensics (ECAPA)", "score_Cross-Modal (Lip-Sync)", "score_Facial Biometric (Quality)"]].to_numpy()
+verd = trio >= TAU
+esc = (verd.any(axis=1) & ~verd.all(axis=1)) | (trio.std(axis=1) >= 0.30)
+check("YouTube escalation rate (%)", float(100 * esc.mean()), 32.0, 0.05)
 
 print("\n" + ("ALL CHECKS PASSED" if not fails else f"{len(fails)} FAILED: {fails}"))
 sys.exit(1 if fails else 0)

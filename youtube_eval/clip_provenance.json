@@ -1,0 +1,728 @@
+{
+ "fake_video_order": [
+  "0Y5thnRlKNY",
+  "QuR5JMl-1v8",
+  "OBgRHikjYSA",
+  "yaK_SdNfcO0",
+  "Dufpc8vVH8I",
+  "ggcCAtcBxvI",
+  "2UbAd0zT2fE",
+  "OGbsSuHLuMc",
+  "vpAIk5e53jw"
+ ],
+ "real_fill_order": [
+  "tERkiqVxr_w",
+  "9aY5PYLUbaQ",
+  "6ay-GOpeP8c",
+  "XSsqRuceIIk",
+  "IKXcNs-MI3k",
+  "bOLs517114M",
+  "uQ0DLSaIuUc",
+  "SBCoPKaL9V4",
+  "eicBUu3reuo",
+  "uXvFF6dig7A",
+  "PenobO2oP3U"
+ ],
+ "clips": [
+  {
+   "file": "At least 13 dead in Nepal after protests against social media ban \uff5c BBC News__dSRnKy10lA_seq000_label_real.npz",
+   "video_id": "_dSRnKy10lA",
+   "label": "Real",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "Create AI Videos & Images in HeyGen with Veo3, Runway Gen-4, Kling & More! (Step-by-Step)_mZcridN9hq0_seq000_label_fake.npz",
+   "video_id": "mZcridN9hq0",
+   "label": "Real",
+   "note": "real presenter face in a video about generation tools",
+   "origin": "released-37"
+  },
+  {
+   "file": "Create AI Videos & Images in HeyGen with Veo3, Runway Gen-4, Kling & More! (Step-by-Step)_mZcridN9hq0_seq001_label_fake.npz",
+   "video_id": "mZcridN9hq0",
+   "label": "Real",
+   "note": "real presenter face in a video about generation tools",
+   "origin": "released-37"
+  },
+  {
+   "file": "French government collapses as MPs vote to oust prime minister \uff5c BBC News_n-jo7tfhsvQ_seq000_label_real.npz",
+   "video_id": "n-jo7tfhsvQ",
+   "label": "Real",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "French government collapses as MPs vote to oust prime minister \uff5c BBC News_n-jo7tfhsvQ_seq001_label_real.npz",
+   "video_id": "n-jo7tfhsvQ",
+   "label": "Real",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "French government collapses as MPs vote to oust prime minister \uff5c BBC News_n-jo7tfhsvQ_seq002_label_real.npz",
+   "video_id": "n-jo7tfhsvQ",
+   "label": "Real",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "French government collapses as MPs vote to oust prime minister \uff5c BBC News_n-jo7tfhsvQ_seq003_label_real.npz",
+   "video_id": "n-jo7tfhsvQ",
+   "label": "Real",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "French government collapses as MPs vote to oust prime minister \uff5c BBC News_n-jo7tfhsvQ_seq004_label_real.npz",
+   "video_id": "n-jo7tfhsvQ",
+   "label": "Real",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "How to Go VIRAL on Social Media Using AI_nDZQKKpAbWo_seq000_label_fake.npz",
+   "video_id": "nDZQKKpAbWo",
+   "label": "Fake",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "How to Go VIRAL on Social Media Using AI_nDZQKKpAbWo_seq001_label_fake.npz",
+   "video_id": "nDZQKKpAbWo",
+   "label": "Fake",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "How to Go VIRAL on Social Media Using AI_nDZQKKpAbWo_seq002_label_fake.npz",
+   "video_id": "nDZQKKpAbWo",
+   "label": "Fake",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "How to Go VIRAL on Social Media Using AI_nDZQKKpAbWo_seq003_label_fake.npz",
+   "video_id": "nDZQKKpAbWo",
+   "label": "Fake",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "How to Go VIRAL on Social Media Using AI_nDZQKKpAbWo_seq004_label_fake.npz",
+   "video_id": "nDZQKKpAbWo",
+   "label": "Fake",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "How to Make AI Music and a Virtual Band in Under 10 Minutes_cT9Uw2jzMUc_seq000_label_fake.npz",
+   "video_id": "cT9Uw2jzMUc",
+   "label": "Real",
+   "note": "real presenter face in a video about generation tools",
+   "origin": "released-37"
+  },
+  {
+   "file": "How to Make AI Music and a Virtual Band in Under 10 Minutes_cT9Uw2jzMUc_seq001_label_fake.npz",
+   "video_id": "cT9Uw2jzMUc",
+   "label": "Real",
+   "note": "real presenter face in a video about generation tools",
+   "origin": "released-37"
+  },
+  {
+   "file": "How to Make AI Music and a Virtual Band in Under 10 Minutes_cT9Uw2jzMUc_seq002_label_fake.npz",
+   "video_id": "cT9Uw2jzMUc",
+   "label": "Real",
+   "note": "real presenter face in a video about generation tools",
+   "origin": "released-37"
+  },
+  {
+   "file": "How to Make AI Music and a Virtual Band in Under 10 Minutes_cT9Uw2jzMUc_seq003_label_fake.npz",
+   "video_id": "cT9Uw2jzMUc",
+   "label": "Real",
+   "note": "real presenter face in a video about generation tools",
+   "origin": "released-37"
+  },
+  {
+   "file": "How to Make AI Music and a Virtual Band in Under 10 Minutes_cT9Uw2jzMUc_seq004_label_fake.npz",
+   "video_id": "cT9Uw2jzMUc",
+   "label": "Real",
+   "note": "real presenter face in a video about generation tools",
+   "origin": "released-37"
+  },
+  {
+   "file": "I Tested MrBeast's Thumbnail Strategy on AI Videos Here's What Worked_pxPzCFM0qE4_seq000_label_fake.npz",
+   "video_id": "pxPzCFM0qE4",
+   "label": "Fake",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "I Tested MrBeast's Thumbnail Strategy on AI Videos Here's What Worked_pxPzCFM0qE4_seq001_label_fake.npz",
+   "video_id": "pxPzCFM0qE4",
+   "label": "Fake",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "I Tested MrBeast's Thumbnail Strategy on AI Videos Here's What Worked_pxPzCFM0qE4_seq002_label_fake.npz",
+   "video_id": "pxPzCFM0qE4",
+   "label": "Fake",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "I Tested MrBeast's Thumbnail Strategy on AI Videos Here's What Worked_pxPzCFM0qE4_seq003_label_fake.npz",
+   "video_id": "pxPzCFM0qE4",
+   "label": "Fake",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "I Tested MrBeast's Thumbnail Strategy on AI Videos Here's What Worked_pxPzCFM0qE4_seq004_label_fake.npz",
+   "video_id": "pxPzCFM0qE4",
+   "label": "Fake",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "Israel intensifies strikes on Gaza City \uff5c BBC News_AEu6wVp_Edw_seq000_label_real.npz",
+   "video_id": "AEu6wVp_Edw",
+   "label": "Real",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "Israel intensifies strikes on Gaza City \uff5c BBC News_AEu6wVp_Edw_seq001_label_real.npz",
+   "video_id": "AEu6wVp_Edw",
+   "label": "Real",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "Israel intensifies strikes on Gaza City \uff5c BBC News_AEu6wVp_Edw_seq002_label_real.npz",
+   "video_id": "AEu6wVp_Edw",
+   "label": "Real",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "Israel intensifies strikes on Gaza City \uff5c BBC News_AEu6wVp_Edw_seq003_label_real.npz",
+   "video_id": "AEu6wVp_Edw",
+   "label": "Real",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "Israel intensifies strikes on Gaza City \uff5c BBC News_AEu6wVp_Edw_seq004_label_real.npz",
+   "video_id": "AEu6wVp_Edw",
+   "label": "Real",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "Jerusalem shooting\uff1a Six killed by Palestinian gunmen \uff5c BBC News_8Xeh7TVPp-M_seq000_label_real.npz",
+   "video_id": "8Xeh7TVPp-M",
+   "label": "Real",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "Jerusalem shooting\uff1a Six killed by Palestinian gunmen \uff5c BBC News_8Xeh7TVPp-M_seq001_label_real.npz",
+   "video_id": "8Xeh7TVPp-M",
+   "label": "Real",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "Jerusalem shooting\uff1a Six killed by Palestinian gunmen \uff5c BBC News_8Xeh7TVPp-M_seq002_label_real.npz",
+   "video_id": "8Xeh7TVPp-M",
+   "label": "Real",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "Jerusalem shooting\uff1a Six killed by Palestinian gunmen \uff5c BBC News_8Xeh7TVPp-M_seq003_label_real.npz",
+   "video_id": "8Xeh7TVPp-M",
+   "label": "Real",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "Jerusalem shooting\uff1a Six killed by Palestinian gunmen \uff5c BBC News_8Xeh7TVPp-M_seq004_label_real.npz",
+   "video_id": "8Xeh7TVPp-M",
+   "label": "Real",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "Prince Harry lays wreath in memory of late Queen \uff5c BBC News_lGO9j_x8gp0_seq000_label_real.npz",
+   "video_id": "lGO9j_x8gp0",
+   "label": "Real",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "Prince Harry lays wreath in memory of late Queen \uff5c BBC News_lGO9j_x8gp0_seq001_label_real.npz",
+   "video_id": "lGO9j_x8gp0",
+   "label": "Real",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "Prince Harry lays wreath in memory of late Queen \uff5c BBC News_lGO9j_x8gp0_seq002_label_real.npz",
+   "video_id": "lGO9j_x8gp0",
+   "label": "Real",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "We Created the World's Most Realistic Digital Twin_m0fdgkJGxHs_seq000_label_fake.npz",
+   "video_id": "m0fdgkJGxHs",
+   "label": "Fake",
+   "note": "",
+   "origin": "released-37"
+  },
+  {
+   "file": "What\u2019s Happening Today @WAVES 2025 with AI Anchor Sana \uff5c May 1 \uff5c French \uff5c AajTak AI_0Y5thnRlKNY_seq000_label_fake.npz",
+   "video_id": "0Y5thnRlKNY",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana (WAVES 2025 bulletin, French)",
+   "origin": "batch"
+  },
+  {
+   "file": "What\u2019s Happening Today @WAVES 2025 with AI Anchor Sana \uff5c May 1 \uff5c French \uff5c AajTak AI_0Y5thnRlKNY_seq001_label_fake.npz",
+   "video_id": "0Y5thnRlKNY",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana (WAVES 2025 bulletin, French)",
+   "origin": "batch"
+  },
+  {
+   "file": "What\u2019s Happening Today @WAVES 2025 with AI Anchor Sana \uff5c May 1 \uff5c French \uff5c AajTak AI_0Y5thnRlKNY_seq002_label_fake.npz",
+   "video_id": "0Y5thnRlKNY",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana (WAVES 2025 bulletin, French)",
+   "origin": "batch"
+  },
+  {
+   "file": "What\u2019s Happening Today @WAVES 2025 with AI Anchor Sana \uff5c May 1 \uff5c French \uff5c AajTak AI_0Y5thnRlKNY_seq003_label_fake.npz",
+   "video_id": "0Y5thnRlKNY",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana (WAVES 2025 bulletin, French)",
+   "origin": "batch"
+  },
+  {
+   "file": "What\u2019s Happening Today @WAVES 2025 with AI Anchor Sana \uff5c May 1 \uff5c French \uff5c AajTak AI_0Y5thnRlKNY_seq004_label_fake.npz",
+   "video_id": "0Y5thnRlKNY",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana (WAVES 2025 bulletin, French)",
+   "origin": "batch"
+  },
+  {
+   "file": "AI Anchor Sana Reveals TOP AI Stories Of The Week \uff5c AajTak AI_QuR5JMl-1v8_seq000_label_fake.npz",
+   "video_id": "QuR5JMl-1v8",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "AI Anchor Sana Reveals TOP AI Stories Of The Week \uff5c AajTak AI_QuR5JMl-1v8_seq001_label_fake.npz",
+   "video_id": "QuR5JMl-1v8",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "AI Anchor Sana Reveals TOP AI Stories Of The Week \uff5c AajTak AI_QuR5JMl-1v8_seq002_label_fake.npz",
+   "video_id": "QuR5JMl-1v8",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "AI Anchor Sana Reveals TOP AI Stories Of The Week \uff5c AajTak AI_QuR5JMl-1v8_seq003_label_fake.npz",
+   "video_id": "QuR5JMl-1v8",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "AI Anchor Sana Reveals TOP AI Stories Of The Week \uff5c AajTak AI_QuR5JMl-1v8_seq004_label_fake.npz",
+   "video_id": "QuR5JMl-1v8",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "ChatGPT Go Comes At Just \u20b9399 Per Month \uff5c AI Anchor Sana_OBgRHikjYSA_seq000_label_fake.npz",
+   "video_id": "OBgRHikjYSA",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "ChatGPT Go Comes At Just \u20b9399 Per Month \uff5c AI Anchor Sana_OBgRHikjYSA_seq001_label_fake.npz",
+   "video_id": "OBgRHikjYSA",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "ChatGPT Go Comes At Just \u20b9399 Per Month \uff5c AI Anchor Sana_OBgRHikjYSA_seq002_label_fake.npz",
+   "video_id": "OBgRHikjYSA",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "ChatGPT Go Comes At Just \u20b9399 Per Month \uff5c AI Anchor Sana_OBgRHikjYSA_seq003_label_fake.npz",
+   "video_id": "OBgRHikjYSA",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "ChatGPT Go Comes At Just \u20b9399 Per Month \uff5c AI Anchor Sana_OBgRHikjYSA_seq004_label_fake.npz",
+   "video_id": "OBgRHikjYSA",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "AI Girlfriend \u0915\u094b \u092e\u093f\u0932\u0928\u0947 \u0906\u0926\u092e\u0940, \u0939\u0941\u0908 \u092e\u094c\u0924 \uff5c AI Anchor Sana \uff5c AajTak AI_yaK_SdNfcO0_seq000_label_fake.npz",
+   "video_id": "yaK_SdNfcO0",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "AI Girlfriend \u0915\u094b \u092e\u093f\u0932\u0928\u0947 \u0906\u0926\u092e\u0940, \u0939\u0941\u0908 \u092e\u094c\u0924 \uff5c AI Anchor Sana \uff5c AajTak AI_yaK_SdNfcO0_seq001_label_fake.npz",
+   "video_id": "yaK_SdNfcO0",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "AI Girlfriend \u0915\u094b \u092e\u093f\u0932\u0928\u0947 \u0906\u0926\u092e\u0940, \u0939\u0941\u0908 \u092e\u094c\u0924 \uff5c AI Anchor Sana \uff5c AajTak AI_yaK_SdNfcO0_seq002_label_fake.npz",
+   "video_id": "yaK_SdNfcO0",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "AI Girlfriend \u0915\u094b \u092e\u093f\u0932\u0928\u0947 \u0906\u0926\u092e\u0940, \u0939\u0941\u0908 \u092e\u094c\u0924 \uff5c AI Anchor Sana \uff5c AajTak AI_yaK_SdNfcO0_seq004_label_fake.npz",
+   "video_id": "yaK_SdNfcO0",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana",
+   "origin": "batch"
+  },
+  {
+   "file": "What\u2019s Happening Today @WAVES 2025 with AI Anchor Sana \uff5c May 2 \uff5c German \uff5c AajTak AI_Dufpc8vVH8I_seq000_label_fake.npz",
+   "video_id": "Dufpc8vVH8I",
+   "label": "Fake",
+   "note": "Aaj Tak AI anchor Sana (WAVES 2025 bulletin, German)",
+   "origin": "batch"
+  },
+  {
+   "file": "OTV\u2019s AI News Anchor Lisa Making Global Waves_ggcCAtcBxvI_seq000_label_fake.npz",
+   "video_id": "ggcCAtcBxvI",
+   "label": "Fake",
+   "note": "OTV AI anchor Lisa",
+   "origin": "batch"
+  },
+  {
+   "file": "OTV\u2019s AI News Anchor Lisa Making Global Waves_ggcCAtcBxvI_seq001_label_fake.npz",
+   "video_id": "ggcCAtcBxvI",
+   "label": "Fake",
+   "note": "OTV AI anchor Lisa",
+   "origin": "batch"
+  },
+  {
+   "file": "OTV\u2019s Artificial Intelligence Anchor Lisa pays tribute to Mahatma Gandhi_2UbAd0zT2fE_seq000_label_fake.npz",
+   "video_id": "2UbAd0zT2fE",
+   "label": "Fake",
+   "note": "OTV AI anchor Lisa",
+   "origin": "batch"
+  },
+  {
+   "file": "OTV\u2019s Artificial Intelligence Anchor Lisa pays tribute to Mahatma Gandhi_2UbAd0zT2fE_seq002_label_fake.npz",
+   "video_id": "2UbAd0zT2fE",
+   "label": "Fake",
+   "note": "OTV AI anchor Lisa",
+   "origin": "batch"
+  },
+  {
+   "file": "OTV\u2019s Artificial Intelligence Anchor Lisa pays tribute to Mahatma Gandhi_2UbAd0zT2fE_seq003_label_fake.npz",
+   "video_id": "2UbAd0zT2fE",
+   "label": "Fake",
+   "note": "OTV AI anchor Lisa",
+   "origin": "batch"
+  },
+  {
+   "file": "OTV\u2019s Artificial Intelligence Anchor Lisa pays tribute to Mahatma Gandhi_2UbAd0zT2fE_seq004_label_fake.npz",
+   "video_id": "2UbAd0zT2fE",
+   "label": "Fake",
+   "note": "OTV AI anchor Lisa",
+   "origin": "batch"
+  },
+  {
+   "file": "Introducing Avatar V\uff1a The Most Realistic AI Avatar Yet_OGbsSuHLuMc_seq000_label_fake.npz",
+   "video_id": "OGbsSuHLuMc",
+   "label": "Fake",
+   "note": "HeyGen Avatar V launch video; its opening line states the presenter is an AI avatar",
+   "origin": "batch"
+  },
+  {
+   "file": "Introducing Avatar V\uff1a The Most Realistic AI Avatar Yet_OGbsSuHLuMc_seq001_label_fake.npz",
+   "video_id": "OGbsSuHLuMc",
+   "label": "Fake",
+   "note": "HeyGen Avatar V launch video; its opening line states the presenter is an AI avatar",
+   "origin": "batch"
+  },
+  {
+   "file": "Introducing Avatar V\uff1a The Most Realistic AI Avatar Yet_OGbsSuHLuMc_seq002_label_fake.npz",
+   "video_id": "OGbsSuHLuMc",
+   "label": "Fake",
+   "note": "HeyGen Avatar V launch video; its opening line states the presenter is an AI avatar",
+   "origin": "batch"
+  },
+  {
+   "file": "Introducing Avatar V\uff1a The Most Realistic AI Avatar Yet_OGbsSuHLuMc_seq003_label_fake.npz",
+   "video_id": "OGbsSuHLuMc",
+   "label": "Fake",
+   "note": "HeyGen Avatar V launch video; its opening line states the presenter is an AI avatar",
+   "origin": "batch"
+  },
+  {
+   "file": "Introducing Avatar V\uff1a The Most Realistic AI Avatar Yet_OGbsSuHLuMc_seq004_label_fake.npz",
+   "video_id": "OGbsSuHLuMc",
+   "label": "Fake",
+   "note": "HeyGen Avatar V launch video; its opening line states the presenter is an AI avatar",
+   "origin": "batch"
+  },
+  {
+   "file": "2+ AI Avatars in 1 Scene\uff1f Dialogue is Here!_vpAIk5e53jw_seq000_label_fake.npz",
+   "video_id": "vpAIk5e53jw",
+   "label": "Fake",
+   "note": "Synthesia stock avatar (Kade) shown inside the editor",
+   "origin": "batch"
+  },
+  {
+   "file": "2+ AI Avatars in 1 Scene\uff1f Dialogue is Here!_vpAIk5e53jw_seq001_label_fake.npz",
+   "video_id": "vpAIk5e53jw",
+   "label": "Fake",
+   "note": "Synthesia stock avatar (Kade) shown inside the editor",
+   "origin": "batch"
+  },
+  {
+   "file": "Nigerian children kept out of school by armed gangs \uff5c BBC News_tERkiqVxr_w_seq000_label_real.npz",
+   "video_id": "tERkiqVxr_w",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "Nigerian children kept out of school by armed gangs \uff5c BBC News_tERkiqVxr_w_seq001_label_real.npz",
+   "video_id": "tERkiqVxr_w",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "Nigerian children kept out of school by armed gangs \uff5c BBC News_tERkiqVxr_w_seq002_label_real.npz",
+   "video_id": "tERkiqVxr_w",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "Nigerian children kept out of school by armed gangs \uff5c BBC News_tERkiqVxr_w_seq003_label_real.npz",
+   "video_id": "tERkiqVxr_w",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "Nigerian children kept out of school by armed gangs \uff5c BBC News_tERkiqVxr_w_seq004_label_real.npz",
+   "video_id": "tERkiqVxr_w",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "Zelensky says he expects war to continue into winter after talks with US envoys \uff5c BBC News_9aY5PYLUbaQ_seq000_label_real.npz",
+   "video_id": "9aY5PYLUbaQ",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "Zelensky says he expects war to continue into winter after talks with US envoys \uff5c BBC News_9aY5PYLUbaQ_seq001_label_real.npz",
+   "video_id": "9aY5PYLUbaQ",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "Zelensky says he expects war to continue into winter after talks with US envoys \uff5c BBC News_9aY5PYLUbaQ_seq002_label_real.npz",
+   "video_id": "9aY5PYLUbaQ",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "Zelensky says he expects war to continue into winter after talks with US envoys \uff5c BBC News_9aY5PYLUbaQ_seq003_label_real.npz",
+   "video_id": "9aY5PYLUbaQ",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "Zelensky says he expects war to continue into winter after talks with US envoys \uff5c BBC News_9aY5PYLUbaQ_seq004_label_real.npz",
+   "video_id": "9aY5PYLUbaQ",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "Germany's far-right AfD hails big victory in east, but falls short of majority \uff5c BBC News_6ay-GOpeP8c_seq000_label_real.npz",
+   "video_id": "6ay-GOpeP8c",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "Germany's far-right AfD hails big victory in east, but falls short of majority \uff5c BBC News_6ay-GOpeP8c_seq001_label_real.npz",
+   "video_id": "6ay-GOpeP8c",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "Germany's far-right AfD hails big victory in east, but falls short of majority \uff5c BBC News_6ay-GOpeP8c_seq002_label_real.npz",
+   "video_id": "6ay-GOpeP8c",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "Germany's far-right AfD hails big victory in east, but falls short of majority \uff5c BBC News_6ay-GOpeP8c_seq003_label_real.npz",
+   "video_id": "6ay-GOpeP8c",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "Germany's far-right AfD hails big victory in east, but falls short of majority \uff5c BBC News_6ay-GOpeP8c_seq004_label_real.npz",
+   "video_id": "6ay-GOpeP8c",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "Thousands of job cuts expected at Jaguar Land Rover \uff5c BBC News_XSsqRuceIIk_seq000_label_real.npz",
+   "video_id": "XSsqRuceIIk",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "Thousands of job cuts expected at Jaguar Land Rover \uff5c BBC News_XSsqRuceIIk_seq001_label_real.npz",
+   "video_id": "XSsqRuceIIk",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "Thousands of job cuts expected at Jaguar Land Rover \uff5c BBC News_XSsqRuceIIk_seq002_label_real.npz",
+   "video_id": "XSsqRuceIIk",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "Thousands of job cuts expected at Jaguar Land Rover \uff5c BBC News_XSsqRuceIIk_seq003_label_real.npz",
+   "video_id": "XSsqRuceIIk",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "Thousands of job cuts expected at Jaguar Land Rover \uff5c BBC News_XSsqRuceIIk_seq004_label_real.npz",
+   "video_id": "XSsqRuceIIk",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "US envoys prepare for Ukraine talks after meeting Russia\u2019s Vladimir Putin \uff5c BBC News_IKXcNs-MI3k_seq000_label_real.npz",
+   "video_id": "IKXcNs-MI3k",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "US envoys prepare for Ukraine talks after meeting Russia\u2019s Vladimir Putin \uff5c BBC News_IKXcNs-MI3k_seq001_label_real.npz",
+   "video_id": "IKXcNs-MI3k",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "US envoys prepare for Ukraine talks after meeting Russia\u2019s Vladimir Putin \uff5c BBC News_IKXcNs-MI3k_seq002_label_real.npz",
+   "video_id": "IKXcNs-MI3k",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "US envoys prepare for Ukraine talks after meeting Russia\u2019s Vladimir Putin \uff5c BBC News_IKXcNs-MI3k_seq003_label_real.npz",
+   "video_id": "IKXcNs-MI3k",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "US envoys prepare for Ukraine talks after meeting Russia\u2019s Vladimir Putin \uff5c BBC News_IKXcNs-MI3k_seq004_label_real.npz",
+   "video_id": "IKXcNs-MI3k",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "Port of Dover disruption as masked 'stop the boats' protesters block roads \uff5c BBC News_bOLs517114M_seq000_label_real.npz",
+   "video_id": "bOLs517114M",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "Port of Dover disruption as masked 'stop the boats' protesters block roads \uff5c BBC News_bOLs517114M_seq001_label_real.npz",
+   "video_id": "bOLs517114M",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "Port of Dover disruption as masked 'stop the boats' protesters block roads \uff5c BBC News_bOLs517114M_seq002_label_real.npz",
+   "video_id": "bOLs517114M",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "Port of Dover disruption as masked 'stop the boats' protesters block roads \uff5c BBC News_bOLs517114M_seq003_label_real.npz",
+   "video_id": "bOLs517114M",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  },
+  {
+   "file": "Port of Dover disruption as masked 'stop the boats' protesters block roads \uff5c BBC News_bOLs517114M_seq004_label_real.npz",
+   "video_id": "bOLs517114M",
+   "label": "Real",
+   "note": "BBC News presenter, correspondent or interviewee",
+   "origin": "batch"
+  }
+ ]
+}
