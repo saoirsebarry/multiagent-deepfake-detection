@@ -49,13 +49,13 @@ def set_seed(seed=42):
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = False
 
-set_seed(42)
+set_seed(int(os.environ.get("PGF_SEED", 42)))
 
 # --- Path Configuration ---
-BASE_DATA_DIR = Path("polyglot_processed_all_unbalanced")
+BASE_DATA_DIR = Path(os.environ.get("PGF_DATA_DIR", "polyglot_processed_all_unbalanced"))
 TRAIN_DATA_PATH = BASE_DATA_DIR / "train"
 VAL_DATA_PATH = BASE_DATA_DIR / "val"
-OUTPUT_DIR = Path("tuning_and_model_output_unbal_all_face_cutout")
+OUTPUT_DIR = Path(os.environ.get("PGF_OUT_DIR", "tuning_and_model_output_unbal_all_face_cutout"))
 
 # Define paths for all save points
 INITIAL_TRAINED_MODEL_PATH = OUTPUT_DIR / "initial_trained_model_pytorch_xception_unbal.pth"

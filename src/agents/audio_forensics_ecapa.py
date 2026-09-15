@@ -12,6 +12,7 @@ import warnings
 # different numpy ABI and loading it segfaults inside pyin's interpolation gufunc.
 os.environ.setdefault("NUMBA_CACHE_DIR", "/tmp/numba_cache")
 
+import random
 import numpy as np
 import pandas as pd
 import torch
@@ -353,6 +354,7 @@ if __name__ == "__main__":
     parser.add_argument('--epochs', type=int, default=CONFIG['num_epochs'])
     parser.add_argument('--lr', type=float, default=CONFIG['learning_rate'])
     parser.add_argument('--data_dir', type=str, default=CONFIG['data_dir'])
+    parser.add_argument('--seed', type=int, default=42)
     parser.add_argument('--output_dir', type=str, default=CONFIG['output_dir'])
     parser.add_argument('--feature_cache', type=str, default=None,
                         help="directory of precompute_ecapa_features.py output")
@@ -364,5 +366,6 @@ if __name__ == "__main__":
     CONFIG['data_dir'] = args.data_dir
     CONFIG['output_dir'] = args.output_dir
     CONFIG['feature_cache'] = args.feature_cache
+    random.seed(args.seed); np.random.seed(args.seed); torch.manual_seed(args.seed); torch.cuda.manual_seed_all(args.seed)
 
     main(args)

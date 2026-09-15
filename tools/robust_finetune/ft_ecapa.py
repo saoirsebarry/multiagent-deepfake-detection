@@ -24,7 +24,11 @@ ap = argparse.ArgumentParser()
 ap.add_argument("--data_dir", required=True); ap.add_argument("--out_dir", required=True)
 ap.add_argument("--aug_copies", type=int, default=2); ap.add_argument("--epochs", type=int, default=60)
 ap.add_argument("--jobs", type=int, default=int(os.environ.get("FT_JOBS", os.cpu_count() or 1)))
-A = ap.parse_args(); os.makedirs(A.out_dir, exist_ok=True); C.seed_all()
+ap.add_argument("--init", default=None, help="checkpoint to warm-start from (default: the released one)")
+ap.add_argument("--skip_fidelity", action="store_true", help="no released validation column applies to this partition")
+ap.add_argument("--seed", type=int, default=42)
+ap.add_argument("--init_stats", default=None, help="feature statistics npz of the warm-start head")
+A = ap.parse_args(); os.makedirs(A.out_dir, exist_ok=True); C.seed_all(A.seed)
 device = C.pick_device(allow_mps=False)
 enc = EncoderClassifier.from_hparams(source="speechbrain/spkrec-ecapa-voxceleb",
                                      savedir=os.path.join(C.REPO, "checkpoints/speechbrain_cache"),
@@ -101,10 +105,12 @@ def score(model, mean, std, X):
 Xv, yv, fv = build("val", 0)
 Xvc, _, _ = build("val", 0, corrupt_val=True)
 labels_v = {f: float(l) for f, l in zip(fv, yv)}
-rel_stats = np.load(os.path.join(C.REPO, "checkpoints/ecapa_forensic_head/training_stats.npz"))
+rel_stats = np.load(A.init_stats or os.path.join(C.REPO, "checkpoints/ecapa_forensic_head/training_stats.npz"))
 rel = OptimizedLightweightForensics(embedding_dim=192, num_forensic_features=11).to(device)
-rel.load_state_dict(torch.load(os.path.join(C.REPO, "checkpoints/ecapa_forensic_head/audio_forensics_model_finetuned_best.pth"), map_location=device, weights_only=False))
-vs = dict(zip(fv, score(rel, rel_stats["mean"], rel_stats["std"], Xv))); C.fidelity_distribution(vs, C.COLUMNS["ecapa"])  # pyin and encoder numerics differ across machines; see PROTOCOL.md
+rel.load_state_dict(torch.load(A.init or os.path.join(C.REPO, "checkpoints/ecapa_forensic_head/audio_forensics_model_finetuned_best.pth"), map_location=device, weights_only=False))
+vs = dict(zip(fv, score(rel, rel_stats["mean"], rel_stats["std"], Xv)))
+if not A.skip_fidelity:
+    C.fidelity_distribution(vs, C.COLUMNS["ecapa"])  # pyin and encoder numerics differ across machines; see PROTOCOL.md
 released_eval = C.evaluate(vs, labels_v); print("released head on recomputed val features", released_eval, flush=True)
 rel_c = C.evaluate(dict(zip(fv, score(rel, rel_stats["mean"], rel_stats["std"], Xvc))), labels_v)
 hist = [{"epoch": 0, **released_eval, **{"corr_" + k: v for k, v in rel_c.items()}}]
