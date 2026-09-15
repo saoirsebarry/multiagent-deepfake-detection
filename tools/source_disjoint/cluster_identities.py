@@ -2,9 +2,11 @@
 
 PolyGlotFake publishes no identity labels. This embeds the stored face crops of every
 source video's authentic clip with a VGGFace2-pretrained InceptionResnetV1
-(facenet-pytorch), averages over frames, and links two sources when the cosine distance of
-their embeddings is below `--threshold` (0.4 is the usual same-person operating point for
-this model). Connected components become identity groups; make_split.py `--groups` then
+(facenet-pytorch), averages over frames, and clusters sources by average-linkage agglomeration on
+cosine distance. The cut is the loosest value in `--sweep` (0.40 is the usual same-person
+operating point for this model) whose largest group stays within `--max_group` sources: the
+crops are unaligned, so a loose single cut chains unrelated faces into one group. The sweep
+table is written with the groups so the choice is auditable. make_split.py `--groups` then
 keeps every group in one partition.
 
     python tools/source_disjoint/cluster_identities.py --processed <root> --out identity_groups.json
@@ -24,8 +26,9 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--processed", required=True)
     ap.add_argument("--out", required=True)
-    ap.add_argument("--threshold", type=float, default=0.4)
+    ap.add_argument("--sweep", type=float, nargs="+", default=[0.20, 0.25, 0.30, 0.35, 0.40], help="candidate cosine-distance cuts")
     ap.add_argument("--frames", type=int, default=5)
+    ap.add_argument("--max_group", type=int, default=25, help="abort if any identity group exceeds this many sources")
     a = ap.parse_args()
     from facenet_pytorch import InceptionResnetV1
     device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -53,29 +56,41 @@ def main():
                 e = net(x.to(device)).mean(0)
             embs.append((e / e.norm()).cpu().numpy()); sources.append(f"{m.group(1)}_{m.group(2)}")
     E = np.stack(embs)
-    dist = 1.0 - E @ E.T
-    n = len(sources); parent = list(range(n))
-
-    def find(i):
-        while parent[i] != i:
-            parent[i] = parent[parent[i]]; i = parent[i]
-        return i
-
-    pairs = []
-    for i in range(n):
-        for j in range(i + 1, n):
-            if dist[i, j] < a.threshold:
-                parent[find(i)] = find(j); pairs.append((sources[i], sources[j], float(dist[i, j])))
+    n = len(sources)
+    # average-linkage agglomeration: two groups merge only when their mean pairwise distance is
+    # below the threshold, so near-duplicate chains cannot fuse unrelated people into one group
+    from scipy.cluster.hierarchy import fcluster, linkage
+    from scipy.spatial.distance import pdist
+    d = pdist(E, metric="cosine")
+    Z = linkage(d, method="average")
+    sweep = {}
+    for t in a.sweep:
+        lab = fcluster(Z, t=t, criterion="distance")
+        sizes = np.bincount(lab)[1:]
+        sweep[f"{t:.2f}"] = {"n_groups": int(len(sizes)), "largest_group": int(sizes.max()),
+                             "n_groups_with_several_sources": int((sizes > 1).sum()),
+                             "n_sources_in_shared_groups": int(sizes[sizes > 1].sum())}
+    # the cut is the loosest threshold in the sweep whose largest group stays within --max_group;
+    # a looser cut chains unrelated faces into one group and empties the other partitions
+    admissible = [t for t in a.sweep if sweep[f"{t:.2f}"]["largest_group"] <= a.max_group]
+    if not admissible:
+        raise SystemExit(f"no threshold in {a.sweep} keeps every identity group within {a.max_group} sources: {sweep}")
+    threshold = max(admissible)
+    labels = fcluster(Z, t=threshold, criterion="distance")
     groups = {}
-    for i, s in enumerate(sources):
-        groups.setdefault(f"g{find(i)}", []).append(s)
+    for s_, lab in zip(sources, labels):
+        groups.setdefault(f"g{lab}", []).append(s_)
     multi = {k: v for k, v in groups.items() if len(v) > 1}
-    out = {"threshold": a.threshold, "n_sources": n, "n_groups": len(groups),
+    D = 1.0 - E @ E.T
+    pairs = [(sources[i], sources[j], float(D[i, j])) for i in range(n) for j in range(i + 1, n) if labels[i] == labels[j]]
+    sizes = sorted((len(v) for v in groups.values()), reverse=True)
+    out = {"threshold": threshold, "threshold_sweep": sweep, "max_group": a.max_group, "linkage": "average", "n_sources": n, "n_groups": len(groups),
            "n_groups_with_several_sources": len(multi), "n_sources_in_shared_identity_groups": sum(len(v) for v in multi.values()),
-           "cross_language_links": sum(1 for s, t, _ in pairs if s[:2] != t[:2]),
-           "source_to_group": {s: f"g{find(i)}" for i, s in enumerate(sources)}, "groups": groups, "linked_pairs": pairs}
+           "largest_group": sizes[0], "group_sizes_top10": sizes[:10],
+           "cross_language_links": sum(1 for s_, t, _ in pairs if s_[:2] != t[:2]),
+           "source_to_group": {s_: f"g{lab}" for s_, lab in zip(sources, labels)}, "groups": groups, "linked_pairs": pairs}
     json.dump(out, open(a.out, "w"), indent=1)
-    print({k: out[k] for k in ("n_sources", "n_groups", "n_groups_with_several_sources", "n_sources_in_shared_identity_groups", "cross_language_links")})
+    print({k: out[k] for k in ("threshold", "threshold_sweep", "n_sources", "n_groups", "n_groups_with_several_sources", "n_sources_in_shared_identity_groups", "largest_group", "group_sizes_top10", "cross_language_links")})
 
 
 if __name__ == "__main__":
