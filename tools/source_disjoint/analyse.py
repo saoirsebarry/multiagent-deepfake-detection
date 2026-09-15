@@ -31,17 +31,17 @@ def load(path):
     df["source"] = m[0] + "_" + m[1]
     df["method"] = m[3]
     df["y"] = (df.ground_truth == "Fake").astype(int)
-    df["agg"] = df[COLS].mean(axis=1)
+    df["sys"] = df[COLS].mean(axis=1)
     df["trio"] = df[TRIO].mean(axis=1)
     return df
 
 
 def select_tau(val):
     """Midpoint of the widest interval that leaves no validation fake missed at minimum error."""
-    s = np.sort(np.unique(np.concatenate([val.agg.values, [0.0, 1.0]])))
+    s = np.sort(np.unique(np.concatenate([val["sys"].values, [0.0, 1.0]])))
     cands = (s[:-1] + s[1:]) / 2
-    fn = np.array([((val.agg < t) & (val.y == 1)).sum() for t in cands])
-    err = np.array([((val.agg >= t) != (val.y == 1)).sum() for t in cands])
+    fn = np.array([((val["sys"] < t) & (val.y == 1)).sum() for t in cands])
+    err = np.array([((val["sys"] >= t) != (val.y == 1)).sum() for t in cands])
     ok = fn == 0
     best = err[ok].min()
     idx = np.where(ok & (err == best))[0]
@@ -58,8 +58,8 @@ def select_tau(val):
 
 def bootstrap(df, tau, B, seed, cluster):
     rng = np.random.default_rng(seed)
-    pred = (df.agg >= tau).astype(int).values
-    y = df.y.values; s = df.agg.values
+    pred = (df["sys"] >= tau).astype(int).values
+    y = df.y.values; s = df["sys"].values
     groups = {k: v.index.values for k, v in df.groupby(cluster)} if cluster else None
     keys = np.array(list(groups)) if groups else None
     acc, auc = [], []
@@ -81,17 +81,17 @@ def mcnemar(pred_a, pred_b, y):
 def readout(run, B, seed):
     val = load(os.path.join(run, "scores_val.csv")); test = load(os.path.join(run, "scores_test.csv"))
     sel = select_tau(val); tau = sel["tau"]
-    pred = (test.agg >= tau).astype(int); y = test.y
+    pred = (test["sys"] >= tau).astype(int); y = test.y
     fp = int(((pred == 1) & (y == 0)).sum()); fn = int(((pred == 0) & (y == 1)).sum())
     out = {
         "run": run, "tau_selection": sel, "n_test": int(len(test)), "n_real": int((y == 0).sum()), "n_fake": int((y == 1).sum()),
         "n_test_sources": int(test.source.nunique()),
         "accuracy": float((pred == y).mean()), "fp": fp, "fn": fn,
-        "auc": float(roc_auc_score(y, test.agg)), "ap": float(average_precision_score(y, test.agg)),
-        "max_real": float(test.loc[y == 0, "agg"].max()), "min_fake": float(test.loc[y == 1, "agg"].min()),
+        "auc": float(roc_auc_score(y, test["sys"])), "ap": float(average_precision_score(y, test["sys"])),
+        "max_real": float(test.loc[y == 0, "sys"].max()), "min_fake": float(test.loc[y == 1, "sys"].min()),
         "per_agent_auc": {c: float(roc_auc_score(y, test[c])) for c in COLS},
         "per_agent_acc_at_0.5": {c: float(((test[c] >= 0.5).astype(int) == y).mean()) for c in COLS},
-        "recall_by_method": {m: float(((g.agg >= tau).mean())) for m, g in test[y == 1].groupby("method")},
+        "recall_by_method": {m: float(((g["sys"] >= tau).mean())) for m, g in test[y == 1].groupby("method")},
         "ci_clip": bootstrap(test, tau, B, seed, None),
         "ci_source": bootstrap(test, tau, B, seed, "source"),
         "phase1_trio_errors": int((((test.trio >= tau).astype(int)) != y).sum()),

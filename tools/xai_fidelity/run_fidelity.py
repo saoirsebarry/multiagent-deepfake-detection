@@ -55,7 +55,8 @@ def to_uint8(face):
 
 
 def curve_auc(vals):
-    return float(np.trapz(vals, dx=1.0 / (len(vals) - 1)))
+    trap = getattr(np, "trapezoid", None) or np.trapz
+    return float(trap(vals, dx=1.0 / (len(vals) - 1)))
 
 
 def deletion_insertion(score_fn, x, sal, blur, rng, order=None):
