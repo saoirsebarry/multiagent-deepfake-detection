@@ -28,7 +28,7 @@ def main():
     ap.add_argument("--out", required=True)
     ap.add_argument("--sweep", type=float, nargs="+", default=[0.20, 0.25, 0.30, 0.35, 0.40], help="candidate cosine-distance cuts")
     ap.add_argument("--frames", type=int, default=5)
-    ap.add_argument("--max_group", type=int, default=25, help="abort if any identity group exceeds this many sources")
+    ap.add_argument("--max_group_frac", type=float, default=0.08, help="abort if any identity group holds more than this fraction of the sources")
     a = ap.parse_args()
     from facenet_pytorch import InceptionResnetV1
     device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -70,11 +70,13 @@ def main():
         sweep[f"{t:.2f}"] = {"n_groups": int(len(sizes)), "largest_group": int(sizes.max()),
                              "n_groups_with_several_sources": int((sizes > 1).sum()),
                              "n_sources_in_shared_groups": int(sizes[sizes > 1].sum())}
-    # the cut is the loosest threshold in the sweep whose largest group stays within --max_group;
+    # the cut is the loosest threshold in the sweep whose largest group stays within the guard;
     # a looser cut chains unrelated faces into one group and empties the other partitions
-    admissible = [t for t in a.sweep if sweep[f"{t:.2f}"]["largest_group"] <= a.max_group]
+    max_group = int(a.max_group_frac * n)
+    print("threshold sweep:", json.dumps(sweep), flush=True)
+    admissible = [t for t in a.sweep if sweep[f"{t:.2f}"]["largest_group"] <= max_group]
     if not admissible:
-        raise SystemExit(f"no threshold in {a.sweep} keeps every identity group within {a.max_group} sources: {sweep}")
+        raise SystemExit(f"no threshold in {a.sweep} keeps every identity group within {max_group} sources ({a.max_group_frac:.0%} of {n})")
     threshold = max(admissible)
     labels = fcluster(Z, t=threshold, criterion="distance")
     groups = {}
@@ -84,7 +86,7 @@ def main():
     D = 1.0 - E @ E.T
     pairs = [(sources[i], sources[j], float(D[i, j])) for i in range(n) for j in range(i + 1, n) if labels[i] == labels[j]]
     sizes = sorted((len(v) for v in groups.values()), reverse=True)
-    out = {"threshold": threshold, "threshold_sweep": sweep, "max_group": a.max_group, "linkage": "average", "n_sources": n, "n_groups": len(groups),
+    out = {"threshold": threshold, "threshold_sweep": sweep, "max_group": max_group, "max_group_frac": a.max_group_frac, "linkage": "average", "n_sources": n, "n_groups": len(groups),
            "n_groups_with_several_sources": len(multi), "n_sources_in_shared_identity_groups": sum(len(v) for v in multi.values()),
            "largest_group": sizes[0], "group_sizes_top10": sizes[:10],
            "cross_language_links": sum(1 for s_, t, _ in pairs if s_[:2] != t[:2]),
