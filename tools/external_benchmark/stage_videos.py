@@ -39,12 +39,18 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--manifest", required=True); ap.add_argument("--out_dir", required=True)
     ap.add_argument("--crf", type=int, nargs="*", default=[]); ap.add_argument("--limit", type=int, default=0)
+    ap.add_argument("--shard", default=None, help="k/n: process only rows with index %% n == k, so several processes can stage in parallel")
     ap.add_argument("--max_faces", type=int, default=20); ap.add_argument("--frame_stride", type=int, default=10)
     ap.add_argument("--image_size", type=int, default=299); ap.add_argument("--sample_rate", type=int, default=16000)
     a = ap.parse_args()
     rows = list(csv.DictReader(open(a.manifest)))
     if a.limit:
         rows = rows[: a.limit]
+    all_rows = rows
+    if a.shard:
+        k, n = (int(x) for x in a.shard.split("/"))
+        rows = [r for i, r in enumerate(rows) if i % n == k]
+    os.environ.setdefault("TF_FORCE_GPU_ALLOW_GROWTH", "true")
     import preprocess
     from mtcnn.mtcnn import MTCNN
     detector = MTCNN()
@@ -52,7 +58,7 @@ def main():
     with open(os.path.join(a.out_dir, "metadata.csv"), "w", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=["clip"] + list(rows[0].keys()))
         w.writeheader()
-        for r in rows:
+        for r in all_rows:
             base = os.path.basename(r["path"]).rsplit(".", 1)[0]
             w.writerow({"clip": f"{base}_label_{'fake' if label_of(r['label']) else 'real'}.npz", **r})
     tiers = [("", None)] + [(f"crf{k}", k) for k in a.crf]
