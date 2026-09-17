@@ -3,7 +3,7 @@
 **Why.** PolyGlotFake derives about nineteen forgeries from each authentic source video. The
 released clip-level partition (seed 42, 70/15/15 within language) places a source's clips in
 different partitions: of the 697 test sources that carry a forgery, 480 have their authentic
-clip in the training partition and 111 in validation (`paper_artifacts/task_23_by_source.py`).
+clip in the training partition and 111 in validation (476 and 111 by the released train list, `make_split.py --audit`; `paper_artifacts/task_23_by_source.py` infers 480 without it).
 The reported test accuracy therefore measures within-source generalisation.
 
 **Partition.** `make_split.py` assigns whole source videos (or whole identity groups when
