@@ -27,8 +27,6 @@ import cv2  # noqa: E402
 import librosa  # noqa: E402
 from agents.cross_modal_lipsync import CrossModal_CNN_LSTM  # noqa: E402
 
-SEED = 42
-torch.manual_seed(SEED); np.random.seed(SEED); random.seed(SEED)
 
 IMAGE_SIZE, MAX_FACES = 224, 20
 SAMPLE_RATE, N_FFT, HOP_LENGTH, N_MELS, AUDIO_LEN = 16000, 2048, 512, 128, 313
@@ -36,7 +34,11 @@ ap = argparse.ArgumentParser()
 ap.add_argument("--data_dir", default="data/polyglot_processed_all_unbalanced")
 ap.add_argument("--val_csv", default="paper_artifacts/source_csvs/analysis_results_VAL.csv")
 ap.add_argument("--output_dir", default="crossmodal_trained")
+ap.add_argument("--seed", type=int, default=42)
+ap.add_argument("--skip_fidelity", action="store_true", help="no released checkpoint applies to this partition")
 ARGS = ap.parse_args()
+SEED = ARGS.seed
+torch.manual_seed(SEED); np.random.seed(SEED); random.seed(SEED)
 DATA = ARGS.data_dir
 OUT = ARGS.output_dir
 os.makedirs(OUT, exist_ok=True)
@@ -135,18 +137,21 @@ def score_split(model, split_dir, files=None):
 
 def main():
     # ---- fidelity gate on the released checkpoint ----
-    released = {r["filepath"].split("/")[-1]: float(r["score_Cross-Modal (Lip-Sync)"])
-                for r in csv.DictReader(open(ARGS.val_csv))}
-    model = CrossModal_CNN_LSTM().to(device)
-    model.load_state_dict(torch.load(os.path.join(HERE, "..", "checkpoints/cross_modal/lip_sync_model_crossattention.pth"),
-                                     map_location=device))
-    val_files = sorted(f for f in os.listdir(os.path.join(DATA, "val")) if f.endswith(".npz"))
-    gate = val_files[:: max(1, len(val_files) // 25)][:25]
-    got = score_split(model, os.path.join(DATA, "val"), gate)
-    diff = max(abs(got[f] - released[f]) for f in gate)
-    print(f"fidelity gate on {len(gate)} clips: max |diff| = {diff:.6f}", flush=True)
-    if diff > 0.01:
-        raise SystemExit("FIDELITY GATE FAILED")
+    if ARGS.skip_fidelity:
+        print("fidelity gate skipped", flush=True)
+    else:
+        released = {r["filepath"].split("/")[-1]: float(r["score_Cross-Modal (Lip-Sync)"])
+                    for r in csv.DictReader(open(ARGS.val_csv))}
+        model = CrossModal_CNN_LSTM().to(device)
+        model.load_state_dict(torch.load(os.path.join(HERE, "..", "checkpoints/cross_modal/lip_sync_model_crossattention.pth"),
+                                         map_location=device))
+        val_files = sorted(f for f in os.listdir(os.path.join(DATA, "val")) if f.endswith(".npz"))
+        gate = val_files[:: max(1, len(val_files) // 25)][:25]
+        got = score_split(model, os.path.join(DATA, "val"), gate)
+        diff = max(abs(got[f] - released[f]) for f in gate)
+        print(f"fidelity gate on {len(gate)} clips: max |diff| = {diff:.6f}", flush=True)
+        if diff > 0.01:
+            raise SystemExit("FIDELITY GATE FAILED")
 
     # ---- retrain from ImageNet init ----
     model = CrossModal_CNN_LSTM().to(device)

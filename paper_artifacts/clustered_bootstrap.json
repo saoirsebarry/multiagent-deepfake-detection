@@ -1,0 +1,116 @@
+{
+  "tau": 0.35,
+  "weights": "equal (0.20 each)",
+  "bootstrap_resamples": 2000,
+  "seed": 42,
+  "polyglotfake_test": {
+    "n": 2162,
+    "errors": 2,
+    "accuracy": 0.9990749306197965,
+    "clopper_pearson_accuracy": [
+      0.9966623666288379,
+      0.9998879501663017
+    ],
+    "n_sources": 709,
+    "sources_with_an_error": 2,
+    "max_errors_in_one_source": 1,
+    "clip_resampled": {
+      "acc": [
+        0.9976873265494912,
+        1.0
+      ],
+      "auc": [
+        0.9999999999999999,
+        1.0
+      ],
+      "ap": [
+        0.9999999999999999,
+        1.0
+      ],
+      "spec": [
+        0.9557472959685349,
+        1.0
+      ],
+      "sens": [
+        1.0,
+        1.0
+      ]
+    },
+    "cluster_resampled": {
+      "acc": [
+        0.997639282341832,
+        1.0
+      ],
+      "auc": [
+        0.9999999999999999,
+        1.0
+      ],
+      "ap": [
+        0.9999999999999999,
+        1.0
+      ],
+      "spec": [
+        0.9557423356510746,
+        1.0
+      ],
+      "sens": [
+        1.0,
+        1.0
+      ]
+    },
+    "n_clusters": 709,
+    "clusters_per_split_note": "cluster = source video (PolyGlotFake clip name prefix) or video_id (YouTube)"
+  },
+  "youtube": {
+    "n": 100,
+    "n_videos": 26,
+    "errors": 46,
+    "accuracy": 0.54,
+    "clip_resampled": {
+      "acc": [
+        0.45,
+        0.64
+      ],
+      "auc": [
+        0.7970196925550419,
+        0.9379763597746791
+      ],
+      "ap": [
+        0.7425313495758916,
+        0.9364751546915823
+      ],
+      "spec": [
+        1.0,
+        1.0
+      ],
+      "sens": [
+        0.0,
+        0.1346153846153846
+      ]
+    },
+    "cluster_resampled": {
+      "acc": [
+        0.3434199134199134,
+        0.7383282815525806
+      ],
+      "auc": [
+        0.7495944385216773,
+        0.9630578151520913
+      ],
+      "ap": [
+        0.6458178301432359,
+        0.9643348127315998
+      ],
+      "spec": [
+        1.0,
+        1.0
+      ],
+      "sens": [
+        0.0,
+        0.1346283783783783
+      ]
+    },
+    "n_clusters": 26,
+    "clusters_per_split_note": "cluster = source video (PolyGlotFake clip name prefix) or video_id (YouTube)"
+  }
+}

@@ -17,6 +17,7 @@ from torch.nn import functional as F
 import torch.optim as optim
 from torch.utils.data import DataLoader, Dataset
 from torch.optim.lr_scheduler import OneCycleLR
+import random
 import numpy as np
 from sklearn.metrics import accuracy_score
 import glob
@@ -68,6 +69,7 @@ def get_options():
     parser.add_argument('--output_model_path', type=str, default='freqnet_model_all_unbalanced_improved.pth', help='Path to save the best model')
     parser.add_argument('--plot_path', type=str, default='training_curves_freqnet_improved.png', help='Path to save training curves plot')
     parser.add_argument('--device', type=str, default='auto', help='Device: "auto", "cuda", or "cpu"')
+    parser.add_argument('--seed', type=int, default=42)
     args = parser.parse_args()
     if args.device == 'auto': args.device = 'cuda' if torch.cuda.is_available() else 'cpu'
     print("-" * 20, "\nTraining Options:"); [print(f"  - {k}: {v}") for k, v in vars(args).items()]; print("-" * 20)
@@ -243,6 +245,7 @@ class FreqNet(nn.Module):
 
 def main(opt):
     """The main function to run the training and validation pipeline."""
+    random.seed(opt.seed); np.random.seed(opt.seed); torch.manual_seed(opt.seed); torch.cuda.manual_seed_all(opt.seed)
     train_files, val_files = get_preprocessed_splits(opt.dataroot)
 
     train_dataset = PreprocessedAudioDataset(train_files, opt.sample_rate, opt.n_mels, is_train=True)

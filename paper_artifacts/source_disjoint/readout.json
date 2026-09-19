@@ -1,0 +1,441 @@
+{
+ "runs": [
+  {
+   "run": "/content/drive/MyDrive/polyglotfake/source_disjoint/seed42",
+   "tau_selection": {
+    "tau": 0.3286,
+    "band": [
+     0.2554993979632854,
+     0.40160643458366396
+    ],
+    "val_errors": 0,
+    "val_fn": 0
+   },
+   "n_test": 387,
+   "n_real": 83,
+   "n_fake": 304,
+   "n_test_sources": 84,
+   "accuracy": 0.9715762273901809,
+   "fp": 11,
+   "fn": 0,
+   "auc": 0.9999603677869372,
+   "ap": 0.9999892148403796,
+   "max_real": 0.5773401230573654,
+   "min_fake": 0.5291611194610596,
+   "per_agent_auc": {
+    "score_Visual (Spatial)": 0.9602885225110971,
+    "score_Audio (Mel+CNN)": 0.9967105263157895,
+    "score_Audio Forensics (ECAPA)": 0.9778654090044387,
+    "score_Cross-Modal (Lip-Sync)": 0.9787967660114141,
+    "score_Facial Biometric (Quality)": 0.9933417882054535
+   },
+   "per_agent_acc_at_0.5": {
+    "score_Visual (Spatial)": 0.9354005167958657,
+    "score_Audio (Mel+CNN)": 0.9509043927648578,
+    "score_Audio Forensics (ECAPA)": 0.9431524547803618,
+    "score_Cross-Modal (Lip-Sync)": 0.9483204134366925,
+    "score_Facial Biometric (Quality)": 0.9870801033591732
+   },
+   "recall_by_method": {
+    "Bark": 1.0,
+    "MicroTts": 1.0,
+    "Tacotron": 1.0,
+    "Vall": 1.0,
+    "Xtts": 1.0
+   },
+   "ci_clip": {
+    "accuracy": [
+     0.9534883720930233,
+     0.9870801033591732
+    ],
+    "auc": [
+     0.9997642621404997,
+     1.0
+    ],
+    "n_clusters": null
+   },
+   "ci_source": {
+    "accuracy": [
+     0.9540532774153464,
+     0.9869460196366406
+    ],
+    "auc": [
+     0.9997616450944332,
+     1.0
+    ],
+    "n_clusters": 84
+   },
+   "phase1_trio_errors": 15,
+   "mcnemar_five_vs_trio": {
+    "a_right_b_wrong": 6,
+    "a_wrong_b_right": 2,
+    "p_exact": 0.2890625
+   },
+   "leave_one_out": {
+    "score_Visual (Spatial)": {
+     "errors": 5,
+     "auc": 0.9998811033608116,
+     "mcnemar": {
+      "a_right_b_wrong": 0,
+      "a_wrong_b_right": 6,
+      "p_exact": 0.03125
+     }
+    },
+    "score_Audio (Mel+CNN)": {
+     "errors": 13,
+     "auc": 0.9993262523779327,
+     "mcnemar": {
+      "a_right_b_wrong": 2,
+      "a_wrong_b_right": 0,
+      "p_exact": 0.5
+     }
+    },
+    "score_Audio Forensics (ECAPA)": {
+     "errors": 13,
+     "auc": 0.9992073557387444,
+     "mcnemar": {
+      "a_right_b_wrong": 2,
+      "a_wrong_b_right": 0,
+      "p_exact": 0.5
+     }
+    },
+    "score_Cross-Modal (Lip-Sync)": {
+     "errors": 4,
+     "auc": 0.9999207355738744,
+     "mcnemar": {
+      "a_right_b_wrong": 0,
+      "a_wrong_b_right": 7,
+      "p_exact": 0.015625
+     }
+    },
+    "score_Facial Biometric (Quality)": {
+     "errors": 11,
+     "auc": 0.9996829422954978,
+     "mcnemar": {
+      "a_right_b_wrong": 0,
+      "a_wrong_b_right": 0,
+      "p_exact": 1.0
+     }
+    }
+   }
+  },
+  {
+   "run": "/content/drive/MyDrive/polyglotfake/source_disjoint/seed43",
+   "tau_selection": {
+    "tau": 0.3167,
+    "band": [
+     0.2605681252665818,
+     0.3727497965097427
+    ],
+    "val_errors": 0,
+    "val_fn": 0
+   },
+   "n_test": 387,
+   "n_real": 83,
+   "n_fake": 304,
+   "n_test_sources": 84,
+   "accuracy": 0.9715762273901809,
+   "fp": 11,
+   "fn": 0,
+   "auc": 1.0,
+   "ap": 1.0,
+   "max_real": 0.41477981135249137,
+   "min_fake": 0.49891882836818696,
+   "per_agent_auc": {
+    "score_Visual (Spatial)": 0.9498256182625238,
+    "score_Audio (Mel+CNN)": 0.9987317691819911,
+    "score_Audio Forensics (ECAPA)": 0.9885066582117945,
+    "score_Cross-Modal (Lip-Sync)": 0.9842660114140773,
+    "score_Facial Biometric (Quality)": 0.9990884590995561
+   },
+   "per_agent_acc_at_0.5": {
+    "score_Visual (Spatial)": 0.9302325581395349,
+    "score_Audio (Mel+CNN)": 0.958656330749354,
+    "score_Audio Forensics (ECAPA)": 0.9509043927648578,
+    "score_Cross-Modal (Lip-Sync)": 0.9483204134366925,
+    "score_Facial Biometric (Quality)": 0.979328165374677
+   },
+   "recall_by_method": {
+    "Bark": 1.0,
+    "MicroTts": 1.0,
+    "Tacotron": 1.0,
+    "Vall": 1.0,
+    "Xtts": 1.0
+   },
+   "ci_clip": {
+    "accuracy": [
+     0.9534883720930233,
+     0.9870801033591732
+    ],
+    "auc": [
+     0.9999999999999999,
+     1.0
+    ],
+    "n_clusters": null
+   },
+   "ci_source": {
+    "accuracy": [
+     0.953927454659162,
+     0.9868774992785587
+    ],
+    "auc": [
+     0.9999999999999999,
+     1.0
+    ],
+    "n_clusters": 84
+   },
+   "phase1_trio_errors": 11,
+   "mcnemar_five_vs_trio": {
+    "a_right_b_wrong": 5,
+    "a_wrong_b_right": 5,
+    "p_exact": 1.0
+   },
+   "leave_one_out": {
+    "score_Visual (Spatial)": {
+     "errors": 1,
+     "auc": 1.0,
+     "mcnemar": {
+      "a_right_b_wrong": 0,
+      "a_wrong_b_right": 10,
+      "p_exact": 0.001953125
+     }
+    },
+    "score_Audio (Mel+CNN)": {
+     "errors": 13,
+     "auc": 0.9997225745085606,
+     "mcnemar": {
+      "a_right_b_wrong": 2,
+      "a_wrong_b_right": 0,
+      "p_exact": 0.5
+     }
+    },
+    "score_Audio Forensics (ECAPA)": {
+     "errors": 13,
+     "auc": 0.9994055168040583,
+     "mcnemar": {
+      "a_right_b_wrong": 2,
+      "a_wrong_b_right": 0,
+      "p_exact": 0.5
+     }
+    },
+    "score_Cross-Modal (Lip-Sync)": {
+     "errors": 1,
+     "auc": 1.0,
+     "mcnemar": {
+      "a_right_b_wrong": 0,
+      "a_wrong_b_right": 10,
+      "p_exact": 0.001953125
+     }
+    },
+    "score_Facial Biometric (Quality)": {
+     "errors": 10,
+     "auc": 0.9996829422954978,
+     "mcnemar": {
+      "a_right_b_wrong": 1,
+      "a_wrong_b_right": 2,
+      "p_exact": 1.0
+     }
+    }
+   }
+  },
+  {
+   "run": "/content/drive/MyDrive/polyglotfake/source_disjoint/seed44",
+   "tau_selection": {
+    "tau": 0.3236,
+    "band": [
+     0.28011509254574773,
+     0.3671326443552971
+    ],
+    "val_errors": 0,
+    "val_fn": 0
+   },
+   "n_test": 387,
+   "n_real": 83,
+   "n_fake": 304,
+   "n_test_sources": 84,
+   "accuracy": 0.9819121447028424,
+   "fp": 7,
+   "fn": 0,
+   "auc": 0.9998811033608117,
+   "ap": 0.9999678553060175,
+   "max_real": 0.4672246940433979,
+   "min_fake": 0.3780570149421692,
+   "per_agent_auc": {
+    "score_Visual (Spatial)": 0.9418991756499683,
+    "score_Audio (Mel+CNN)": 0.994134432466709,
+    "score_Audio Forensics (ECAPA)": 0.9839093214965123,
+    "score_Cross-Modal (Lip-Sync)": 0.9980976537729866,
+    "score_Facial Biometric (Quality)": 0.9984543436905517
+   },
+   "per_agent_acc_at_0.5": {
+    "score_Visual (Spatial)": 0.9043927648578811,
+    "score_Audio (Mel+CNN)": 0.9405684754521964,
+    "score_Audio Forensics (ECAPA)": 0.9483204134366925,
+    "score_Cross-Modal (Lip-Sync)": 0.9767441860465116,
+    "score_Facial Biometric (Quality)": 0.9819121447028424
+   },
+   "recall_by_method": {
+    "Bark": 1.0,
+    "MicroTts": 1.0,
+    "Tacotron": 1.0,
+    "Vall": 1.0,
+    "Xtts": 1.0
+   },
+   "ci_clip": {
+    "accuracy": [
+     0.9689922480620154,
+     0.9948320413436692
+    ],
+    "auc": [
+     0.9994972769166317,
+     1.0
+    ],
+    "n_clusters": null
+   },
+   "ci_source": {
+    "accuracy": [
+     0.9673366834170855,
+     0.9945803120193364
+    ],
+    "auc": [
+     0.9995115398389453,
+     1.0
+    ],
+    "n_clusters": 84
+   },
+   "phase1_trio_errors": 7,
+   "mcnemar_five_vs_trio": {
+    "a_right_b_wrong": 3,
+    "a_wrong_b_right": 3,
+    "p_exact": 1.0
+   },
+   "leave_one_out": {
+    "score_Visual (Spatial)": {
+     "errors": 3,
+     "auc": 1.0,
+     "mcnemar": {
+      "a_right_b_wrong": 0,
+      "a_wrong_b_right": 4,
+      "p_exact": 0.125
+     }
+    },
+    "score_Audio (Mel+CNN)": {
+     "errors": 11,
+     "auc": 0.9998811033608117,
+     "mcnemar": {
+      "a_right_b_wrong": 4,
+      "a_wrong_b_right": 0,
+      "p_exact": 0.125
+     }
+    },
+    "score_Audio Forensics (ECAPA)": {
+     "errors": 11,
+     "auc": 0.9992073557387444,
+     "mcnemar": {
+      "a_right_b_wrong": 4,
+      "a_wrong_b_right": 0,
+      "p_exact": 0.125
+     }
+    },
+    "score_Cross-Modal (Lip-Sync)": {
+     "errors": 5,
+     "auc": 1.0,
+     "mcnemar": {
+      "a_right_b_wrong": 2,
+      "a_wrong_b_right": 4,
+      "p_exact": 0.6875
+     }
+    },
+    "score_Facial Biometric (Quality)": {
+     "errors": 8,
+     "auc": 0.9999207355738745,
+     "mcnemar": {
+      "a_right_b_wrong": 3,
+      "a_wrong_b_right": 2,
+      "p_exact": 1.0
+     }
+    }
+   }
+  }
+ ],
+ "summary": {
+  "accuracy": {
+   "mean": 0.9750215331610681,
+   "sd": 0.005967444642786819,
+   "values": [
+    0.9715762273901809,
+    0.9715762273901809,
+    0.9819121447028424
+   ]
+  },
+  "auc": {
+   "mean": 0.9999471570492496,
+   "sd": 6.0539205439574285e-05,
+   "values": [
+    0.9999603677869372,
+    1.0,
+    0.9998811033608117
+   ]
+  },
+  "ap": {
+   "mean": 0.999985690048799,
+   "sd": 1.6359659366011183e-05,
+   "values": [
+    0.9999892148403796,
+    1.0,
+    0.9999678553060175
+   ]
+  },
+  "fp": {
+   "mean": 9.666666666666666,
+   "sd": 2.3094010767585034,
+   "values": [
+    11.0,
+    11.0,
+    7.0
+   ]
+  },
+  "fn": {
+   "mean": 0.0,
+   "sd": 0.0,
+   "values": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  "phase1_trio_errors": {
+   "mean": 11.0,
+   "sd": 4.0,
+   "values": [
+    15.0,
+    11.0,
+    7.0
+   ]
+  },
+  "per_agent_auc": {
+   "score_Visual (Spatial)": {
+    "mean": 0.9506711054745297,
+    "sd": 0.009223782085672675
+   },
+   "score_Audio (Mel+CNN)": {
+    "mean": 0.9965255759881632,
+    "sd": 0.0023042419981823044
+   },
+   "score_Audio Forensics (ECAPA)": {
+    "mean": 0.9834271295709152,
+    "sd": 0.0053369867868578915
+   },
+   "score_Cross-Modal (Lip-Sync)": {
+    "mean": 0.9870534770661594,
+    "sd": 0.00994779074304231
+   },
+   "score_Facial Biometric (Quality)": {
+    "mean": 0.9969615303318538,
+    "sd": 0.0031507817100224363
+   }
+  },
+  "clips_misclassified_by_every_seed": 4,
+  "clips_misclassified_by_any_seed": 13
+ }
+}
