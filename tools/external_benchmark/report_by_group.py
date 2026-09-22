@@ -43,7 +43,7 @@ def group_table(df, key, tau):
                      "specificity": float((pred[g.y == 0] == 0).mean()) if (g.y == 0).any() else None,
                      "auc": float(roc_auc_score(g.y, g.sys)) if g.y.nunique() == 2 else None,
                      "mean_score": float(g.sys.mean()),
-                     "per_agent_auc": {c: float(roc_auc_score(g.y, g[c])) for c in COLS} if g.y.nunique() == 2 else None})
+                     "per_agent_auc": {c: float(roc_auc_score(g.y[g[c] >= 0], g[c][g[c] >= 0])) for c in COLS if g.y[g[c] >= 0].nunique() == 2} if g.y.nunique() == 2 else None})
     return rows
 
 
@@ -53,21 +53,25 @@ def main():
     ap.add_argument("--group_by", nargs="+", default=["generator", "language"]); ap.add_argument("--cluster", default="source_video")
     ap.add_argument("--tau", type=float, default=0.35); ap.add_argument("--boot", type=int, default=5000); ap.add_argument("--out", required=True)
     a = ap.parse_args()
-    meta = pd.read_csv(a.metadata)
+    # one MAVOS clip is selected twice by the seeded sample; a plain merge would count it twice
+    meta = pd.read_csv(a.metadata).drop_duplicates("clip")
     rng = np.random.default_rng(42)
     out = {"tau": a.tau, "weights": "equal", "cluster": a.cluster, "tiers": {}}
     for path in a.scores:
         df = pd.read_csv(path)
         df["clip"] = df.filepath.map(os.path.basename)
-        df = df.merge(meta, on="clip", how="inner")
-        df["y"] = (df.ground_truth == "Fake").astype(int); df["sys"] = df[COLS].mean(axis=1)
+        df = df.drop_duplicates("clip").merge(meta, on="clip", how="inner")
+        df["y"] = (df.ground_truth == "Fake").astype(int)
+        # an agent that could not run (e.g. no audio track) writes -1; the orchestrator's
+        # final_score averages only the agents that ran, so mirror that here
+        df["sys"] = df[COLS].where(df[COLS] >= 0).mean(axis=1)
         pred = (df.sys >= a.tau).astype(int)
         tier = os.path.basename(os.path.dirname(path)) or "original"
         out["tiers"][tier] = {
             "n": int(len(df)), "n_fake": int(df.y.sum()), "accuracy": float((pred == df.y).mean()),
             "fp": int(((pred == 1) & (df.y == 0)).sum()), "fn": int(((pred == 0) & (df.y == 1)).sum()),
             "auc": float(roc_auc_score(df.y, df.sys)) if df.y.nunique() == 2 else None,
-            "per_agent_auc": {c: float(roc_auc_score(df.y, df[c])) for c in COLS} if df.y.nunique() == 2 else None,
+            "per_agent_auc": {c: float(roc_auc_score(df.y[df[c] >= 0], df[c][df[c] >= 0])) for c in COLS} if df.y.nunique() == 2 else None,
             "ci_clip": boot(df, a.tau, None, a.boot, rng), "ci_cluster": boot(df, a.tau, a.cluster, a.boot, rng),
             "escalation_rate": float((((df[COLS[2:]] >= 0.5).any(axis=1) & ~(df[COLS[2:]] >= 0.5).all(axis=1)) | (df[COLS[2:]].std(axis=1) >= 0.30)).mean()),
             "by": {k: group_table(df, k, a.tau) for k in a.group_by if k in df},

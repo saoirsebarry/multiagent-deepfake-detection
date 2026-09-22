@@ -28,7 +28,8 @@ def label_of(v):
 
 
 def clip_name(row):
-    base = os.path.basename(row["path"]).rsplit(".", 1)[0]
+    # preprocess.py strips every ".mp4", so MAVOS's "<name>.mp4.mp4" loses both
+    base = os.path.basename(row["path"]).replace(".mp4", "")
     return f"{base}_label_{'fake' if label_of(row['label']) else 'real'}.npz"
 
 
@@ -73,23 +74,30 @@ def stage_and_score(chunk, tier, crf, args, work):
             if os.path.exists(src):
                 shutil.copy2(src, os.path.join(data_dir, "test"))
 
-    crf_arg = "" if crf is None else f"--crf {crf}"
-    stage = (
-        f"cd {REPO} && seq 0 {args.shards - 1} | xargs -P {args.shards} -I@ sh -c "
-        f'"{PY} -u tools/external_benchmark/stage_videos.py --manifest {manifest} '
-        f'--out_dir {clips} {crf_arg} --shard @/{args.shards} > {work}/stage_@.log 2>&1"'
-    )
-    subprocess.run(stage, shell=True, check=False)
+    procs = []
+    for k in range(args.shards):
+        cmd = [PY, "-u", os.path.join(REPO, "tools", "external_benchmark", "stage_videos.py"),
+               "--manifest", manifest, "--out_dir", clips, "--shard", f"{k}/{args.shards}"]
+        if crf is not None:
+            cmd += ["--crf", str(crf), "--skip_original"]
+        log = open(os.path.join(work, f"stage_{k}.log"), "w")
+        procs.append((subprocess.Popen(cmd, cwd=REPO, stdout=log, stderr=subprocess.STDOUT), log))
+    for proc, log in procs:
+        proc.wait()
+        log.close()
     staged = len(os.listdir(os.path.join(data_dir, "test")))
+    if not staged:
+        raise RuntimeError(f"no clips staged for {tier}; see {work}/stage_*.log")
 
     scores = os.path.join(work, "chunk_scores.csv")
-    run = subprocess.run(
-        f"cd {REPO} && {PY} -u tools/source_disjoint/score_split.py --data_dir {data_dir} "
-        f"--split test --ckpt_dir {args.ckpt_dir} --out {scores}",
-        shell=True, capture_output=True, text=True,
-    )
-    if run.returncode != 0:
-        raise RuntimeError(f"scoring failed: {run.stderr[-800:]}")
+    score_log = os.path.join(work, "score.log")
+    cmd = [PY, "-u", os.path.join(REPO, "tools", "source_disjoint", "score_split.py"),
+           "--data_dir", data_dir, "--split", "test", "--ckpt_dir", args.ckpt_dir,
+           "--out", scores, "--device", args.device, "--workers", str(args.workers)]
+    with open(score_log, "w") as log:
+        rc = subprocess.run(cmd, cwd=REPO, stdout=log, stderr=subprocess.STDOUT).returncode
+    if rc != 0 or not os.path.exists(scores):
+        raise RuntimeError(f"scoring failed (rc={rc}); see {score_log}")
     return staged, scores, clips
 
 
@@ -102,6 +110,10 @@ def main():
     ap.add_argument("--shards", type=int, default=2)
     ap.add_argument("--pool", default=None, help="directory of clips staged by an earlier run")
     ap.add_argument("--work", default="/content/mavos_work")
+    ap.add_argument("--device", default="auto")
+    ap.add_argument("--workers", type=int, default=2)
+    ap.add_argument("--retries", type=int, default=3)
+    ap.add_argument("--tiers", nargs="+", default=[t for t, _ in TIERS])
     a = ap.parse_args()
 
     rows = list(csv.DictReader(open(a.manifest or os.path.join(a.out_dir, "videos.csv"))))
@@ -111,7 +123,8 @@ def main():
     chunks = [rows[i:i + a.chunk] for i in range(0, len(rows), a.chunk)]
     print(f"{len(rows)} clips in {len(chunks)} chunks of {a.chunk}", flush=True)
 
-    for tier, crf in TIERS:
+    tiers = [(t, c) for t, c in TIERS if t in a.tiers]
+    for tier, crf in tiers:
         tier_dir = os.path.join(a.out_dir, tier)
         os.makedirs(tier_dir, exist_ok=True)
         progress_path = os.path.join(tier_dir, "progress.json")
@@ -122,7 +135,17 @@ def main():
             if i in progress["done"]:
                 continue
             t0 = time.time()
-            staged, scores, clips = stage_and_score(chunk, tier, crf, a, a.work)
+            for attempt in range(1, a.retries + 1):
+                try:
+                    staged, scores, clips = stage_and_score(chunk, tier, crf, a, a.work)
+                    break
+                except RuntimeError as exc:
+                    if attempt == a.retries:
+                        raise
+                    # the MPS backend faults intermittently; a chunk is cheap to redo
+                    print(f"{tier} chunk {i + 1}: attempt {attempt} failed ({exc}); retrying", flush=True)
+                    shutil.rmtree(os.path.join(a.work, "clips"), ignore_errors=True)
+                    time.sleep(15)
             n = append_rows(scores, scores_path)
             progress["done"].append(i)
             json.dump(progress, open(progress_path, "w"))
@@ -132,7 +155,7 @@ def main():
         print(f"TIER-DONE {tier}", flush=True)
 
     report = os.path.join(a.out_dir, "report.json")
-    tier_scores = " ".join(f'"{os.path.join(a.out_dir, t, "scores.csv")}"' for t, _ in TIERS)
+    tier_scores = " ".join(f'"{os.path.join(a.out_dir, t, "scores.csv")}"' for t, _ in tiers)
     subprocess.run(
         f"cd {REPO} && {PY} -u tools/external_benchmark/report_by_group.py --scores {tier_scores} "
         f'--metadata "{os.path.join(a.out_dir, "metadata.csv")}" '
