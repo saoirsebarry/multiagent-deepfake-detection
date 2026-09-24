@@ -1,10 +1,10 @@
 """Read out one or more seeded runs on a source-disjoint partition.
 
-    python tools/source_disjoint/analyse.py --runs <run_dir> [<run_dir> ...] --out readout.json
+    python tools/source_disjoint/analyse.py --runs <run_dir> [<run_dir> ...] --out readout.json [--tau 0.35]
 
-For every run: the threshold is set on that run's validation scores by the released rule
-(equal weights; the lowest-error band with no missed fake, taking its midpoint), the test
-partition is read once at that threshold, and every interval is a source-clustered
+For every run: the threshold is set on that run's validation scores by the protocol's rule
+(equal weights; the lowest-error band with no missed fake, taking its midpoint), or held at
+--tau and checked against that band, the test partition is read once at that threshold, and every interval is a source-clustered
 bootstrap (sources resampled with replacement) beside the clip-level one. Across runs the
 mean and standard deviation of each metric are reported, plus the pooled per-clip agreement.
 """
@@ -78,9 +78,15 @@ def mcnemar(pred_a, pred_b, y):
     return {"a_right_b_wrong": b, "a_wrong_b_right": c, "p_exact": p}
 
 
-def readout(run, B, seed):
+def readout(run, B, seed, fixed_tau=None):
     val = load(os.path.join(run, "scores_val.csv")); test = load(os.path.join(run, "scores_test.csv"))
-    sel = select_tau(val); tau = sel["tau"]
+    sel = select_tau(val)
+    if fixed_tau is not None:
+        vp = (val["sys"] >= fixed_tau).astype(int)
+        sel = {"tau": fixed_tau, "rule": "fixed", "validation_band": sel["band"], "band_midpoint": sel["tau"],
+               "inside_band": bool(sel["band"][0] <= fixed_tau <= sel["band"][1]),
+               "val_errors": int((vp != val.y).sum()), "val_fn": int(((vp == 0) & (val.y == 1)).sum())}
+    tau = sel["tau"]
     pred = (test["sys"] >= tau).astype(int); y = test.y
     fp = int(((pred == 1) & (y == 0)).sum()); fn = int(((pred == 0) & (y == 1)).sum())
     out = {
@@ -111,10 +117,11 @@ def main():
     ap.add_argument("--out", required=True)
     ap.add_argument("--bootstrap", type=int, default=10000)
     ap.add_argument("--seed", type=int, default=42)
+    ap.add_argument("--tau", type=float, default=None, help="hold the threshold fixed instead of selecting it per run")
     a = ap.parse_args()
     runs, frames = [], []
     for r in a.runs:
-        o, f = readout(r, a.bootstrap, a.seed); runs.append(o); frames.append(f)
+        o, f = readout(r, a.bootstrap, a.seed, a.tau); runs.append(o); frames.append(f)
         print(f"{r}: tau {o['tau_selection']['tau']} acc {100*o['accuracy']:.2f}% fp {o['fp']} fn {o['fn']} auc {o['auc']:.5f} "
               f"src-CI acc {o['ci_source']['accuracy']} auc {o['ci_source']['auc']}", flush=True)
     summary = {}
