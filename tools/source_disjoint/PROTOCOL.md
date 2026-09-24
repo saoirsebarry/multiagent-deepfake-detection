@@ -17,9 +17,9 @@ in train and validation, test left unbalanced. The manifest hash is recorded bef
 then the released robustness fine-tunes with their validation-only adoption rules, warm-started
 from the run's own checkpoints. Seeds 42, 43 and 44; nothing else varies between runs.
 
-**Read-out.** Equal weights. The threshold is set on each run's validation scores by the
-released rule (lowest-error band with no missed fake; midpoint). The test partition is read
-once per run. Intervals are source-clustered bootstraps beside clip-level ones. Across runs:
+**Read-out.** Equal weights and the released threshold τ = 0.35, held fixed and checked to lie
+inside each run's zero-error validation band (`analyse.py --tau 0.35`). The test partition is
+read once per run. Intervals are source-clustered bootstraps beside clip-level ones. Across runs:
 mean and standard deviation of accuracy, AUC-ROC and AP; per-agent AUC; McNemar between the
 five-agent system and the Phase-1 trio and each leave-one-out configuration, per run.
 
