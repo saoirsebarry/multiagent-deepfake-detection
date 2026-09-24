@@ -27,9 +27,14 @@ matplotlib.use('Agg')
 
 class GradCAM:
     """A robust Grad-CAM implementation for PyTorch that handles model evaluation state."""
-    def __init__(self, model, target_layer):
+    METHODS = ("gradcam", "hirescam", "layercam")
+
+    def __init__(self, model, target_layer, method="gradcam"):
+        if method not in self.METHODS:
+            raise ValueError(f"method must be one of {self.METHODS}, got {method!r}")
         self.model = model
         self.target_layer = target_layer
+        self.method = method
         self.activations = None
         self.gradients = None
         self.hooks = []
@@ -55,7 +60,12 @@ class GradCAM:
             handle.remove()
         self.hooks = []
 
-    def __call__(self, input_tensor, target_category=None):
+    def __call__(self, input_tensor, target_category=None, explain="predicted"):
+        """explain='predicted' differentiates the class the model actually predicted;
+        'logit' always differentiates the positive logit, which inverts the map on every
+        sample scored below 0.5 and exists only to reproduce the pre-fix artifacts."""
+        if explain not in ("predicted", "logit"):
+            raise ValueError(f"explain must be 'predicted' or 'logit', got {explain!r}")
         # Save original grad states and enable gradients for all params.
         # This is important if the model was in torch.no_grad() mode.
         original_grad_states = {}
@@ -80,21 +90,34 @@ class GradCAM:
             
             # --- 3. Backward pass ---
             score = output.squeeze() if target_category is None else output[:, target_category]
-            score.backward(torch.ones_like(score))
-            
+            grad_seed = torch.ones_like(score)
+            if explain == "predicted" and target_category is None and score.numel() == 1:
+                # One logit, high = positive class. Ascending it explains "positive"; for a
+                # sample the model calls negative we must descend it, or the map explains the
+                # class that was not predicted and scores worse than random under deletion.
+                if score.detach().reshape(-1)[0].item() < 0:
+                    grad_seed = -grad_seed
+            score.backward(grad_seed)
+
             # --- 4. Check for gradients and clean up the hook ---
             activations_hook_handle.remove()
             if self.gradients is None:
                 raise ValueError("Grad-CAM Error: Gradients were not captured.")
 
             # --- 5. Compute the heatmap ---
-            pooled_grads = torch.mean(self.gradients, dim=[0, 2, 3])
-            # Weight the channels by the gradients
-            for i in range(self.activations.shape[1]):
-                self.activations[:, i, :, :] *= pooled_grads[i]
-            
-            heatmap = torch.mean(self.activations, dim=1).squeeze().cpu()
-            heatmap = F.relu(heatmap)
+            # Grad-CAM scales a whole channel by its mean gradient; the two variants scale each
+            # location by its own gradient instead. The released system uses gradcam; the others
+            # exist for tools/xai_fidelity/diagnose_real_half.py, which compares all three.
+            # Out-of-place throughout: the captured tensor may be an inplace activation's
+            # output, and scaling it in place corrupts both the activations and the graph.
+            if self.method == "gradcam":
+                pooled_grads = torch.mean(self.gradients, dim=[0, 2, 3])
+                heatmap = torch.mean(self.activations * pooled_grads.view(1, -1, 1, 1), dim=1)
+            else:
+                g = self.gradients if self.method == "hirescam" else F.relu(self.gradients)
+                heatmap = (self.activations * g).sum(dim=1)
+
+            heatmap = F.relu(heatmap.squeeze().cpu())
             
             # Normalize to [0, 1]
             if torch.max(heatmap) > 0:
@@ -362,6 +385,46 @@ def find_target_layer(model, layer_type=nn.Conv2d, reverse=True):
     logging.warning(f"Couldn't find any {layer_type} layer in the model.")
     return None
 
+
+_CAM_ACT_TYPES = (nn.ReLU, nn.ReLU6, nn.LeakyReLU, nn.ELU, nn.SiLU, nn.GELU, nn.Hardswish)
+
+
+def find_cam_layer(model, sample_input, post_activation=True):
+    """Last spatial feature map in execution order, for Grad-CAM.
+
+    Selection is by a probe forward pass rather than by module order: this detector registers
+    its attention block after the backbone and its classifier head contains ReLUs, so both a
+    reverse module scan and a name match would pick a layer whose output is not an image.
+    post_activation=True prefers the activation over the raw convolution, matching the Keras
+    path's block14_sepconv2_act; False reproduces the pre-fix choice of the last Conv2d.
+    """
+    seen, handles = [], []
+
+    def record(module, _inp, out):
+        if torch.is_tensor(out) and out.dim() == 4:
+            seen.append(module)
+
+    wanted = _CAM_ACT_TYPES if post_activation else (nn.Conv2d,)
+    for _, m in model.named_modules():
+        if isinstance(m, wanted):
+            handles.append(m.register_forward_hook(record))
+    try:
+        was_training = model.training
+        model.eval()
+        with torch.no_grad():
+            model(sample_input)
+        if was_training:
+            model.train()
+    finally:
+        for h in handles:
+            h.remove()
+
+    if seen:
+        return seen[-1]
+    logging.warning("No 4-D %s output found; falling back to the last Conv2d.",
+                    "activation" if post_activation else "convolution")
+    return find_target_layer(model)
+
 def cleanup_matplotlib():
     """Forcefully cleans up matplotlib figures to prevent memory leaks."""
     plt.close('all')
@@ -382,5 +445,6 @@ __all__ = [
     'generate_audio_forensics_viz',
     'generate_face_quality_viz',
     'find_target_layer',
+    'find_cam_layer',
     'cleanup_matplotlib'
 ]
