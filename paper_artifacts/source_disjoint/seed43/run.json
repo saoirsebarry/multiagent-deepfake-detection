@@ -1,0 +1,12 @@
+{
+ "seed": 43,
+ "data_dir": "/content/pgf_sd",
+ "agents": [
+  "xception",
+  "freqnet",
+  "crossmodal",
+  "biometric",
+  "ecapa"
+ ],
+ "finetune": true
+}

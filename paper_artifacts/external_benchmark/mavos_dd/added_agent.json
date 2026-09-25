@@ -1,0 +1,422 @@
+{
+ "tau": 0.35,
+ "n": 2861,
+ "specificity_five": 0.8232,
+ "specificity_six": 0.8296,
+ "groups": {
+  "all forged": {
+   "n_forged": 2550,
+   "five": [
+    0.5798,
+    0.5447,
+    0.6124
+   ],
+   "six": [
+    0.7395,
+    0.7027,
+    0.7741
+   ],
+   "added_alone": [
+    0.8574,
+    0.8345,
+    0.8802
+   ],
+   "six_minus_five_ci": [
+    0.1437,
+    0.1771
+   ],
+   "recall_five": 0.3075,
+   "recall_six": 0.4439
+  },
+  "video only": {
+   "n_forged": 1540,
+   "five": [
+    0.4436,
+    0.407,
+    0.4799
+   ],
+   "six": [
+    0.6617,
+    0.6155,
+    0.7052
+   ],
+   "added_alone": [
+    0.8873,
+    0.8654,
+    0.9093
+   ],
+   "six_minus_five_ci": [
+    0.1947,
+    0.2437
+   ],
+   "recall_five": 0.1227,
+   "recall_six": 0.2448
+  },
+  "video and speech": {
+   "n_forged": 695,
+   "five": [
+    0.8285,
+    0.7933,
+    0.8595
+   ],
+   "six": [
+    0.9206,
+    0.8991,
+    0.9393
+   ],
+   "added_alone": [
+    0.9089,
+    0.8856,
+    0.9293
+   ],
+   "six_minus_five_ci": [
+    0.0748,
+    0.1108
+   ],
+   "recall_five": 0.6906,
+   "recall_six": 0.8791
+  },
+  "speech only": {
+   "n_forged": 315,
+   "five": [
+    0.6972,
+    0.6513,
+    0.7387
+   ],
+   "six": [
+    0.7203,
+    0.6757,
+    0.7596
+   ],
+   "added_alone": [
+    0.5974,
+    0.5518,
+    0.6434
+   ],
+   "six_minus_five_ci": [
+    0.006,
+    0.0399
+   ],
+   "recall_five": 0.3651,
+   "recall_six": 0.4571
+  },
+  "video forged, seen generators": {
+   "n_forged": 1277,
+   "five": [
+    0.56,
+    0.5244,
+    0.5935
+   ],
+   "six": [
+    0.7477,
+    0.7107,
+    0.7808
+   ],
+   "added_alone": [
+    0.9072,
+    0.8875,
+    0.9268
+   ],
+   "six_minus_five_ci": [
+    0.1698,
+    0.2072
+   ],
+   "recall_five": 0.3375,
+   "recall_six": 0.4558
+  },
+  "video forged, unseen generators": {
+   "n_forged": 958,
+   "five": [
+    0.5677,
+    0.5285,
+    0.6058
+   ],
+   "six": [
+    0.7349,
+    0.6927,
+    0.7748
+   ],
+   "added_alone": [
+    0.8765,
+    0.8513,
+    0.9013
+   ],
+   "six_minus_five_ci": [
+    0.149,
+    0.1862
+   ],
+   "recall_five": 0.2484,
+   "recall_six": 0.4238
+  },
+  "video only, seen generators": {
+   "n_forged": 820,
+   "five": [
+    0.3927,
+    0.3533,
+    0.4301
+   ],
+   "six": [
+    0.6401,
+    0.5913,
+    0.6855
+   ],
+   "added_alone": [
+    0.9106,
+    0.8901,
+    0.9304
+   ],
+   "six_minus_five_ci": [
+    0.2202,
+    0.2767
+   ],
+   "recall_five": 0.0768,
+   "recall_six": 0.1939
+  },
+  "video only, unseen generators": {
+   "n_forged": 720,
+   "five": [
+    0.5015,
+    0.4606,
+    0.5429
+   ],
+   "six": [
+    0.6863,
+    0.6392,
+    0.7305
+   ],
+   "added_alone": [
+    0.8607,
+    0.834,
+    0.8876
+   ],
+   "six_minus_five_ci": [
+    0.1625,
+    0.2083
+   ],
+   "recall_five": 0.175,
+   "recall_six": 0.3028
+  },
+  "video forged, unseen languages": {
+   "n_forged": 559,
+   "five": [
+    0.5561,
+    0.5142,
+    0.596
+   ],
+   "six": [
+    0.7414,
+    0.7012,
+    0.7785
+   ],
+   "added_alone": [
+    0.9055,
+    0.8832,
+    0.9273
+   ],
+   "six_minus_five_ci": [
+    0.1649,
+    0.2089
+   ],
+   "recall_five": 0.2934,
+   "recall_six": 0.4132
+  }
+ },
+ "classes": {
+  "echomimic (seen)": {
+   "n_forged": 320,
+   "five": [
+    0.6101,
+    0.5612,
+    0.6602
+   ],
+   "six": [
+    0.7985,
+    0.7615,
+    0.835
+   ],
+   "added_alone": [
+    0.9641,
+    0.9478,
+    0.9778
+   ],
+   "six_minus_five_ci": [
+    0.164,
+    0.2133
+   ],
+   "recall_five": 0.5563,
+   "recall_six": 0.5938
+  },
+  "hififace (unseen)": {
+   "n_forged": 320,
+   "five": [
+    0.5138,
+    0.4654,
+    0.5597
+   ],
+   "six": [
+    0.7044,
+    0.6569,
+    0.7493
+   ],
+   "added_alone": [
+    0.8847,
+    0.8534,
+    0.9132
+   ],
+   "six_minus_five_ci": [
+    0.1675,
+    0.2158
+   ],
+   "recall_five": 0.1437,
+   "recall_six": 0.325
+  },
+  "inswapper (seen)": {
+   "n_forged": 318,
+   "five": [
+    0.4043,
+    0.3594,
+    0.4471
+   ],
+   "six": [
+    0.6467,
+    0.5973,
+    0.6916
+   ],
+   "added_alone": [
+    0.9184,
+    0.8946,
+    0.9408
+   ],
+   "six_minus_five_ci": [
+    0.2128,
+    0.2748
+   ],
+   "recall_five": 0.0503,
+   "recall_six": 0.1981
+  },
+  "liveportrait (seen)": {
+   "n_forged": 320,
+   "five": [
+    0.7689,
+    0.7303,
+    0.8056
+   ],
+   "six": [
+    0.8409,
+    0.8094,
+    0.8713
+   ],
+   "added_alone": [
+    0.78,
+    0.7387,
+    0.8216
+   ],
+   "six_minus_five_ci": [
+    0.0563,
+    0.0897
+   ],
+   "recall_five": 0.6031,
+   "recall_six": 0.6625
+  },
+  "memo (seen)": {
+   "n_forged": 319,
+   "five": [
+    0.4552,
+    0.4057,
+    0.5011
+   ],
+   "six": [
+    0.7038,
+    0.6544,
+    0.7468
+   ],
+   "added_alone": [
+    0.9664,
+    0.9515,
+    0.98
+   ],
+   "six_minus_five_ci": [
+    0.2247,
+    0.2762
+   ],
+   "recall_five": 0.1379,
+   "recall_six": 0.3668
+  },
+  "voice conversion": {
+   "n_forged": 315,
+   "five": [
+    0.6972,
+    0.6513,
+    0.7387
+   ],
+   "six": [
+    0.7203,
+    0.6757,
+    0.7596
+   ],
+   "added_alone": [
+    0.5974,
+    0.5518,
+    0.6434
+   ],
+   "six_minus_five_ci": [
+    0.006,
+    0.0399
+   ],
+   "recall_five": 0.3651,
+   "recall_six": 0.4571
+  },
+  "roop (unseen)": {
+   "n_forged": 318,
+   "five": [
+    0.7522,
+    0.7119,
+    0.791
+   ],
+   "six": [
+    0.8089,
+    0.7718,
+    0.8448
+   ],
+   "added_alone": [
+    0.7724,
+    0.7305,
+    0.8141
+   ],
+   "six_minus_five_ci": [
+    0.0405,
+    0.0738
+   ],
+   "recall_five": 0.456,
+   "recall_six": 0.5786
+  },
+  "sonic (unseen)": {
+   "n_forged": 320,
+   "five": [
+    0.4382,
+    0.3902,
+    0.4896
+   ],
+   "six": [
+    0.6919,
+    0.6417,
+    0.7384
+   ],
+   "added_alone": [
+    0.9717,
+    0.9583,
+    0.984
+   ],
+   "six_minus_five_ci": [
+    0.2288,
+    0.2815
+   ],
+   "recall_five": 0.1469,
+   "recall_six": 0.3688
+  }
+ },
+ "accuracy_five": 0.3635,
+ "balanced_accuracy_five": 0.5653,
+ "accuracy_six": 0.4858,
+ "balanced_accuracy_six": 0.6368
+}

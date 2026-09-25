@@ -22,7 +22,10 @@ ap = argparse.ArgumentParser()
 ap.add_argument("--data_dir", required=True); ap.add_argument("--out_dir", required=True)
 ap.add_argument("--epochs", type=int, default=20); ap.add_argument("--lr", type=float, default=1e-4)
 ap.add_argument("--batch", type=int, default=16)
-A = ap.parse_args(); os.makedirs(A.out_dir, exist_ok=True); C.seed_all()
+ap.add_argument("--init", default=None, help="checkpoint to warm-start from (default: the released one)")
+ap.add_argument("--skip_fidelity", action="store_true", help="no released validation column applies to this partition")
+ap.add_argument("--seed", type=int, default=42)
+A = ap.parse_args(); os.makedirs(A.out_dir, exist_ok=True); C.seed_all(A.seed)
 device = C.pick_device(allow_mps=False)  # FFT layers
 SR, N_MELS, HOP, LEN = 16000, 224, 512, 5 * 16000
 try:
@@ -73,12 +76,14 @@ def score_split(model, root, split, corrupt=False):
 
 
 model = FreqNet(num_classes=1).to(device)
-model.load_state_dict(torch.load(os.path.join(C.REPO, "checkpoints/freqnet/freqnet_model_all_unbalanced_improved.pth"), map_location=device, weights_only=False))
+model.load_state_dict(torch.load(A.init or os.path.join(C.REPO, "checkpoints/freqnet/freqnet_model_all_unbalanced_improved.pth"), map_location=device, weights_only=False))
 labels_of = lambda ss: {f: 1.0 if "_label_fake" in f else 0.0 for f in ss}
 LABELS_V = {f: 1.0 if "_label_fake" in f else 0.0 for f in C.split_files(A.data_dir, "val")[1]}
 def score_split_corrupt():
     return score_split(model, A.data_dir, "val", corrupt=True)
-vs = score_split(model, A.data_dir, "val"); C.fidelity(vs, C.COLUMNS["freqnet"])
+vs = score_split(model, A.data_dir, "val")
+if not A.skip_fidelity:
+    C.fidelity(vs, C.COLUMNS["freqnet"])
 vc = score_split_corrupt()
 hist = [{"epoch": 0, **C.evaluate(vs, labels_of(vs)), **{"corr_" + k: v for k, v in C.evaluate(vc, LABELS_V).items()}}]; print("epoch 00", hist[-1], flush=True)
 best = dict(hist[-1]); best_r = 0.5 * (hist[0]["logloss"] + hist[0]["corr_logloss"]); best_path = os.path.join(A.out_dir, "best_model.pth"); torch.save(model.state_dict(), best_path)

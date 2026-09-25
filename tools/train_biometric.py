@@ -34,7 +34,7 @@ from torch.utils.data import DataLoader, Dataset
 from torchvision import models, transforms
 
 logging.basicConfig(level=logging.INFO, format="%(message)s")
-SEED = 42
+SEED = int(os.environ.get("PGF_SEED", 42))
 torch.manual_seed(SEED)
 np.random.seed(SEED)
 random.seed(SEED)
@@ -175,7 +175,11 @@ def main():
     ap.add_argument("--output_dir", default="biometric_final")
     ap.add_argument("--stage1_epochs", type=int, default=30)
     ap.add_argument("--stage2_epochs", type=int, default=10)
+    ap.add_argument("--seed", type=int, default=SEED)
+    ap.add_argument("--select", choices=["ensemble", "loss"], default="ensemble",
+                    help="stage-2 epoch selection: the released ensemble objective (needs --val_csv scored by the other agents) or validation loss")
     args = ap.parse_args()
+    torch.manual_seed(args.seed); np.random.seed(args.seed); random.seed(args.seed)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     os.makedirs(args.output_dir, exist_ok=True)
@@ -234,13 +238,21 @@ def main():
 
     # ---- Stage 2: fine-tune; stopping epoch selected on validation by the
     # ensemble objective (min errors at tau=0.5, tie-break on margin) ----
-    vrows = list(csv.DictReader(open(args.val_csv)))
-    val_files = [r["filepath"].split("/")[-1] for r in vrows]
-    val_y = np.array([r["ground_truth"] == "Fake" for r in vrows])
-    S4 = np.array([[float(r[c]) for c in FIXED_AGENT_COLS] for r in vrows])
-    grid = build_grid()
+    if args.select == "ensemble":
+        vrows = list(csv.DictReader(open(args.val_csv)))
+        val_files = [r["filepath"].split("/")[-1] for r in vrows]
+        val_y = np.array([r["ground_truth"] == "Fake" for r in vrows])
+        S4 = np.array([[float(r[c]) for c in FIXED_AGENT_COLS] for r in vrows])
+        grid = build_grid()
+    else:
+        val_files = sorted(f for f in os.listdir(os.path.join(args.data_dir, "val")) if f.endswith(".npz"))
+        val_y = np.array(["_label_fake" in f for f in val_files])
 
     def grid_objective(bio_scores):
+        if args.select == "loss":
+            p = np.clip(bio_scores, 1e-6, 1 - 1e-6)
+            ll = float(-np.mean(val_y * np.log(p) + (~val_y) * np.log(1 - p)))
+            return int(((bio_scores >= 0.5) != val_y).sum()), -ll, np.array([0.2] * 5)
         S = np.column_stack([S4, bio_scores])
         agg = grid @ S.T
         errs = ((agg >= 0.5) != val_y).sum(axis=1)

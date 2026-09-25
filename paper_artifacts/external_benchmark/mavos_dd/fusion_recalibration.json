@@ -1,0 +1,53 @@
+{
+ "released": [
+  0.5798108568186118,
+  0.5467103020272741,
+  0.6129335691793555
+ ],
+ "refit_source_disjoint": [
+  0.7102616480675872,
+  0.680416061145799,
+  0.7392267182657785
+ ],
+ "refit_weights": {
+  "score_Visual (Spatial)": -0.107,
+  "score_Audio (Mel+CNN)": 0.912,
+  "score_Audio Forensics (ECAPA)": 1.751,
+  "score_Cross-Modal (Lip-Sync)": -1.193,
+  "score_Facial Biometric (Quality)": -0.05
+ },
+ "leave_one_class_out": {
+  "echomimic": {
+   "released": 0.6101061698717949,
+   "refit": 0.8139697063689
+  },
+  "hififace": {
+   "released": 0.5138195952233251,
+   "refit": 0.6934772410049628
+  },
+  "inswapper": {
+   "released": 0.40438372322882365,
+   "refit": 0.6032620258959274
+  },
+  "liveportrait": {
+   "released": 0.768932614764268,
+   "refit": 0.7328035825062035
+  },
+  "memo": {
+   "released": 0.45526906352824037,
+   "refit": 0.6922536955073106
+  },
+  "real": {
+   "released": 0.6972451980516496,
+   "refit": 0.7480423936875551
+  },
+  "roop": {
+   "released": 0.7522876122997852,
+   "refit": 0.4467324468998236
+  },
+  "sonic": {
+   "released": 0.43820771298593875,
+   "refit": 0.7119452414185277
+  }
+ }
+}
